@@ -1,6 +1,8 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:squeeky/screens/create_account.dart';
 import 'package:squeeky/style/textstyles.dart';
 
@@ -12,7 +14,9 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  var countryCode = 'NG';
+  var countryCode = 'United Kingdom';
+  var countryCallCode = "+44";
+  TextEditingController phoneNumberController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return   SingleChildScrollView(
@@ -21,34 +25,68 @@ class _SignUpState extends State<SignUp> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Enter your mobile number'),
-          Row(
-            children: [
-              CountryCodePicker(
-                // showCountryOnly: true,
-                showFlag: true,
-                onChanged: (value) {
-                  setState(() {
-                    print(value);
-                  });
-                },
-              ),
-
-
-              // IntlPhoneField(
-              //   keyboardType: TextInputType.phone,
-              //   initialCountryCode: 'NG',
-              //   showCountryFlag: false,
-              //   onChanged: null,
-              // ),
-            ],
+          Text('Enter your mobile number', style: text20,),
+          SizedBox(height: 15,),
+          Container(
+            width: Get.width,
+            child: Row(
+              children: [
+                Container(
+                  child: CountryCodePicker(
+                    initialSelection: countryCode,
+                    showDropDownButton: true,
+                    padding: EdgeInsets.all(2),
+                    hideMainText: true,
+                    showFlag: true,
+                    onChanged: (value) {
+                      setState(() {
+                       countryCallCode = value.toString();
+                      });
+                    },
+                  ),
+                ),
+          
+                Expanded(
+                  child: TextField(
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                    ],
+                    controller: phoneNumberController,
+                    keyboardType: TextInputType.phone,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      focusColor: Color(0xFFEFECF0),
+                      fillColor: Color(0xFFEFECF0),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black,)
+                      ),
+                      filled: true,
+                      prefixIcon: Padding(
+                        padding: const EdgeInsets.only(top:10.0, left: 5),
+                        child: Text(countryCallCode, style: text14,),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
+          SizedBox(height: 15,),
           TextButton(
-            onPressed: ()=>Get.to(()=>CreateAccount()), 
-            child: Text('Continue', style: btnBold,),
+            onPressed: (){
+              if(phoneNumberController.text==''){
+
+              }else{
+                  Get.to(()=>CreateAccount(phoneNumber: countryCallCode+phoneNumberController.text,));
+              }
+            },
+            child: Text('Continue', style: titleTextWhite,),
             style: TextButton.styleFrom(
-              backgroundColor: Color.fromARGB(0, 135, 206, 235),
-              minimumSize: Size.fromHeight(50),
+              backgroundColor: Color(0xFF87CEEB),
+              minimumSize: Size.fromHeight(60),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(7)
+              )
             ),
             ),
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:squeeky/screens/account_wallet.dart';
+import 'package:squeeky/screens/favourite_screen.dart';
 import 'package:squeeky/screens/promotions.dart';
 import 'package:squeeky/style/textstyles.dart';
 import 'package:squeeky/widgets.dart';
@@ -31,7 +32,7 @@ class Profile extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                ActionIconWidget(assetImage: 'favorite.png', action: (){}, title: 'Favourites'),
+                ActionIconWidget(assetImage: 'favorite.png', action: (){Get.to(()=>FavouriteScreen());}, title: 'Favourites'),
                 ActionIconWidget(assetImage: 'wallet.png', action: ()=>Get.to(()=>AccountWallet()), title: 'Wallet'),
                 ActionIconWidget(assetImage: 'orders.png', action: (){}, title: 'Orders'),
                 SizedBox(height: 20,),

@@ -6,7 +6,8 @@ import 'package:squeeky/style/textstyles.dart';
 import 'package:squeeky/widgets.dart';
 
 class CreateAccount extends StatefulWidget {
-   CreateAccount({super.key});
+   String phoneNumber;
+   CreateAccount({required this.phoneNumber, super.key});
 
   @override
   State<CreateAccount> createState() => _CreateAccountState();
@@ -50,10 +51,13 @@ class _CreateAccountState extends State<CreateAccount> {
               children: [
                 if(currentIndex==0)...[
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Enter the 4-digit code sent to you at #xxxx ', style: titleText,),
-                        SizedBox(height: 10,),
+                        Text('Enter the 4-digit code sent to you at ${widget.phoneNumber} ', style: titleText,),
+                        SizedBox(height: 30,),
                         OtpTextField(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          focusedBorderColor: Colors.black,
                           onCodeChanged: (value) {
                             setState(() {
                               isActive = true;
@@ -76,36 +80,43 @@ class _CreateAccountState extends State<CreateAccount> {
                           )
                       ],
                     ),
-                    
-                    
+                     
                 ]
                 else if(currentIndex==1)...[
                   
                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('What is your email address', style: titleText,),
-                      SizedBox(height: 10,),
-                      InputWidget(label: 'name@example.com', input_controller: emailController, inputIcon: Icon(Icons.mail_outline))
+                      SizedBox(height: 35,),
+                      InputWidget(label: 'name@example.com', input_controller: emailController, inputIcon: Icon(Icons.mail_outline), obscureText:false)
                     ],
                   ),
                 ]
                 else if(currentIndex==2)...[
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text('Create your account password', style: titleText,),
+                        SizedBox(height: 15,),
                         Text('Your passwords must be at least 8 characters long and contain at least one letter and one digit'),
-                        SizedBox(height: 10,),
-                        InputWidget(label: 'Password', input_controller: passwordController, inputIcon: Icon(Icons.lock_outline))
+                        SizedBox(height: 15,),
+                        InputWidget(obscureText:true, label: 'Password', input_controller: passwordController, inputIcon: Icon(Icons.lock_outline))
                       ],
                     ),
           
                 ]
                 else if(currentIndex==3)...[
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text('What’s your name?', style: titleText,),
-                        InputWidget(label: 'Please enter first name', input_controller: firstNameController, inputIcon: Icon(Icons.person)),
-                        InputWidget(label: 'Please enter Surname', input_controller: lastNameController, inputIcon: Icon(Icons.person))
+                        SizedBox(height: 17,),
+                        Text('Let us know how to properly address you'),
+                        SizedBox(height: 15,),
+                        InputWidget(obscureText:false, label: 'Please enter first name', input_controller: firstNameController, inputIcon: Icon(Icons.person)),
+                        SizedBox(height: 5,),
+                        InputWidget(obscureText:false, label: 'Please enter Surname', input_controller: lastNameController, inputIcon: Icon(Icons.person))
                       ],
                     ),
                 ],

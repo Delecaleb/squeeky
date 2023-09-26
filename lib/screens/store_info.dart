@@ -51,6 +51,20 @@ final scaffoldKey = GlobalKey<ScaffoldState>();
                                     title: Text('Search this store'),
                                   ),
                                   ListTile(
+                                    onTap: () {
+                                      Get.snackbar(
+                                        '', 
+                                        '',
+                                        titleText: Row(
+                                          children: [
+                                              Icon(Icons.favorite, color: Colors.white),
+                                              SizedBox(width: 10,),
+                                              Text('Add to favourites', style: TextStyle(color: Colors.white),),
+                                          ],
+                                        ),
+                                        backgroundColor: Color(0xFF201D21)
+                                      );
+                                    },
                                     leading: Icon(Icons.favorite_outline),
                                     title: Text('Add to favourite'),
                                   ),

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 var btnBold =TextStyle(
   fontSize:20,
-
 );
 var btnBoldLight =TextStyle(
   fontSize:20,
@@ -98,6 +97,11 @@ var text26 = TextStyle(
 var text21 = TextStyle(
   fontSize: 21,
   fontWeight: FontWeight.w700,
+);
+
+var text20 = TextStyle(
+  fontSize: 20,
+  fontWeight: FontWeight.w400,
 );
 
 var textSec = TextStyle(

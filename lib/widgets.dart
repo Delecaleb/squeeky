@@ -3,11 +3,11 @@ import 'package:get/get.dart';
 import 'package:squeeky/style/textstyles.dart';
 
 class InputWidget extends StatelessWidget {
-  
+  bool obscureText;
   String label;
   Icon inputIcon;
   late TextEditingController input_controller;
-  InputWidget({super.key, required this.label, required this.input_controller, required this.inputIcon});
+  InputWidget({super.key, required this.label, required this.input_controller, required this.inputIcon, required this.obscureText });
 
   @override
   Widget build(BuildContext context) {
@@ -15,21 +15,21 @@ class InputWidget extends StatelessWidget {
       
       margin: EdgeInsets.only(bottom: 15),
       child: TextField(
+        obscureText: obscureText,
         scrollPadding: EdgeInsets.only(bottom: 30),
         controller: input_controller,
         decoration: InputDecoration(
+        border: InputBorder.none,
         prefixIcon: inputIcon,
-        prefixIconColor: Colors.green,
+        prefixIconColor: Color(0xFF87CEEB),
         labelText: label,
+       focusColor: Color(0xFFEFECF0),
+       fillColor: Color(0xFFEFECF0),
+       filled: true,
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.green, width: 1.5)
+          borderSide: BorderSide(color: Color(0xFF87CEEB), width: 1.5)
         ),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Colors.green,
-            width: 1.5,
-          )
-        )
+        
     
         ),
       ),
@@ -50,19 +50,18 @@ class BasicInputWidget extends StatelessWidget {
       
       margin: EdgeInsets.only(bottom: 15),
       child: TextField(
+        
         scrollPadding: EdgeInsets.only(bottom: 30),
         controller: input_controller,
         decoration: InputDecoration(
         labelText: label,
+        focusColor: Color(0xFFEFECF0),
+        fillColor: Color(0xFFEFECF0),
+        filled: true,
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.green, width: 1.5)
+          borderSide: BorderSide(color: Color(0xFFEFECF0), width: 1.5)
         ),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Colors.green,
-            width: 1.5,
-          )
-        )
+        enabledBorder: InputBorder.none,
     
         ),
       ),
@@ -214,5 +213,56 @@ class _RadioTileWidgetState extends State<RadioTileWidget> {
             });
           }
       );
+  }
+}
+
+class FavouritesWidget extends StatelessWidget {
+  String title, imageLink, subTitle, subSubTitle;
+  FavouritesWidget({required this.imageLink, required this.title, required this.subSubTitle, required this.subTitle, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Stack(
+          children: [
+            Container(
+                    height: Get.width * 0.2,
+                    width: Get.width * 0.2,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: NetworkImage(imageLink),
+                        fit: BoxFit.cover
+                        )
+                    ),
+                    ),
+            Positioned(
+              top: 0,
+              right: 0,
+              child: Icon(Icons.favorite_border_rounded, color: Colors.white,)
+              )
+          ],
+        ),
+        Expanded(
+          child: ListTile(
+              minVerticalPadding: 0,
+              minLeadingWidth: Get.width * 0.15,
+              title: Text(title, style: text17B,),
+              subtitle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(subSubTitle),
+                  Text(subSubTitle)
+                ],
+              ),
+              trailing: CircleAvatar(
+                backgroundColor: Color(0xFFF7F4F8),
+                child: Text('4.0'),
+              ),
+          ),
+        ),
+      ],
+    );
   }
 }

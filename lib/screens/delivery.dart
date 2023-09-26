@@ -60,9 +60,8 @@ class _DeliveryState extends State<Delivery> {
           ],
         ),
       ),
-      body: Container(
-        height: Get.height,
-        width: Get.width,
+      body: SingleChildScrollView(
+          padding: EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           children: [
           SizedBox(height: 10,), 
@@ -100,14 +99,14 @@ class _DeliveryState extends State<Delivery> {
                               Card(
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(10),
-                                  child: Image.network(
-                                    'https://picsum.photos/250?image=1',
+                                  child: Image.asset(
+                                    'assets/house.png',
                                     fit: BoxFit.cover,
-                                    width: (Get.width * 0.2)/2,
+                                    width: (Get.width * 0.2)/3,
                                   ),
                                 ),
                               ),
-                              Text('Pressure Washing'),
+                              Text('Deep cleaning', style: text17B,),
                             ],
                           ),
                         ),
@@ -126,14 +125,14 @@ class _DeliveryState extends State<Delivery> {
                                 Card(
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(10),
-                                    child: Image.network(
-                                      'https://picsum.photos/250?image=1',
+                                    child: Image.asset(
+                                      'assets/car.png',
                                       fit: BoxFit.cover,
                                       width: (Get.width * 0.2)/2,
                                     ),
                                   ),
                                 ),
-                                Text('Pressure Washing'),
+                                Text('Car Detailing'),
                               ],
                             ),
                           ),
@@ -153,8 +152,8 @@ class _DeliveryState extends State<Delivery> {
                                 Card(
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(10),
-                                    child: Image.network(
-                                      'https://picsum.photos/250?image=1',
+                                    child: Image.asset(
+                                      'assets/wash.png',
                                       fit: BoxFit.cover,
                                       width: (Get.width * 0.2)/2,
                                     ),
@@ -174,100 +173,37 @@ class _DeliveryState extends State<Delivery> {
                     ),
                     SizedBox(height: 10,),
           
-          Expanded(
-            child: SingleChildScrollView(
-              child: 
-              Container(
-                height: 500,
-                color: Colors.white,
-                child: 
-                
-                FutureBuilder<List<ServiceProvidersModel>>(
-                  future: dummyServicePro,
-                  builder: (context, snapshot){
-                    print(snapshot.error);
-                    if(snapshot.hasData){
-              
-                    return ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      itemCount: snapshot.data!.length,
-                      itemBuilder: (context, int){
-                        ServiceProvidersModel serviceProvider = snapshot.data![int];
-                        return BizContainerWidget(
-                                businessBanner: 'https://picsum.photos/250?image=1', 
-                                businessName: serviceProvider.storeName, 
-                                bussinessDesc: "\$2.49 Delivery Fee 25-45 min", 
-                                businessRating: 4.2, 
-                                actionFunction: () => Get.to(()=>StoreInformation()),
-                              );
-                      }
-                      );
-                    }else{
-                      return Container();
-                    }
-                  }
-                  ),
-              
-              ),
-              // Column(
-              //   children: [
-                    
-              //     BizContainerWidget(
-              //       businessBanner: 'https://picsum.photos/250?image=1', 
-              //       businessName: 'Deep Cleaning Business #1', 
-              //       bussinessDesc: "\$2.49 Delivery Fee 25-45 min", 
-              //       businessRating: 4.2, 
-              //       actionFunction: () => Get.to(()=>StoreInformation()),
-              //     ),
-              //     SizedBox(height: 20,),
-              //     BizContainerWidget(
-              //       actionFunction: () => Get.to(()=>StoreInformation()),
-              //       businessBanner: 'https://picsum.photos/250?image=1', 
-              //       businessName: 'Deep Cleaning Business #1', 
-              //       bussinessDesc: "\$2.49 Delivery Fee 25-45 min", 
-              //       businessRating: 4.2),
-              //     SizedBox(height: 20,),
-              //     BizContainerWidget(
-              //       actionFunction: () => Get.to(()=>StoreInformation()),
-              //       businessBanner: 'https://picsum.photos/250?image=1', 
-              //       businessName: 'Deep Cleaning Business #1', 
-              //       bussinessDesc: "\$2.49 Delivery Fee 25-45 min", 
-              //       businessRating: 4.2),
-              //     SizedBox(height: 20,),
-              //     BizContainerWidget(
-              //       actionFunction: () => Get.to(()=>StoreInformation()),
-              //       businessBanner: 'https://picsum.photos/250?image=1', 
-              //       businessName: 'Deep Cleaning Business #1', 
-              //       bussinessDesc: "\$2.49 Delivery Fee 25-45 min", 
-              //       businessRating: 4.2),
-              //     SizedBox(height: 20,),
-              //     BizContainerWidget(
-              //       actionFunction: () => Get.to(()=>StoreInformation()),
-              //       businessBanner: 'https://picsum.photos/250?image=1', 
-              //       businessName: 'Deep Cleaning Business #1', 
-              //       bussinessDesc: "\$2.49 Delivery Fee 25-45 min", 
-              //       businessRating: 4.2),
-              //     SizedBox(height: 20,),
-              //     BizContainerWidget(
-              //       actionFunction: () => Get.to(()=>StoreInformation()),
-              //       businessBanner: 'https://picsum.photos/250?image=1', 
-              //       businessName: 'Deep Cleaning Business #1', 
-              //       bussinessDesc: "\$2.49 Delivery Fee 25-45 min", 
-              //       businessRating: 4.2
-              //       ),
-              //     SizedBox(height: 20,),
-              //     BizContainerWidget(
-              //       actionFunction: () => Get.to(()=>StoreInformation()),
-              //       businessBanner: 'https://picsum.photos/250?image=1', 
-              //       businessName: 'Deep Cleaning Business #1', 
-              //       bussinessDesc: "\$2.49 Delivery Fee 25-45 min", 
-              //       businessRating: 4.2
-              //     ),
-                
-              //   ],
-              // ),
+          Container(
+            height: 500,
+            color: Colors.white,
+            child: 
             
-            ),
+            FutureBuilder<List<ServiceProvidersModel>>(
+              future: dummyServicePro,
+              builder: (context, snapshot){
+                print(snapshot.error);
+                if(snapshot.hasData){
+          
+                return ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (context, int){
+                    ServiceProvidersModel serviceProvider = snapshot.data![int];
+                    return BizContainerWidget(
+                            businessBanner: 'https://picsum.photos/250?image=1', 
+                            businessName: serviceProvider.storeName, 
+                            bussinessDesc: "\$2.49 Delivery Fee 25-45 min", 
+                            businessRating: 4.2, 
+                            actionFunction: () => Get.to(()=>StoreInformation()),
+                          );
+                  }
+                  );
+                }else{
+                  return Container();
+                }
+              }
+              ),
+          
           )
         ]),
       ),
