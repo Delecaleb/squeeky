@@ -84,13 +84,13 @@ class _SearchScreenState extends State<SearchScreen> {
               ],
               if(!showSearchService)...[
                 ListTile(
-                leading: Text("What"),
-                trailing: Text(service),
+                leading: Text("What", style: text14,),
+                trailing: Text(service, style: text14B,),
               )
               ],
               ListTile(
-                leading: Text("Where"),
-                trailing: Text(location),
+                leading: Text("Where", style: text14,),
+                trailing: Text(location, style: text14B,),
               ),
               if(showSearchWhere)...[
                   
@@ -122,8 +122,8 @@ class _SearchScreenState extends State<SearchScreen> {
               ],
               
               ListTile(
-                leading: Text('When'),
-                trailing: Text(when),
+                leading: Text('When', style: text14,),
+                trailing: Text(when, style: text14B,),
                 ),
               // ListTile(
               //   leading: Text('Property Type'),
@@ -189,9 +189,9 @@ class _SearchResultState extends State<SearchResult> {
         ),
       body: 
     DraggableScrollableSheet(
-        minChildSize: 0.1,
-        maxChildSize: 0.9,
-        initialChildSize: 0.3,
+        minChildSize: 0.8,
+        maxChildSize: 1,
+        initialChildSize: 0.9,
         builder: (BuildContext context, ScrollController scrollController) {
           return Container(
             height: MediaQuery.of(context).size.height * 0.9,
@@ -204,6 +204,7 @@ class _SearchResultState extends State<SearchResult> {
                     width: MediaQuery.of(context).size.width,
                     child: SingleChildScrollView(
                       controller: scrollController,
+                      padding: EdgeInsets.symmetric(horizontal: 20),
                       child: Column(
                         children: [
                           const SizedBox(

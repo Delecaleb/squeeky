@@ -75,7 +75,7 @@ class _SignUpState extends State<SignUp> {
           TextButton(
             onPressed: (){
               if(phoneNumberController.text==''){
-
+                  Get.snackbar('Mobile number is compulsory','');
               }else{
                   Get.to(()=>CreateAccount(phoneNumber: countryCallCode+phoneNumberController.text,));
               }

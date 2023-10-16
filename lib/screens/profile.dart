@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:squeeky/completed_orders_list.dart';
 import 'package:squeeky/screens/account_wallet.dart';
 import 'package:squeeky/screens/favourite_screen.dart';
 import 'package:squeeky/screens/promotions.dart';
@@ -20,7 +22,9 @@ class Profile extends StatelessWidget {
 
             InkWell(
               onTap: ()=>Get.to(()=>ViewProfile()),
-              child: CircleAvatar(),
+              child: CircleAvatar(
+                child: Icon(Icons.person),
+              ),
             )
           ],
         ),
@@ -34,7 +38,7 @@ class Profile extends StatelessWidget {
               children: [
                 ActionIconWidget(assetImage: 'favorite.png', action: (){Get.to(()=>FavouriteScreen());}, title: 'Favourites'),
                 ActionIconWidget(assetImage: 'wallet.png', action: ()=>Get.to(()=>AccountWallet()), title: 'Wallet'),
-                ActionIconWidget(assetImage: 'orders.png', action: (){}, title: 'Orders'),
+                ActionIconWidget(assetImage: 'orders.png', action: ()=>Get.to(()=>CompletedOrders()), title: 'Orders'),
                 SizedBox(height: 20,),
                 
               ],
@@ -58,7 +62,7 @@ class Profile extends StatelessWidget {
             ListTile(
               leading: Icon(Icons.cases),
               title: Text('Business Preferences'),
-              subtitle:Text('Make work meals quicker and easier'),
+              subtitle:Text('Make work meals quicker and easier', style: TextStyle(color: Color(0xFF0F984A)),),
             ),
             SizedBox(height: 20,),
             ListTile(
@@ -90,8 +94,12 @@ class ViewProfile extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(height: 40,),
-            CircleAvatar(),
-            Text('Dolly'),
+            CircleAvatar(
+              radius: 40,
+              child: Icon(Icons.person, size: 60,),
+            ),
+            SizedBox(height: 10,),
+            Text('Dolly', style: text18,),
             TextButton(
               child: Text('Edit account'),
               onPressed: () => Get.to(()=>EditProfile()),            
@@ -101,7 +109,7 @@ class ViewProfile extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
               color: Color(0xFFF7F4F8),
               width: double.maxFinite,
-              child: Text('SAVED PLACES')
+              child: Text('SAVED PLACES', style: text14,)
               ),
             SizedBox(height: 20,),
             ListTile(
@@ -142,25 +150,53 @@ class EditProfile extends StatelessWidget {
       ),
 
       body: SingleChildScrollView(
+        padding: EdgeInsets.symmetric(horizontal: 20),
         child: Container(
           width: double.maxFinite,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CircleAvatar(),
+              Stack(
+                children: [
+                  Container(
+                    // color: Colors.amber,
+                    height: 80,
+                    width: 80,
+                    decoration: BoxDecoration(border: Border.all()),
+                    child: ClipOval(
+                      child: Image.asset('assets/carrier.png', fit: BoxFit.cover,),
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 2,
+                    child: CircleAvatar(
+                      radius: 15,
+                      child: IconButton(icon: Icon(Icons.edit, color: Colors.white, size: 15,), onPressed: null,),
+                      backgroundColor: Colors.black,
+                      )
+                  )
+                ],
+              ),
               
               ListTile(
+                onTap: ()=>Get.to(()=>EditProfileScreen(item: 'First name', itemValue: 'Dolly')),
+                contentPadding: EdgeInsets.zero,
                 title: Text('First name'),
                 subtitle: Text('Dolly', style: titleText,),
-                trailing: Icon(Icons.arrow_forward_ios),
+                trailing: Icon(Icons.arrow_forward_ios,  size: 17, color: Colors.grey,),
               ),
               
               ListTile(
+                onTap: ()=>Get.to(()=>EditProfileScreen(item: 'Last name', itemValue: 'Sheep')),
+                contentPadding: EdgeInsets.zero,
                 title: Text('Last name'),
                 subtitle: Text('Sheep', style: titleText,),
-                trailing: Icon(Icons.arrow_forward_ios),
+                trailing: Icon(Icons.arrow_forward_ios, size: 17, color: Colors.grey,),
               ),
               
               ListTile(
+                onTap: ()=>Get.to(()=>EditProfileScreen(item: 'Phone number', itemValue: '+234 9087675456')),
+                contentPadding: EdgeInsets.zero,
                 title: Text('Phone number'),
                 subtitle: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -169,9 +205,10 @@ class EditProfile extends StatelessWidget {
                     Text('Verified'),
                   ],
                 ),
-                trailing: Icon(Icons.arrow_forward_ios),
+                trailing: Icon(Icons.arrow_forward_ios ,  size: 17, color: Colors.grey,),
               ),
               ListTile(
+                contentPadding: EdgeInsets.zero,
                 title: Text('Email address'),
                 subtitle: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -180,12 +217,13 @@ class EditProfile extends StatelessWidget {
                     Text('unverified'),
                   ],
                 ),
-                trailing: Icon(Icons.arrow_forward_ios),
+                trailing: Icon(Icons.arrow_forward_ios,  size: 17, color: Colors.grey,),
               ),
               ListTile(
+                contentPadding: EdgeInsets.zero,
                 title: Text('Password'),
                 subtitle: Text('********', style: titleText,),
-                trailing: Icon(Icons.arrow_forward_ios),
+                trailing: Icon(Icons.arrow_forward_ios,  size: 17, color: Colors.grey,),
               ),
             ],
           ),
@@ -197,7 +235,8 @@ class EditProfile extends StatelessWidget {
 
 
 class EditProfileScreen extends StatefulWidget {
-  EditProfileScreen({Key? key}) : super(key: key);
+  String item, itemValue;
+  EditProfileScreen({ required this.item, required this.itemValue,  Key? key}) : super(key: key);
 
   @override
   State<EditProfileScreen> createState() => _EditProfileScreenState();
@@ -206,6 +245,30 @@ class EditProfileScreen extends StatefulWidget {
 class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.symmetric(horizontal: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(widget.item, style: text15L,),
+            SizedBox(height: 10,),
+            TextField(
+              
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      focusColor: Color(0xFFEFECF0),
+                      fillColor: Color(0xFFEFECF0),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black,)
+                      ),
+                      filled: true,
+                    ),
+                  ),
+          ],
+        ),
+      ),
+    );
   }
 }

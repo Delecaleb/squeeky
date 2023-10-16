@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:squeeky/screens/home.dart';
 import 'package:squeeky/style/textstyles.dart';
 class PlacingOrderSreen extends StatefulWidget {
   PlacingOrderSreen({Key? key}) : super(key: key);
@@ -13,14 +14,14 @@ class PlacingOrderSreen extends StatefulWidget {
 class _PlacingOrderSreenState extends State<PlacingOrderSreen> {
   void initState() {
     // TODO: implement initState
-    Timer(
-      Duration(seconds: 4),
-      (){
-        Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => ReceiptScreen()),
-      );
-      }    
-    );
+    // Timer(
+    //   Duration(seconds: 20),
+    //   (){
+    //     Navigator.of(context).pushReplacement(
+    //     MaterialPageRoute(builder: (context) => ReceiptScreen()),
+    //   );
+    //   }    
+    // );
     super.initState();
   }
   @override
@@ -56,12 +57,12 @@ class _PlacingOrderSreenState extends State<PlacingOrderSreen> {
                   title: Text('Your order, Dolly'),
                 ),
                 Text('1 Deck Cleaning'),
-                Text('10 Window Cleaning')
+                Text('10 Window Cleaning.')
               ],
             )
             ),
             ElevatedButton(
-              onPressed: (){}, 
+              onPressed: ()=>Get.to(()=>OrderDeclined()), 
               child: Text('Undo'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Color(0xFFEFECF0)
@@ -74,6 +75,28 @@ class _PlacingOrderSreenState extends State<PlacingOrderSreen> {
 }
 
 
+class OrderDeclined extends StatelessWidget {
+  const OrderDeclined({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Image.asset('assets/connecting.png', width: Get.width,),
+            Container(
+              child: Text('Oh, Your Order Was Declined', style: text26,),
+            ),
+            Container(
+              child: Text('It seems that your order request for PestControl was declined. You will be directed to another similar service near you. ', style: text17B,),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
 
 
 class ReceiptScreen extends StatelessWidget {
@@ -84,6 +107,9 @@ class ReceiptScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(icon : Icon(Icons.cancel), onPressed: () => Get.offAll(()=>HomeScreen()),),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
             child: Column(
@@ -103,12 +129,10 @@ class ReceiptScreen extends StatelessWidget {
                   ),
                   ),
                   SizedBox(height: 25,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("Total", style: text34,),
-                    Text('\$ 600', style: text34)
-                  ],
+                
+                ListTile(
+                  title: Text("Total", style: text34,),
+                  trailing: Text('\$ 600', style: text34),
                 ),
                 SizedBox(height: 25,),
                 Divider(
@@ -148,20 +172,34 @@ class ReceiptScreen extends StatelessWidget {
                   endIndent: 25,
                 ),
                 SizedBox(height: 25,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("Subtotal", style: text17L,),
-                    Text('\$ 600', style: text17L)
-                  ],
+                ListTile(
+                  title: Text("Subtotal", style: text17L,),
+                  trailing: Text('\$ 600', style: text17L),
+                ),
+                SizedBox(height: 25,),
+                ListTile(
+                  title: Text("Service fee", style: text17L,),
+                  trailing: Text('\$ 600', style: text17L),
                 ),
                 SizedBox(height: 15,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("Service fee", style: text17L,),
-                    Text('\$ 600', style: text17L)
-                  ],
+                Text('Payments', style: text18,),
+                ListTile(
+                  leading: Image.asset('assets/msc.png'),
+                  title: Text('Mastercard **** 2345', style: text18,),
+                  subtitle: Text('01/11/2022 15:31'),
+                  trailing: Text('\$298.03'),
+                ),
+                Divider(),
+                ListTile(
+                  leading: Icon(Icons.credit_card),
+                  title: Text('Switch payment method', style: text18,),
+                ),
+                Divider(
+                  indent: 40,
+                ),
+                ListTile(
+                  leading: Icon(Icons.mail),
+                  title: Text('Resend Email', style: text18,),
                 ),
               ],
             ),

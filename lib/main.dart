@@ -1,13 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:squeeky/screens/checkout.dart';
-import 'package:squeeky/screens/create_account.dart';
 import 'package:squeeky/screens/home.dart';
-import 'package:squeeky/screens/orderDetails.dart';
-import 'package:squeeky/screens/orderlist.dart';
-import 'package:squeeky/screens/payment_method.dart';
-import 'package:squeeky/screens/placing_order.dart';
-import 'package:squeeky/screens/ratingservices.dart';
 import 'package:squeeky/screens/signup.dart';
 
 void main() {

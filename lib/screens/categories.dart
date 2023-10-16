@@ -32,78 +32,39 @@ class Categories extends StatelessWidget {
               shrinkWrap: true,
               gridDelegate : SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
+                mainAxisExtent: 150
               ),
               children: [
-                GestureDetector(
-                      onTap: (){},
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Card(
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: Image.network(
-                                'https://picsum.photos/250?image=1',
-                                fit: BoxFit.cover,
-                                width: Get.width * 0.3,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text('Pressure Washing'),
-                          ),
-                        ],
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: (){},
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Card(
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: Image.network(
-                                'https://picsum.photos/250?image=1',
-                                fit: BoxFit.cover,
-                                width: Get.width * 0.3,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text('Pressure Washing'),
-                          ),
-                        ],
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: (){},
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Card(
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: Image.network(
-                                'https://picsum.photos/250?image=1',
-                                fit: BoxFit.cover,
-                                width: Get.width * 0.3,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text('Pressure Washing'),
-                          ),
-                        ],
-                      ),
-                    ),
-              ],
+                ListTile(
+                  title:Image.network(
+                    'https://picsum.photos/250?image=1',
+                    fit: BoxFit.cover,
+                    width: Get.width * 0.3,
+                    height: 100,
+                  ),
+                  subtitle: Text('Power Washing', style: text17L,),
+                ),
+                ListTile(
+                  title:Image.network(
+                  'https://picsum.photos/250?image=1',
+                  fit: BoxFit.cover,
+                  width: Get.width * 0.3,
+                  height: 100,
+                ),
+                  subtitle: Text('Car Detailing', style: text17L,),
+                ),
+                ListTile(
+                  title:Image.network(
+                  'https://picsum.photos/250?image=1',
+                  fit: BoxFit.cover,
+                  width: Get.width * 0.3,
+                  height: 100,
+                ),
+                  subtitle: Text('Deep Cleaning', style: text17L,),
+                ),
+                
+            ],
             ),
-
-            // GridView(gridDelegate: gridDelegate)
           ],
         ),
       ),

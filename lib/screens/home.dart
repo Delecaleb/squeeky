@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:squeeky/screens/categories.dart';
 import 'package:squeeky/screens/delivery.dart';
+import 'package:squeeky/screens/messages.dart';
 import 'package:squeeky/screens/orders.dart';
 import 'package:squeeky/screens/profile.dart';
 
@@ -18,6 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
     Delivery(),
     Categories(),
     Orders(),
+    InboxMessagesScreen(),
     Profile(),
   ];
 
@@ -49,6 +51,10 @@ class _HomeScreenState extends State<HomeScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.shopping_cart_outlined),
             label: 'Baskets'
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.chat_bubble_outline_outlined),
+            label: "Messages"
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),

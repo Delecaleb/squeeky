@@ -60,6 +60,18 @@ var text16 = TextStyle(
   fontWeight: FontWeight.w600
 );
 
+var text15L = TextStyle(
+  fontSize: 15,
+  color: Colors.black,
+  fontWeight: FontWeight.w400
+);
+
+var text15B = TextStyle(
+  fontSize: 15,
+  color: Colors.black,
+  fontWeight: FontWeight.w700
+);
+
 var text17L = TextStyle(
   fontSize: 17,
   color: Colors.black,
@@ -68,6 +80,12 @@ var text17L = TextStyle(
 
 var text17B = TextStyle(
   fontSize: 17,
+  color: Colors.black,
+  fontWeight: FontWeight.w600
+);
+
+var text18 = TextStyle(
+  fontSize: 18,
   color: Colors.black,
   fontWeight: FontWeight.w600
 );
@@ -84,11 +102,30 @@ var text14= TextStyle(
   color: Colors.black
 );
 
+var text14B= TextStyle(
+  fontSize: 14,
+  fontWeight: FontWeight.w700,
+  color: Colors.black
+);
+
+var text14XB= TextStyle(
+  fontSize: 14,
+  fontWeight: FontWeight.w800,
+  color: Colors.black
+);
 var text12 = TextStyle(
   fontSize: 12,
   fontWeight: FontWeight.w400,
 );
-
+var text12T = TextStyle(
+  fontSize: 12,
+  fontWeight: FontWeight.w700,
+  color: Color(0xFF717171)
+);
+var text13 = TextStyle(
+  fontSize: 13,
+  fontWeight: FontWeight.w600,
+);
 var text26 = TextStyle(
   fontSize: 26,
   fontWeight: FontWeight.w700,

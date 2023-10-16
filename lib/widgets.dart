@@ -266,3 +266,66 @@ class FavouritesWidget extends StatelessWidget {
     );
   }
 }
+
+
+class ShowMoreLessWidget extends StatefulWidget {
+  final String fullText;
+  final int maxLines;
+  final bool initiallyExpanded;
+
+  ShowMoreLessWidget({
+    required this.fullText,
+    this.maxLines = 1,
+    this.initiallyExpanded = false,
+  });
+
+  @override
+  _ShowMoreLessWidgetState createState() => _ShowMoreLessWidgetState();
+}
+
+class _ShowMoreLessWidgetState extends State<ShowMoreLessWidget> {
+  late bool isExpanded;
+
+  @override
+  void initState() {
+    super.initState();
+    isExpanded = widget.initiallyExpanded;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        isExpanded ? Text( widget.fullText ): GestureDetector(
+          onTap: () {
+            setState(() {
+              isExpanded = true;
+            });
+          },
+          child: Text(
+           "Show More",
+            style: TextStyle(
+              color: Colors.blue,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+        GestureDetector(
+          onTap: () {
+            setState(() {
+              isExpanded = !isExpanded;
+            });
+          },
+          child: Text(
+           "Show Less" ,
+            style: TextStyle(
+              color: Colors.blue,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
