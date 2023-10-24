@@ -11,6 +11,7 @@ class FavouriteScreen extends StatelessWidget {
         title: Text('My Favourites'),
       ),
       body: ListView(
+        padding: EdgeInsets.symmetric(horizontal: 20),
         children: [
           FavouritesWidget(imageLink: 'https://picsum.photos/250?image=1', title: 'Lawn Mowing Business', subSubTitle: 'subSubTitle', subTitle: 'subTitle'),
           SizedBox(height: 20,),

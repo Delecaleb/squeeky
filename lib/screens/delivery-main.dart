@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:squeeky/models/service_provider.dart';
+import 'package:squeeky/models/business_category.dart';
 import 'package:squeeky/providers/dummy_data_provider.dart';
 import 'package:squeeky/screens/custom.dart';
 import 'package:squeeky/screens/search_screen.dart';
@@ -17,7 +17,7 @@ class Delivery extends StatefulWidget {
 
 class _DeliveryState extends State<Delivery> {
   TextEditingController searchController = TextEditingController();
- late Future <List<ServiceProvidersModel>> dummyServicePro;
+ late Future <List<BusinessCategory>> dummyServicePro;
   DateTime selectedDate = DateTime.now();
   @override
   void initState() {
@@ -162,7 +162,7 @@ class _DeliveryState extends State<Delivery> {
             color: Colors.white,
             child: 
             
-            FutureBuilder<List<ServiceProvidersModel>>(
+            FutureBuilder<List<BusinessCategory>>(
               future: dummyServicePro,
               builder: (context, snapshot){
                 print(snapshot.error);
@@ -172,13 +172,13 @@ class _DeliveryState extends State<Delivery> {
                   scrollDirection: Axis.vertical,
                   itemCount: snapshot.data!.length,
                   itemBuilder: (context, int){
-                    ServiceProvidersModel serviceProvider = snapshot.data![int];
+                    BusinessCategory serviceProvider = snapshot.data![int];
                     return BizContainerWidget(
                             businessBanner: 'https://picsum.photos/250?image=1', 
                             businessName: serviceProvider.storeName, 
                             bussinessDesc: "\$2.49 Delivery Fee 25-45 min", 
                             businessRating: 4.2, 
-                            actionFunction: () => Get.to(()=>StoreInformation()),
+                            actionFunction: () =>null,
                           );
                   }
                   );

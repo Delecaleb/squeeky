@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:squeeky/screens/custom.dart';
 import 'package:squeeky/style/textstyles.dart';
 
 class InputWidget extends StatelessWidget {
@@ -327,5 +328,33 @@ class _ShowMoreLessWidgetState extends State<ShowMoreLessWidget> {
         ),
       ],
     );
+  }
+}
+
+class HomeScreenActionBtnWidget extends StatelessWidget {
+  String image, title;
+  
+  HomeScreenActionBtnWidget({ required this.image, required this.title, Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+                  padding: EdgeInsets.all(2),
+                  decoration: BoxDecoration(
+                      color: Color(0xFFF7F4F8),
+                      borderRadius: BorderRadius.circular(8)),
+                  child: ListTile(
+                    onTap: () => Get.to(() => CustomScreen()),
+                    trailing: Image.asset(
+                      image,
+                      fit: BoxFit.cover,
+                      width: (Get.width * 0.2) / 3,
+                    ),
+                    title: Text(
+                      title,
+                      style: text17B,
+                    ),
+                  )
+        );
   }
 }

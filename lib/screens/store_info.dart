@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:squeeky/models/business_model.dart';
 import 'package:squeeky/style/textstyles.dart';
 import 'package:squeeky/widgets.dart';
 
-class StoreInformation extends StatelessWidget {
-   StoreInformation({super.key});
+import '../controllers/services_controller.dart';
 
+class StoreInformation extends StatelessWidget {
+  BusinessModel business;
+  StoreInformation({ required this.business, super.key});
+  ServicesController serviceController = Get.put(ServicesController());
+  
 final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
+    serviceController.getServices(business.id);
     return Scaffold(
       key: scaffoldKey,
        
@@ -92,12 +98,14 @@ final scaffoldKey = GlobalKey<ScaffoldState>();
           ),
       
           SingleChildScrollView(
+            physics: ScrollPhysics(),
             padding: EdgeInsets.symmetric(horizontal: 20,),
             child: 
             Column(
+              mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Lawn Care Service', style: titleText,),
+                Text(business.categoryName, style: titleText,),
 
                 ListTile(
                   contentPadding: EdgeInsets.zero,
@@ -152,48 +160,29 @@ final scaffoldKey = GlobalKey<ScaffoldState>();
                   ),
                   trailing: Icon(Icons.chevron_right_outlined),
                 ),
-
-                ListTile(
-                  contentPadding: EdgeInsets.zero,
-                  title: Text("Edging"),
-                  subtitle: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('£6.99'),
-                      Text('Trims grass edges for a neat lawn appearance.')
-                    ],
-                  )
+                Obx(() => serviceController.serviceLoading.value ? CircularProgressIndicator() :
+                    ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                  itemCount: serviceController.services.length,
+                  itemBuilder: (context, index){
+                    var serviceData = serviceController.services[index];
+                    return ListTile(
+                        contentPadding: EdgeInsets.zero,
+                        title: Text(serviceData.serviceName),
+                        subtitle: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('£ ${serviceData.servicePrice.toString()}'),
+                            Text('Trims grass edges for a neat lawn appearance.')
+                          ],
+                        )
+                      );
+                  }                  
                 ),
-          
-                ListTile(
-                  contentPadding: EdgeInsets.zero,
-                  title: Text("Standard Trim"),
-                  subtitle: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('£6.99'),
-                      Text('Regular trim of grass to keep it an even height')
-                    ],
-                  )
-                ),
-                
-                ListTile(
-                  contentPadding: EdgeInsets.zero,
-                  title: Text("Full Package"),
-                  subtitle: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('£7.49'),
-                      Text('Mowing, edging and trim.')
-                    ],
-                  )
-                ),
-             
-
-                
+                               
+                )
                 
               ],
             ),

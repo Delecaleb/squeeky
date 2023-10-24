@@ -89,109 +89,110 @@ class _ServicesScreenState extends State<ServicesScreen> {
                 ],
               ),
             ),  
-            BizContainerWidget( 
-              actionFunction: () => Get.to(()=>StoreInformation()),
-              businessBanner: 'https://picsum.photos/250?image=1', 
-              businessName: 'Deep Cleaning Business #1', 
-              bussinessDesc: "\$2.49 Delivery Fee 25-45 min", 
-              businessRating: 4.2
-            ),
-            SizedBox(height: 20,),
-            BizContainerWidget( 
-              actionFunction: () => Get.to(()=>StoreInformation()),
-              businessBanner: 'https://picsum.photos/250?image=1', 
-              businessName: 'Deep Cleaning Business #1', 
-              bussinessDesc: "\$2.49 Delivery Fee 25-45 min", 
-              businessRating: 4.2
-            ),
-            SizedBox(height: 20,),
-            BizContainerWidget( 
-              actionFunction: () => Get.to(()=>StoreInformation()),
-              businessBanner: 'https://picsum.photos/250?image=1', 
-              businessName: 'Deep Cleaning Business #1', 
-              bussinessDesc: "\$2.49 Delivery Fee 25-45 min", 
-              businessRating: 4.2
-            ),
-            SizedBox(height: 20,),
-            BizContainerWidget( 
-              actionFunction: () => Get.to(()=>StoreInformation()),
-              businessBanner: 'https://picsum.photos/250?image=1', 
-              businessName: 'Deep Cleaning Business #1', 
-              bussinessDesc: "\$2.49 Delivery Fee 25-45 min", 
-              businessRating: 4.2
-            ),
-            SizedBox(height: 20,),
-            BizContainerWidget( 
-              actionFunction: () => Get.to(()=>StoreInformation()),
-              businessBanner: 'https://picsum.photos/250?image=1', 
-              businessName: 'Deep Cleaning Business #1', 
-              bussinessDesc: "\$2.49 Delivery Fee 25-45 min", 
-              businessRating: 4.2
-            ),
-            SizedBox(height: 20,),
-            BizContainerWidget( 
-              actionFunction: () => Get.to(()=>StoreInformation()),
-              businessBanner: 'https://picsum.photos/250?image=1', 
-              businessName: 'Deep Cleaning Business #1', 
-              bussinessDesc: "\$2.49 Delivery Fee 25-45 min", 
-              businessRating: 4.2
-            ),
-            SizedBox(height: 20,),
-            BizContainerWidget( 
-              actionFunction: () => Get.to(()=>StoreInformation()),
-              businessBanner: 'https://picsum.photos/250?image=1', 
-              businessName: 'Deep Cleaning Business #1', 
-              bussinessDesc: "\$2.49 Delivery Fee 25-45 min", 
-              businessRating: 4.2
-            ),
-            SizedBox(height: 20,),
-            BizContainerWidget( 
-              actionFunction: () => Get.to(()=>StoreInformation()),
-              businessBanner: 'https://picsum.photos/250?image=1', 
-              businessName: 'Deep Cleaning Business #1', 
-              bussinessDesc: "\$2.49 Delivery Fee 25-45 min", 
-              businessRating: 4.2
-            ),
-            SizedBox(height: 20,),
-            BizContainerWidget( 
-              actionFunction: () => Get.to(()=>StoreInformation()),
-              businessBanner: 'https://picsum.photos/250?image=1', 
-              businessName: 'Deep Cleaning Business #1', 
-              bussinessDesc: "\$2.49 Delivery Fee 25-45 min", 
-              businessRating: 4.2
-            ),
-            SizedBox(height: 20,),
-            BizContainerWidget( 
-              actionFunction: () => Get.to(()=>StoreInformation()),
-              businessBanner: 'https://picsum.photos/250?image=1', 
-              businessName: 'Deep Cleaning Business #1', 
-              bussinessDesc: "\$2.49 Delivery Fee 25-45 min", 
-              businessRating: 4.2
-            ),
-            SizedBox(height: 20,),
-            BizContainerWidget( 
-              actionFunction: () => Get.to(()=>StoreInformation()),
-              businessBanner: 'https://picsum.photos/250?image=1', 
-              businessName: 'Deep Cleaning Business #1', 
-              bussinessDesc: "\$2.49 Delivery Fee 25-45 min", 
-              businessRating: 4.2
-            ),
-            SizedBox(height: 20,),
-            BizContainerWidget( 
-              actionFunction: () => Get.to(()=>StoreInformation()),
-              businessBanner: 'https://picsum.photos/250?image=1', 
-              businessName: 'Deep Cleaning Business #1', 
-              bussinessDesc: "\$2.49 Delivery Fee 25-45 min", 
-              businessRating: 4.2
-            ),
-            SizedBox(height: 20,),
-            BizContainerWidget( 
-              actionFunction: () => Get.to(()=>StoreInformation()),
-              businessBanner: 'https://picsum.photos/250?image=1', 
-              businessName: 'Deep Cleaning Business #1', 
-              bussinessDesc: "\$2.49 Delivery Fee 25-45 min", 
-              businessRating: 4.2
-            )
+            // BizContainerWidget( 
+            //   actionFunction: () => Get.to(()=>StoreInformation()),
+            //   businessBanner: 'https://picsum.photos/250?image=1', 
+            //   businessName: 'Deep Cleaning Business #1', 
+            //   bussinessDesc: "\$2.49 Delivery Fee 25-45 min", 
+            //   businessRating: 4.2
+            // ),
+            // SizedBox(height: 20,),
+            // BizContainerWidget( 
+            //   actionFunction: () => Get.to(()=>StoreInformation()),
+            //   businessBanner: 'https://picsum.photos/250?image=1', 
+            //   businessName: 'Deep Cleaning Business #1', 
+            //   bussinessDesc: "\$2.49 Delivery Fee 25-45 min", 
+            //   businessRating: 4.2
+            // ),
+            // SizedBox(height: 20,),
+            // BizContainerWidget( 
+            //   actionFunction: () => Get.to(()=>StoreInformation()),
+            //   businessBanner: 'https://picsum.photos/250?image=1', 
+            //   businessName: 'Deep Cleaning Business #1', 
+            //   bussinessDesc: "\$2.49 Delivery Fee 25-45 min", 
+            //   businessRating: 4.2
+            // ),
+            // SizedBox(height: 20,),
+            // BizContainerWidget( 
+            //   actionFunction: () => Get.to(()=>StoreInformation()),
+            //   businessBanner: 'https://picsum.photos/250?image=1', 
+            //   businessName: 'Deep Cleaning Business #1', 
+            //   bussinessDesc: "\$2.49 Delivery Fee 25-45 min", 
+            //   businessRating: 4.2
+            // ),
+            // SizedBox(height: 20,),
+            // BizContainerWidget( 
+            //   actionFunction: () => Get.to(()=>StoreInformation()),
+            //   businessBanner: 'https://picsum.photos/250?image=1', 
+            //   businessName: 'Deep Cleaning Business #1', 
+            //   bussinessDesc: "\$2.49 Delivery Fee 25-45 min", 
+            //   businessRating: 4.2
+            // ),
+            // SizedBox(height: 20,),
+            // BizContainerWidget( 
+            //   actionFunction: () => Get.to(()=>StoreInformation()),
+            //   businessBanner: 'https://picsum.photos/250?image=1', 
+            //   businessName: 'Deep Cleaning Business #1', 
+            //   bussinessDesc: "\$2.49 Delivery Fee 25-45 min", 
+            //   businessRating: 4.2
+            // ),
+            // SizedBox(height: 20,),
+            // BizContainerWidget( 
+            //   actionFunction: () => Get.to(()=>StoreInformation()),
+            //   businessBanner: 'https://picsum.photos/250?image=1', 
+            //   businessName: 'Deep Cleaning Business #1', 
+            //   bussinessDesc: "\$2.49 Delivery Fee 25-45 min", 
+            //   businessRating: 4.2
+            // ),
+            // SizedBox(height: 20,),
+            // BizContainerWidget( 
+            //   actionFunction: () => Get.to(()=>StoreInformation()),
+            //   businessBanner: 'https://picsum.photos/250?image=1', 
+            //   businessName: 'Deep Cleaning Business #1', 
+            //   bussinessDesc: "\$2.49 Delivery Fee 25-45 min", 
+            //   businessRating: 4.2
+            // ),
+            // SizedBox(height: 20,),
+            // BizContainerWidget( 
+            //   actionFunction: () => Get.to(()=>StoreInformation()),
+            //   businessBanner: 'https://picsum.photos/250?image=1', 
+            //   businessName: 'Deep Cleaning Business #1', 
+            //   bussinessDesc: "\$2.49 Delivery Fee 25-45 min", 
+            //   businessRating: 4.2
+            // ),
+            // SizedBox(height: 20,),
+            // BizContainerWidget( 
+            //   actionFunction: () => Get.to(()=>StoreInformation()),
+            //   businessBanner: 'https://picsum.photos/250?image=1', 
+            //   businessName: 'Deep Cleaning Business #1', 
+            //   bussinessDesc: "\$2.49 Delivery Fee 25-45 min", 
+            //   businessRating: 4.2
+            // ),
+            // SizedBox(height: 20,),
+            // BizContainerWidget( 
+            //   actionFunction: () => Get.to(()=>StoreInformation()),
+            //   businessBanner: 'https://picsum.photos/250?image=1', 
+            //   businessName: 'Deep Cleaning Business #1', 
+            //   bussinessDesc: "\$2.49 Delivery Fee 25-45 min", 
+            //   businessRating: 4.2
+            // ),
+            // SizedBox(height: 20,),
+            // BizContainerWidget( 
+            //   actionFunction: () => Get.to(()=>StoreInformation()),
+            //   businessBanner: 'https://picsum.photos/250?image=1', 
+            //   businessName: 'Deep Cleaning Business #1', 
+            //   bussinessDesc: "\$2.49 Delivery Fee 25-45 min", 
+            //   businessRating: 4.2
+            // ),
+            // SizedBox(height: 20,),
+            // BizContainerWidget( 
+            //   actionFunction: () => Get.to(()=>StoreInformation()),
+            //   businessBanner: 'https://picsum.photos/250?image=1', 
+            //   businessName: 'Deep Cleaning Business #1', 
+            //   bussinessDesc: "\$2.49 Delivery Fee 25-45 min", 
+            //   businessRating: 4.2
+            // )
+          
           ],
         ),
       ),

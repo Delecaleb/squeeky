@@ -35,7 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: HomeScreen(), // This trailing comma makes auto-formatting nicer for build methods.
+      body: SignUp(), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
