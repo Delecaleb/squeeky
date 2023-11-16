@@ -1,25 +1,28 @@
 class BusinessModel {
-  final int id;
-  final String categoryName;
+  final String id;
+  final String business_name;
   final String? imagePath;
-  final bool isDeleted;
-  final DateTime dateAdded;
+  final String businessEmail;
+  final String businessDesc;
+  final String businessId;
 
   BusinessModel({
     required this.id,
-    required this.categoryName,
+    required this.business_name,
     this.imagePath,
-    required this.isDeleted,
-    required this.dateAdded,
+    required this.businessEmail,
+    required this.businessDesc,
+    required this.businessId,
   });
 
   factory BusinessModel.fromJson(Map<String, dynamic> json) {
     return BusinessModel(
-      id: json['id'],
-      categoryName: json['categoryName'],
-      imagePath: json['imagePath'],
-      isDeleted: json['isDeleted'],
-      dateAdded: DateTime.parse(json['dateAdded']),
+      id: json['business_id'],
+      business_name: json['business_name'],
+      imagePath: json['business_logo'],
+      businessEmail: json['business_email'],
+      businessDesc : json['business_description'],
+      businessId : json['business_id'],
     );
   }
 }

@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:squeeky/widgets.dart';
 
+import '../controllers/fetch_favourites_controller.dart';
+
 class FavouriteScreen extends StatelessWidget {
-  const FavouriteScreen({super.key});
+
+  final FetchFavouriteController favourites = Get.put(FetchFavouriteController());
+  
+  FavouriteScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

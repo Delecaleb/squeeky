@@ -16,7 +16,7 @@ class ServiceController extends GetxController {
   }
 
   void fetchBusinessCategory() async {
-    final categories = await apiHandler.fetchBusinessCategories();
+    final categories = await apiHandler.fetchBusinesses();
     businessCategories.assignAll(categories);
     isloading(false);
   }

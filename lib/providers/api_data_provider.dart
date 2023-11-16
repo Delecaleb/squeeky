@@ -7,15 +7,18 @@ import 'package:squeeky/models/services_model.dart';
 
 import '../models/business_category.dart';
 import '../models/business_model.dart';
+import '../models/favourites_model.dart';
 
 class ApiDataProvider {
-  final String baseUrl = 'https://squeekyapi.somee.com/'; // Replace with your API URL
+  final String baseUrl = 'https://learncrib.com.ng/squeeky/api/squeeky.php'; // Replace with your API URL
 
-   Future<List<BusinessModel>> fetchBusinessCategories() async {
-    http.Response response = await http.get(Uri.parse('https://squeekyapi.somee.com/Business/Get_All_ServiceCategories'));
+   Future<List<BusinessModel>> fetchBusinesses() async {
+    var map = Map<String, dynamic> ();
+    map['action'] = 'fetch_businesses';
+    http.Response response = await http.post(Uri.parse(baseUrl), body: map);
     if(response.statusCode == 200){
-     final List<dynamic> data = json.decode(response.body)['serviceCategory'];
-      print(data);
+     List  data = json.decode(response.body);
+
       return data.map((data)=>BusinessModel.fromJson(data)).toList();
     }
     else {
@@ -24,15 +27,79 @@ class ApiDataProvider {
   }
 
   Future <List<ServicesModel>>fetchServices(id)async{
-    print(id);
-    http.Response response = await http.get(Uri.parse("https://squeekyapi.somee.com/Business/Get_All_Services?CategoryId=${id}"), );
+    var map = Map<String, dynamic>();
+
+    map['action'] = "fetch_services";
+    map['business_id'] = id;
+
+    http.Response response = await http.post(Uri.parse(baseUrl), body: map );
     if(response.statusCode == 200){
-      final List<dynamic> responseData = json.decode(response.body)['services'];
-      print(responseData);
+      final List responseData = json.decode(response.body);
+
       return responseData.map((mapData) => ServicesModel.fromJson(mapData)).toList();
     }else{
       throw Exception("Error Occured");
     }
   }
+
+  Future <List<FavouritesModel>>fetchFavourite(String userId)async{
+    var map = Map<String, dynamic>();
+
+    map['action'] = "fetch_favourites";
+    map['user_id'] = userId;
+
+    http.Response response = await http.post(Uri.parse(baseUrl), body: map );
+    if(response.statusCode == 200){
+      final List responseData = json.decode(response.body);
+      print(responseData);
+      return responseData.map((mapData) => FavouritesModel.fromJson(mapData)).toList();
+    }else{
+      throw Exception("Error Occured");
+    }
+  }
+
+  Future CreateAccount(firstName,lastName,emailAddress,password,contact,address,postalCode,buildingName, houseNumber, street, instruction, label, deliveryOption) async{
+    var map = Map<String, dynamic> ();
+    map['action'] = 'register_user';
+    map["firstName"] =  firstName;
+    map["lastName"]= lastName;
+    map["emailAddress"] = emailAddress;
+    map["password"] = password;
+    map["contact"] = contact;
+    map["address"] = address;
+    map["buildingName"] = buildingName;
+    map["houseNumber"] = houseNumber;
+    map["postalCode"] = postalCode;
+    map['street']= street;
+    map['instruction']= instruction;
+    map['label']= label;
+    map['deliveryOption']= deliveryOption;
+    http.Response response = await http.post(Uri.parse(baseUrl), body: map);
+    
+    if(response.statusCode ==200){
+        final responseData = json.decode(response.body);
+        return responseData;
+    }else{
+        throw Exception('Failed to create user');
+    }
+  }
+
+  Future addToFavorite(String business_id, String user_phone)async{
+      var map = Map<String, dynamic>();
+      map['action']= 'add_favourite';
+      map['business_id'] = business_id;
+      map['user_id'] = user_phone;
+      
+      http.Response response = await http.post(Uri.parse(baseUrl), body: map);
+
+      if(response.statusCode == 200){
+      final responseData = json.decode(response.body);
+     
+      return responseData;
+    }else{
+      throw Exception("Error Occured");
+    }
+  }
+
 
 }

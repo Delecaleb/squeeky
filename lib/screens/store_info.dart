@@ -4,13 +4,14 @@ import 'package:squeeky/models/business_model.dart';
 import 'package:squeeky/style/textstyles.dart';
 import 'package:squeeky/widgets.dart';
 
+import '../controllers/add_favourites_controller.dart';
 import '../controllers/services_controller.dart';
 
 class StoreInformation extends StatelessWidget {
   BusinessModel business;
   StoreInformation({ required this.business, super.key});
   ServicesController serviceController = Get.put(ServicesController());
-  
+  AddFavouriteController favouriteController = AddFavouriteController();
 final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
@@ -58,18 +59,8 @@ final scaffoldKey = GlobalKey<ScaffoldState>();
                                   ),
                                   ListTile(
                                     onTap: () {
-                                      Get.snackbar(
-                                        '', 
-                                        '',
-                                        titleText: Row(
-                                          children: [
-                                              Icon(Icons.favorite, color: Colors.white),
-                                              SizedBox(width: 10,),
-                                              Text('Add to favourites', style: TextStyle(color: Colors.white),),
-                                          ],
-                                        ),
-                                        backgroundColor: Color(0xFF201D21)
-                                      );
+                                      favouriteController.addFavourite(business.businessId);
+                                      
                                     },
                                     leading: Icon(Icons.favorite_outline),
                                     title: Text('Add to favourite'),
@@ -105,7 +96,7 @@ final scaffoldKey = GlobalKey<ScaffoldState>();
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(business.categoryName, style: titleText,),
+                Text(business.business_name, style: titleText,),
 
                 ListTile(
                   contentPadding: EdgeInsets.zero,
@@ -160,7 +151,7 @@ final scaffoldKey = GlobalKey<ScaffoldState>();
                   ),
                   trailing: Icon(Icons.chevron_right_outlined),
                 ),
-                Obx(() => serviceController.serviceLoading.value ? CircularProgressIndicator() :
+                Obx(() => serviceController.serviceLoading.value ? ShimmerLoader() :
                     ListView.builder(
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),

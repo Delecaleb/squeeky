@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:get/get.dart';
+import 'package:squeeky/controllers/create_account_controller.dart';
 import 'package:squeeky/screens/terms.dart';
 import 'package:squeeky/style/textstyles.dart';
 import 'package:squeeky/widgets.dart';
@@ -14,11 +15,7 @@ class CreateAccount extends StatefulWidget {
 }
 
 class _CreateAccountState extends State<CreateAccount> {
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController firstNameController = TextEditingController();
-  TextEditingController lastNameController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-
+  var createAccount = Get.put(CreateAccountController());
   int currentIndex = 0;
   int totalIndex = 4;
   void gotoNext(){
@@ -89,7 +86,7 @@ class _CreateAccountState extends State<CreateAccount> {
                     children: [
                       Text('What is your email address', style: titleText,),
                       SizedBox(height: 35,),
-                      InputWidget(label: 'name@example.com', input_controller: emailController, inputIcon: Icon(Icons.mail_outline), obscureText:false)
+                      InputWidget(label: 'name@example.com', input_controller: createAccount.emailController, inputIcon: Icon(Icons.mail_outline), obscureText:false)
                     ],
                   ),
                 ]
@@ -101,7 +98,7 @@ class _CreateAccountState extends State<CreateAccount> {
                         SizedBox(height: 15,),
                         Text('Your passwords must be at least 8 characters long and contain at least one letter and one digit'),
                         SizedBox(height: 15,),
-                        InputWidget(obscureText:true, label: 'Password', input_controller: passwordController, inputIcon: Icon(Icons.lock_outline))
+                        InputWidget(obscureText:true, label: 'Password', input_controller: createAccount.passwordController, inputIcon: Icon(Icons.lock_outline))
                       ],
                     ),
           
@@ -114,9 +111,9 @@ class _CreateAccountState extends State<CreateAccount> {
                         SizedBox(height: 17,),
                         Text('Let us know how to properly address you'),
                         SizedBox(height: 15,),
-                        InputWidget(obscureText:false, label: 'Please enter first name', input_controller: firstNameController, inputIcon: Icon(Icons.person)),
+                        InputWidget(obscureText:false, label: 'Please enter first name', input_controller:createAccount.firstNameController, inputIcon: Icon(Icons.person)),
                         SizedBox(height: 5,),
-                        InputWidget(obscureText:false, label: 'Please enter Surname', input_controller: lastNameController, inputIcon: Icon(Icons.person))
+                        InputWidget(obscureText:false, label: 'Please enter Surname', input_controller: createAccount.lastNameController, inputIcon: Icon(Icons.person))
                       ],
                     ),
                 ],

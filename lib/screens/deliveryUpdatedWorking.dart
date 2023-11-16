@@ -103,7 +103,7 @@ class Delivery extends StatelessWidget {
                   final category = serviceController.businessCategories[index];
                   return BizContainerWidget(
                             businessBanner: 'https://picsum.photos/250?image=1',
-                            businessName: category.categoryName,
+                            businessName: category.business_name,
                             bussinessDesc: "\$2.49 Delivery Fee 25-45 min",
                             businessRating: 4.2,
                             actionFunction: () =>

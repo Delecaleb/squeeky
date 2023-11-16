@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:squeeky/controllers/create_account_controller.dart';
 import 'package:squeeky/screens/home.dart';
 import 'package:squeeky/style/textstyles.dart';
 import 'package:squeeky/widgets.dart';
@@ -12,12 +13,8 @@ class Address extends StatefulWidget {
 }
 
 class _AddressState extends State<Address> {
-  TextEditingController buildingController = TextEditingController();
-  TextEditingController houseNumberController = TextEditingController();
-  TextEditingController streetController = TextEditingController();
-  TextEditingController postController = TextEditingController();
-  TextEditingController instructionController = TextEditingController();
-  TextEditingController labelController = TextEditingController();
+  
+  var createAccount = Get.put(CreateAccountController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,13 +29,13 @@ class _AddressState extends State<Address> {
                   children: [
                     Text('{200 Lonsdale Rd, Toronto, ON M4V 1W6}', style: text14,),
                     SizedBox(height: 10,),
-                    BasicInputWidget(label: 'Business or building name', input_controller: buildingController,),
+                    BasicInputWidget(label: 'Business or building name', input_controller: createAccount.buildingNameController,),
 
-                    BasicInputWidget(label: 'Flat or house number', input_controller: houseNumberController),
+                    BasicInputWidget(label: 'Flat or house number', input_controller: createAccount.houseNumberController),
 
-                    BasicInputWidget(label: 'Street address', input_controller: streetController),
+                    BasicInputWidget(label: 'Street address', input_controller: createAccount.streetController),
 
-                    BasicInputWidget(label: 'Postcode', input_controller: postController), 
+                    BasicInputWidget(label: 'Postcode', input_controller: createAccount.postalCode), 
                     Divider(),
                     SizedBox(height: 20,),
                     Text('Delivery options', style: titleText,),
@@ -59,22 +56,27 @@ class _AddressState extends State<Address> {
                       ],
                     ),
                     SizedBox(height: 20,),
-                    BasicInputWidget(label: 'Add instructions', input_controller: instructionController),
+                    BasicInputWidget(label: 'Add instructions', input_controller: createAccount.instructionController),
                     Divider(),
                     SizedBox(height: 20,),
                     Text('Address label'),
-                    BasicInputWidget(label: 'Home', input_controller: labelController), 
+                    BasicInputWidget(label: 'Home', input_controller: createAccount.labelController), 
 
-                    ElevatedButton(
-                      onPressed: ()=>Get.to(()=>HomeScreen()), 
-                      child: Text('Continue'),
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: Size.fromHeight(60),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        backgroundColor: Color(0xFF87CEEB)
-                      ),
+                    Obx(() {
+                        return createAccount.isLoading.value ? ElevatedButton(onPressed: null, child: Text("Connecting..")) : ElevatedButton(
+                          onPressed: (){
+                            createAccount.register();
+                            }, 
+                          child: Text('Continue'),
+                          style: ElevatedButton.styleFrom(
+                            minimumSize: Size.fromHeight(60),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            backgroundColor: Color(0xFF87CEEB)
+                          ),
+                        );
+                      }
                     )                 
                   ],
                 )

@@ -150,7 +150,7 @@ class Delivery extends StatelessWidget {
                 () {
           if (serviceController.businessCategories.isEmpty) {
             return Center(
-              child: CircularProgressIndicator(),
+              child: ShimmerLoader(),
             );
           } else {
             print(serviceController.businessCategories.length);
@@ -162,9 +162,9 @@ class Delivery extends StatelessWidget {
                 final category = serviceController.businessCategories[index];
                 return BizContainerWidget(
                           businessBanner: 'https://picsum.photos/250?image=1',
-                          businessName: category.categoryName,
-                          bussinessDesc: "\$2.49 Delivery Fee 25-45 min",
-                          businessRating: 4.2,
+                          businessName: category.business_name,
+                          bussinessDesc: category.businessDesc,
+                          businessRating: 4,
                           actionFunction: () =>
                               Get.to(() => StoreInformation(business: category,)),
                         );

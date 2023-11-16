@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:squeeky/screens/custom.dart';
 import 'package:squeeky/style/textstyles.dart';
 
@@ -123,7 +124,10 @@ class BizContainerWidget extends StatelessWidget {
                     
                     contentPadding: EdgeInsets.zero,
                     title: Text(businessName),
-                    subtitle: Text(bussinessDesc),
+                    subtitle: Text(bussinessDesc,
+                      maxLines: 1,  
+                      overflow: TextOverflow.ellipsis,
+                    ),
                     trailing: CircleAvatar(
                       backgroundColor: Color(0xFFEFECF0),
                       child: Text(businessRating.toString()),
@@ -356,5 +360,36 @@ class HomeScreenActionBtnWidget extends StatelessWidget {
                     ),
                   )
         );
+  }
+}
+
+class ShimmerLoader extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey[300]!,
+      highlightColor: Colors.grey[100]!,
+      child: Column(
+        children: [
+          Container(
+                width: Get.width,
+                height: 130.0,
+                color: Colors.white,
+              ),
+          SizedBox(height: 10,),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                width: Get.width *0.7,
+                height: 60.0,
+                color: Colors.white,
+              ),
+              CircleAvatar(),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }
