@@ -153,7 +153,6 @@ class Delivery extends StatelessWidget {
               child: ShimmerLoader(),
             );
           } else {
-            print(serviceController.businessCategories.length);
             return ListView.builder(
               physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:squeeky/completed_orders_list.dart';
 import 'package:squeeky/screens/account_wallet.dart';
 import 'package:squeeky/screens/favourite_screen.dart';
@@ -9,8 +10,8 @@ import 'package:squeeky/style/textstyles.dart';
 import 'package:squeeky/widgets.dart';
 
 class Profile extends StatelessWidget {
-  const Profile({super.key});
-
+   Profile({super.key});
+  final box = GetStorage();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +19,7 @@ class Profile extends StatelessWidget {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text("Dolly Sheep"),
+            Text("${box.read('userFirstName') } ${box.read('userLastName')}"),
 
             InkWell(
               onTap: ()=>Get.to(()=>ViewProfile()),
@@ -84,12 +85,12 @@ class Profile extends StatelessWidget {
 
 
 class ViewProfile extends StatelessWidget {
-  const ViewProfile({super.key});
-
+  ViewProfile({super.key});
+  final box = GetStorage();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     
+      
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -99,7 +100,7 @@ class ViewProfile extends StatelessWidget {
               child: Icon(Icons.person, size: 60,),
             ),
             SizedBox(height: 10,),
-            Text('Dolly', style: text18,),
+            Text(box.read('userFirstName'), style: text18,),
             TextButton(
               child: Text('Edit account'),
               onPressed: () => Get.to(()=>EditProfile()),            

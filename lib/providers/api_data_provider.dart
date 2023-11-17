@@ -26,6 +26,23 @@ class ApiDataProvider {
     }
   }
 
+  Future<List<BusinessModel>> searchBusinesses(String where, String when, String service) async {
+    var map = Map<String, dynamic> ();
+    map['action'] = 'fetch_businesses';
+    map['where'] = where;
+    map['whan'] = when;
+    map['service'] = service;
+    http.Response response = await http.post(Uri.parse(baseUrl), body: map);
+    if(response.statusCode == 200){
+     List  data = json.decode(response.body);
+
+      return data.map((data)=>BusinessModel.fromJson(data)).toList();
+    }
+    else {
+     throw Exception('Failed to load service categories');
+    }
+  }
+
   Future <List<ServicesModel>>fetchServices(id)async{
     var map = Map<String, dynamic>();
 
