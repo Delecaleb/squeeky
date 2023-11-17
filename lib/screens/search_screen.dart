@@ -137,7 +137,10 @@ class _SearchScreenState extends State<SearchScreen> {
               if(showSelectProperty)...[
                 SizedBox(height: 20,),
                 TextButton(
-                onPressed: ()=>Get.to(()=>SearchResult()), 
+                onPressed: (){
+                  searchBusinessController.searchBusiness();
+                  Get.to(()=>SearchResult());
+                }, 
                 child: Text('Next', style: textBtn,),
                 style: TextButton.styleFrom(
                   minimumSize: Size.fromHeight(50),

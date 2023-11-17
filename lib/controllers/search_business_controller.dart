@@ -15,7 +15,10 @@ class SearchBusinessController extends GetxController{
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    searchFunction(where.text, when,service.text);
+  }
+
+   void searchBusiness(){
+      searchFunction(where.text, when,service.text);
   }
 
   void searchFunction(where, when,service) async{
