@@ -9,13 +9,13 @@ class SearchBusinessController extends GetxController{
   RxBool isloading = false.obs;
 
   TextEditingController service = TextEditingController();
-  TextEditingController when = TextEditingController();
+  String when = '';
   TextEditingController where = TextEditingController();
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    searchFunction(where.text, when.text,service.text);
+    searchFunction(where.text, when,service.text);
   }
 
   void searchFunction(where, when,service) async{
