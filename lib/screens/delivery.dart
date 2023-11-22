@@ -160,7 +160,7 @@ class Delivery extends StatelessWidget {
               itemBuilder: (context, index) {
                 final category = serviceController.businessCategories[index];
                 return BizContainerWidget(
-                          businessBanner: 'https://picsum.photos/250?image=1',
+                          businessBanner: 'https://learncrib.com.ng/squeeky/dashboard/businessfiles/${category.imagePath}',
                           businessName: category.business_name,
                           bussinessDesc: category.businessDesc,
                           businessRating: 4,
@@ -169,7 +169,7 @@ class Delivery extends StatelessWidget {
                         );
               },
             );
-          }
+          } 
                 },
               ),
           SizedBox(

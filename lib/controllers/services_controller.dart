@@ -14,8 +14,10 @@ class ServicesController extends GetxController {
     // getServices(id);
   }
   void getServices(id) async{
+    print(id);
     var servicesData = await apiHandler.fetchServices(id);
     services.addAll(servicesData);
+    print(servicesData);
     serviceLoading(false);
   }
 }

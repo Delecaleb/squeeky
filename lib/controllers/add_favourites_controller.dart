@@ -5,12 +5,12 @@ import 'package:squeeky/storage/app_getx_storage.dart';
 
 import '../providers/api_data_provider.dart';
 
-class AddFavouriteController {
+class FavouriteController {
   final ApiDataProvider apiHandler = ApiDataProvider();
   final StorageService storage = StorageService();
   late String userPhone;
 
-  AddFavouriteController() {
+  FavouriteController() {
     userPhone = storage.getString('userPhone');
   }
 

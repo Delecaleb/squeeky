@@ -4,78 +4,90 @@ import 'package:squeeky/screens/orderlist.dart';
 import 'package:squeeky/style/textstyles.dart';
 import 'package:squeeky/widgets.dart';
 
+import '../controllers/services_controller.dart';
+import '../models/business_model.dart';
+import '../models/services_model.dart';
+
 class ScheduleBooking extends StatelessWidget {
-   ScheduleBooking({super.key});
+
+   BusinessModel businessDetails;
+
+   ScheduleBooking({super.key, required this.businessDetails});
+   
+   ServicesController servicesOffered = Get.put(ServicesController());
 
 final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
+    servicesOffered.getServices(businessDetails.businessId);
     return Scaffold(
       key: scaffoldKey,
        
       body: Column(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(horizontal:20, vertical: 25),
-            decoration: const BoxDecoration(
-              image: DecorationImage(image: NetworkImage('https://picsum.photos/250?image=1'),
+            padding: const EdgeInsets.symmetric(horizontal:20, vertical: 25),
+            decoration:  BoxDecoration(
+              image: DecorationImage(image: NetworkImage('https://learncrib.com.ng/squeeky/dashboard/businessfiles/${businessDetails.imagePath}'),
               fit: BoxFit.cover
               ),
             ),
             width: Get.width,
-            height: Get.height * 0.2,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CircleAvatar(child: IconButton( 
-                  onPressed: (){}, 
-                  icon: Icon(Icons.cancel_rounded),)),
-      
-                Row(
-                  children: [
-                    CircleAvatar(child: IconButton( onPressed: (){}, icon: Icon(Icons.search),)),
-                    SizedBox(width: 10,),
-                    CircleAvatar(
-                      child: IconButton( 
-                        onPressed: (){
-                          showModalBottomSheet(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.zero
-                            ),
-                            context: context, 
-                            builder: (builder){
-                              return Column(
-                                children: [
-                                  ListTile(
-                                    leading: Icon(Icons.search),
-                                    title: Text('Search this store'),
-                                  ),
-                                  ListTile(
-                                    leading: Icon(Icons.favorite_outline),
-                                    title: Text('Add to favourite'),
-                                  ),
-                                  ListTile(
-                                    leading: Icon(Icons.ios_share_rounded),
-                                    title: Text('Share'),
-                                  ),
-                                  ListTile(
-                                    leading: Icon(Icons.info_rounded),
-                                    title: Text('Store info'),
-                                    subtitle: Text('Address, ratings and more'),
-                                  ),
-                                ],
-                              );
-                            }
-                          );
-                        }, 
-                        icon: Icon(Icons.more_horiz_sharp),
-                        )
-                      ),
-                  ],
-                ),
-              ],
+            height: Get.height * 0.23,
+            child: SafeArea(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CircleAvatar(child: IconButton( 
+                    onPressed: (){}, 
+                    icon: Icon(Icons.cancel_rounded),)),
+                  
+                  Row(
+                    children: [
+                      CircleAvatar(child: IconButton( onPressed: (){}, icon: Icon(Icons.search),)),
+                      SizedBox(width: 10,),
+                      CircleAvatar(
+                        child: IconButton( 
+                          onPressed: (){
+                            showModalBottomSheet(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.zero
+                              ),
+                              context: context, 
+                              builder: (builder){
+                                return const Column(
+                                  children: [
+                                    ListTile(
+                                      leading: Icon(Icons.search),
+                                      title: Text('Search this store'),
+                                    ),
+                                    ListTile(
+                                      leading: Icon(Icons.favorite_outline),
+                                      title: Text('Add to favourite'),
+                                    ),
+                                    ListTile(
+                                      leading: Icon(Icons.ios_share_rounded),
+                                      title: Text('Share'),
+                                    ),
+                                    ListTile(
+                                      leading: Icon(Icons.info_rounded),
+                                      title: Text('Store info'),
+                                      subtitle: Text('Address, ratings and more'),
+                                    ),
+                                  ],
+                                );
+                              }
+                            );
+                          }, 
+                          icon: Icon(Icons.more_horiz_sharp),
+                          )
+                        ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
       
@@ -85,7 +97,7 @@ final scaffoldKey = GlobalKey<ScaffoldState>();
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Power washing', style: titleText,),
+                Text(businessDetails.business_name, style: titleText,),
 
                 ListTile(
                   contentPadding: EdgeInsets.zero,
@@ -104,21 +116,23 @@ final scaffoldKey = GlobalKey<ScaffoldState>();
                                    IconButton(onPressed: (){
                                      Navigator.pop(context);
                                    }, icon: Icon(Icons.cancel)),
-                                   Text('Lawn Care Service', style: titleText,),
+                                   Text(businessDetails.business_name, style: titleText,),
                                    SizedBox(height: 10,),
-                                   Text('Edging Standard Trim Full Package Pruning'),
+                                   Text(businessDetails.businessDesc,
+                                   maxLines: 1,
+                                   ),
                                    SizedBox(height: 10,),
                                    ListTile(
                                     contentPadding: EdgeInsets.zero,
-                                    title: Text("107 Broadwater Street East"),
-                                    subtitle: Text("Worthing, EMEA BN14 9AW"),
+                                    title: Text(businessDetails.businessAddress),
+                                    subtitle: Text("${businessDetails.businessCity}, ${businessDetails.businessPostCode}"),
                                     leading: Icon(Icons.location_on_sharp),
                                     trailing: Icon(Icons.filter_none_outlined),
                                    ),
                                    SizedBox(height: 10,),
                                    ListTile(
                                     contentPadding: EdgeInsets.zero,
-                                    title: Text("107 Broadwater Street East"),
+                                    title: Text(businessDetails.businessAddress),
                                     leading: Icon(Icons.access_time),
                                     trailing: Icon(Icons.add),
                                    ),
@@ -129,7 +143,10 @@ final scaffoldKey = GlobalKey<ScaffoldState>();
                       }
                     );
                   },
-                  title: Text('Lawn Maintenance.\$.'),
+                  title: Text(businessDetails.businessDesc, 
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                   subtitle: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -143,8 +160,50 @@ final scaffoldKey = GlobalKey<ScaffoldState>();
 
                 Text('Picked for you', style: titleText,),
                 
+                Obx(() {
+                  if( servicesOffered.serviceLoading.value){
+                    return  ShimmerLoader();
+                  }else if(servicesOffered.services.isEmpty){
+                    return Text('No data found');
+                  }else{
+                    return  ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: servicesOffered.services.length,
+                      itemBuilder: (BuildContext context, index){
+                        final serviceData = servicesOffered.services[index];
+                        return InkWell(
+                            onTap: ()=>Get.to(()=>ContinueScheduling(serviceExtras: serviceData.extras,)),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  width: Get.width *0.45,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(serviceData.serviceName, style: textInfoBold,),
+                                      Text("\$ ${serviceData.servicePrice}"),
+                                      Container(child: Text('water fed pole, purified RO water, No, home/gutter damage guaranteed, expireinced technicians '))
+                                    ],
+                                  ),
+                                ),
+                                Image.network('https://learncrib.com.ng/squeeky/dashboard/businessfiles/${businessDetails.imagePath}', 
+                                      width: Get.width *0.3,
+                                      height: 100,
+                                      fit: BoxFit.cover,
+                                      )
+                              ],
+                            )
+                            );
+                      }
+                      );
+                  }
+                  }
+                ),
+                
                 InkWell(
-                  onTap: ()=>Get.to(()=>ContinueScheduling()),
+                  onTap: ()=>Get.to(()=>ContinueScheduling(serviceExtras: [],)),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -174,7 +233,8 @@ final scaffoldKey = GlobalKey<ScaffoldState>();
 }
 
 class ContinueScheduling extends StatefulWidget {
-  const ContinueScheduling({super.key});
+  List <ExtraModel> serviceExtras;
+  ContinueScheduling({super.key, required this.serviceExtras});
 
   @override
   State<ContinueScheduling> createState() => _ContinueSchedulingState();
@@ -188,230 +248,256 @@ class _ContinueSchedulingState extends State<ContinueScheduling> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey2,
-      body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: 20),
-        child: Column(
-          children: [
-            Text('Decking'),
-            Text("\$200-\$300"),
-            Text('Power wash decks into beautiful spectacle that will leave your neighbours in awe!  '),
-
-            SizedBox(height: 20,),
-            /// choosing size
-            Row(
-              children: [
-                Expanded(child: Text("Choose the size of your Deck")),
-
-                Container(
-                  child: Text('Required'),
-                )
-              ],
-            ),
-            RadioListTile(
-              contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 15),
-              title: Text('0-300'),
-              value: '0-300', 
-              groupValue: _propertySize, 
-              onChanged: (btnValue){
-                setState(() {
-                  _propertySize = btnValue!;
-                });
-              }
-            ),
-            RadioListTile(
-              contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 15),
-              title: Text('300-500'),
-              value: '300-500', 
-              groupValue: _propertySize, 
-              onChanged: (btnValue){
-                setState(() {
-                  _propertySize = btnValue!;
-                });
-              }
-            ),
-            RadioListTile(
-              contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 15),
-              title: Text('500-750'),
-              value: '500-750', 
-              groupValue: _propertySize, 
-              onChanged: (btnValue){
-                setState(() {
-                  _propertySize = btnValue!;
-                });
-              }
-            ),
-            /// choosing size ends
-            
-            /// choosing materials
-            Row(
-              children: [
-                Expanded(child: Text("Choose the Type of Deck")),
-
-                Container(
-                  child: Text('Required'),
-                )
-              ],
-            ),
-            
-            RadioListTile(
-              contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 15),
-              title: Text('Aluminium'),
-              value: 'Aluminium', 
-              groupValue: _materialType, 
-              onChanged: (value){
-                setState(() {
-                  _materialType = value !;
-                });
-              }
-            ),
-            RadioListTile(
-              contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 15),
-              title:Text('Wood'),
-              value: 'Wood', 
-              groupValue: _materialType, 
-              onChanged: (value){
-                setState(() {
-                  _materialType = value !;
-                });
-              }
-            ),
-            RadioListTile(
-              contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 15),
-              title: Text('Composite'),
-              value: 'Composite', 
-              groupValue: _materialType, 
-              onChanged: (value){
-                setState(() {
-                  _materialType = value !;
-                });
-              }
-            ),
-            
-            /// choosing material ends 
-            
-            /// choosing timeframe
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                minimumSize: Size.fromHeight(50),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(0)
-                ),
-                backgroundColor: Color(0xFF87CEEB)
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            children: [
+              Text('Decking'),
+              Text("\$200-\$300"),
+              Text('Power wash decks into beautiful spectacle that will leave your neighbours in awe!  '),
+      
+              SizedBox(height: 20,),
+              /// choosing size
+              Row(
+                children: [
+                  Expanded(child: Text("Choose the size of your Deck")),
+      
+                  Container(
+                    child: Text('Required'),
+                  )
+                ],
               ),
-              onPressed: (){
-                scaffoldKey2.currentState!.showBottomSheet(
-                (BuildContext context){
-                    return StatefulBuilder(
-                      builder: (BuildContext sheetContext, StateSetter setState) {
-                        return Container(
-                          color: Colors.white,
-                          height: Get.height * 0.98,
-                          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                          child: SingleChildScrollView(
-                            child: Column(
-                              children: [
-                              Text('Book a Time'),
-                              SizedBox(height: 30,),
-                              Row(
+              RadioListTile(
+                contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 15),
+                title: Text('0-300'),
+                value: '0-300', 
+                groupValue: _propertySize, 
+                onChanged: (btnValue){
+                  setState(() {
+                    _propertySize = btnValue!;
+                  });
+                }
+              ),
+              RadioListTile(
+                contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 15),
+                title: Text('300-500'),
+                value: '300-500', 
+                groupValue: _propertySize, 
+                onChanged: (btnValue){
+                  setState(() {
+                    _propertySize = btnValue!;
+                  });
+                }
+              ),
+              RadioListTile(
+                contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 15),
+                title: Text('500-750'),
+                value: '500-750', 
+                groupValue: _propertySize, 
+                onChanged: (btnValue){
+                  setState(() {
+                    _propertySize = btnValue!;
+                  });
+                }
+              ),
+              Text("${widget.serviceExtras[1].extraName}"),
+              
+              /// choosing size ends
+              // Obx(() {
+              //   print(widget.serviceExtras.length);
+              //     return ListView.builder(
+              //       shrinkWrap: true,
+                    
+              //       itemCount: widget.serviceExtras.length,
+              //       itemBuilder: (BuildContext context, index){
+              //         var extraDetails = widget.serviceExtras[index];
+              //         return RadioListTile(
+              //       contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 15),
+              //       title: Text(extraDetails.extraName),
+              //       value: extraDetails.extraName, 
+              //       groupValue: _materialType, 
+              //       onChanged: (value){
+              //         setState(() {
+              //           _materialType = value !;
+              //         });
+              //       }
+              //     );
+              //       }             
+              //     );
+              //   }
+              // ),
+              /// choosing materials
+              Row(
+                children: [
+                  Expanded(child: Text("Choose the Type of Deck")),
+      
+                  Container(
+                    child: Text('Required'),
+                  )
+                ],
+              ),
+              
+              RadioListTile(
+                contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 15),
+                title: Text('Aluminium'),
+                value: 'Aluminium', 
+                groupValue: _materialType, 
+                onChanged: (value){
+                  setState(() {
+                    _materialType = value !;
+                  });
+                }
+              ),
+              RadioListTile(
+                contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 15),
+                title:Text('Wood'),
+                value: 'Wood', 
+                groupValue: _materialType, 
+                onChanged: (value){
+                  setState(() {
+                    _materialType = value !;
+                  });
+                }
+              ),
+              RadioListTile(
+                contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 15),
+                title: Text('Composite'),
+                value: 'Composite', 
+                groupValue: _materialType, 
+                onChanged: (value){
+                  setState(() {
+                    _materialType = value !;
+                  });
+                }
+              ),
+              
+              /// choosing material ends 
+              
+              /// choosing timeframe
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  minimumSize: Size.fromHeight(50),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(0)
+                  ),
+                  backgroundColor: Color(0xFF87CEEB)
+                ),
+                onPressed: (){
+                  scaffoldKey2.currentState!.showBottomSheet(
+                  (BuildContext context){
+                      return StatefulBuilder(
+                        builder: (BuildContext sheetContext, StateSetter setState) {
+                          return Container(
+                            color: Colors.white,
+                            height: Get.height * 0.98,
+                            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                            child: SingleChildScrollView(
+                              child: Column(
                                 children: [
-                                  Expanded(child: Text("Choose an Arrival Time", style: text21,)),
-                          
-                                  Container(
-                                    child: Text('Required'),
+                                Text('Book a Time'),
+                                SizedBox(height: 30,),
+                                Row(
+                                  children: [
+                                    Expanded(child: Text("Choose an Arrival Time", style: text21,)),
+                            
+                                    Container(
+                                      child: Text('Required'),
+                                    )
+                                  ],
+                                ),
+                                SizedBox(height: 10,),
+                                RadioListTile(
+                                  contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 15),
+                                  title: Text('10:00AM - 10:30AM'),
+                                  value: '10:00AM - 10:30AM', 
+                                  groupValue: _timeOfArrival, 
+                                  onChanged: (value){
+                                        setState(() {
+                                          _timeOfArrival = value!;
+                                        });
+                                      }
+                                  ),
+                                RadioListTile(
+                                  contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 15),
+                                  title: Text('11:30AM - 12:00PM'),
+                                  value: '11:30AM - 12:00PM', 
+                                  groupValue: _timeOfArrival, 
+                                  onChanged: (value){
+                                        setState(() {
+                                          _timeOfArrival = value!;
+                                        });
+                                      }
+                                  ),
+                                RadioListTile(
+                                  contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 15),
+                                  title: Text('12:30PM - 1:00PM'),
+                                  value: '12:30PM - 1:00PM', 
+                                  groupValue: _timeOfArrival, 
+                                  onChanged: (value){
+                                        setState(() {
+                                          _timeOfArrival = value!;
+                                        });
+                                      }
+                                  ),
+                                RadioListTile(
+                                  contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 15),
+                                  title: Text('1:30PM - 2:00PM'),
+                                  value: '1:30PM - 2:00PM', 
+                                  groupValue: _timeOfArrival, 
+                                  onChanged: (value){
+                                        setState(() {
+                                          _timeOfArrival = value!;
+                                        });
+                                      }
+                                  ),
+                                RadioListTile(
+                                  contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 15),
+                                  title: Text('2:30PM - 3:00PM'),
+                                  value: '2:30PM - 3:00PM', 
+                                  groupValue: _timeOfArrival, 
+                                  onChanged: (value){
+                                        setState(() {
+                                          _timeOfArrival = value!;
+                                        });
+                                      }
+                                  ),
+                                RadioListTile(
+                                  contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 15),
+                                  title: Text('3:30PM - 4:00PM'),
+                                  value: '3:30PM - 4:00PM', 
+                                  groupValue: _timeOfArrival, 
+                                  onChanged: (value){
+                                        setState(() {
+                                          _timeOfArrival = value!;
+                                        });
+                                      }
+                                  ),
+      
+                                  ElevatedButton(
+                                    onPressed: ()=>Get.to(()=>OrderListScreen()),
+                                    style: ElevatedButton.styleFrom(
+                                      minimumSize: Size.fromHeight(60),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.zero
+                                      ),
+                                      backgroundColor: Color(0xFF87CEEB)
+                                    ), 
+                                    child: Text("Book", style: textBtn,),
                                   )
                                 ],
                               ),
-                              SizedBox(height: 10,),
-                              RadioListTile(
-                                contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 15),
-                                title: Text('10:00AM - 10:30AM'),
-                                value: '10:00AM - 10:30AM', 
-                                groupValue: _timeOfArrival, 
-                                onChanged: (value){
-                                      setState(() {
-                                        _timeOfArrival = value!;
-                                      });
-                                    }
-                                ),
-                              RadioListTile(
-                                contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 15),
-                                title: Text('11:30AM - 12:00PM'),
-                                value: '11:30AM - 12:00PM', 
-                                groupValue: _timeOfArrival, 
-                                onChanged: (value){
-                                      setState(() {
-                                        _timeOfArrival = value!;
-                                      });
-                                    }
-                                ),
-                              RadioListTile(
-                                contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 15),
-                                title: Text('12:30PM - 1:00PM'),
-                                value: '12:30PM - 1:00PM', 
-                                groupValue: _timeOfArrival, 
-                                onChanged: (value){
-                                      setState(() {
-                                        _timeOfArrival = value!;
-                                      });
-                                    }
-                                ),
-                              RadioListTile(
-                                contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 15),
-                                title: Text('1:30PM - 2:00PM'),
-                                value: '1:30PM - 2:00PM', 
-                                groupValue: _timeOfArrival, 
-                                onChanged: (value){
-                                      setState(() {
-                                        _timeOfArrival = value!;
-                                      });
-                                    }
-                                ),
-                              RadioListTile(
-                                contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 15),
-                                title: Text('2:30PM - 3:00PM'),
-                                value: '2:30PM - 3:00PM', 
-                                groupValue: _timeOfArrival, 
-                                onChanged: (value){
-                                      setState(() {
-                                        _timeOfArrival = value!;
-                                      });
-                                    }
-                                ),
-                              RadioListTile(
-                                contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 15),
-                                title: Text('3:30PM - 4:00PM'),
-                                value: '3:30PM - 4:00PM', 
-                                groupValue: _timeOfArrival, 
-                                onChanged: (value){
-                                      setState(() {
-                                        _timeOfArrival = value!;
-                                      });
-                                    }
-                                ),
-
-                                ElevatedButton(
-                                  onPressed: ()=>Get.to(()=>OrderListScreen()),
-                                  style: ElevatedButton.styleFrom(
-                                    minimumSize: Size.fromHeight(60),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.zero
-                                    ),
-                                    backgroundColor: Color(0xFF87CEEB)
-                                  ), 
-                                  child: Text("Book", style: textBtn,),
-                                )
-                              ],
                             ),
-                          ),
-                        );
-                      }
-                    );
-                  }
-                );
-              }, 
-              child: Text('Continue', style: textBtn,),
-            ),
-          ],
+                          );
+                        }
+                      );
+                    }
+                  );
+                }, 
+                child: Text('Continue', style: textBtn,),
+              ),
+            ],
+          ),
         ),
       ),
     );

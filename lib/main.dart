@@ -53,9 +53,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    
+
     return Scaffold(
-      body: userPhone !='' && userPhone !=null ? HomeScreen() : SignUp(), 
+      body: SafeArea(child: userPhone !='' && userPhone !=null ? HomeScreen() : SignUp()), 
       // body: Center(
       //   child: Column(
       //     children: [

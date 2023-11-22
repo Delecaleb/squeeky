@@ -42,7 +42,8 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
+      appBar: const PreferredSize(
+        preferredSize: Size.fromHeight(70),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -55,8 +56,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 child: Text('Schedule'),
               )
             ],
-        ), 
-        preferredSize: Size.fromHeight(70)),
+        )),
         body: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 20),
           child: Column(
@@ -159,14 +159,10 @@ class _SearchScreenState extends State<SearchScreen> {
 }
 
 
-class SearchResult extends StatefulWidget {
-  const SearchResult({super.key});
+class SearchResult extends StatelessWidget {
+  SearchResult({super.key});
+  SearchBusinessController businessResult = Get.put(SearchBusinessController());
 
-  @override
-  State<SearchResult> createState() => _SearchResultState();
-}
-
-class _SearchResultState extends State<SearchResult> {
   @override
   Widget build(BuildContext context) {
     return  SafeArea(
@@ -184,66 +180,48 @@ class _SearchResultState extends State<SearchResult> {
       DraggableScrollableSheet(
           minChildSize: 0.8,
           maxChildSize: 1,
-          initialChildSize: 0.9,
+          initialChildSize: 0.95,
           builder: (BuildContext context, ScrollController scrollController) {
-            return Container(
-              height: MediaQuery.of(context).size.height * 0.9,
-              width: MediaQuery.of(context).size.width,
-              color: Colors.white,
+            return SingleChildScrollView(
+              // height: MediaQuery.of(context).size.height * 0.9,
+              // width: MediaQuery.of(context).size.width,
+              // color: Colors.white,
               child: Stack(
                 children: [
-                  Container(
-                      height: MediaQuery.of(context).size.height * 0.9,
-                      width: MediaQuery.of(context).size.width,
-                      child: SingleChildScrollView(
-                        controller: scrollController,
-                        padding: EdgeInsets.symmetric(horizontal: 20),
-                        child: Column(
-                          children: [
-                            const SizedBox(
-                              height: 50,
-                            ),
-                            BizContainerWidget(
-                              actionFunction: () => Get.to(()=>ScheduleBooking()),
-                              businessBanner: 'https://picsum.photos/250?image=1', 
-                              businessName: 'Deep Cleaning Business #1', 
-                              bussinessDesc: "\$2.49 Delivery Fee 25-45 min", 
+                  Obx(
+                () {
+          if (businessResult.searchResult.isEmpty) {
+            return Center(
+              child: ShimmerLoader(),
+            );
+          } else {
+            return ListView.builder(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+              itemCount: businessResult.searchResult.length,
+              itemBuilder: (context, index) {
+                final businessData = businessResult.searchResult[index];
+                return BizContainerWidget(
+                              actionFunction: () => Get.to(()=>ScheduleBooking(businessDetails: businessData,)),
+                              businessBanner: 'https://learncrib.com.ng/squeeky/dashboard/businessfiles/${businessData.imagePath}', 
+                              businessName: businessData.business_name, 
+                              bussinessDesc: businessData.businessDesc, 
                               businessRating: 4.2
-                            ),
-                            SizedBox(height: 20,),
-                            
-                            BizContainerWidget(
-                              actionFunction: () => Get.to(()=>ScheduleBooking()),
-                              businessBanner: 'https://picsum.photos/250?image=1', 
-                              businessName: 'Deep Cleaning Business #1', 
-                              bussinessDesc: "\$2.49 Delivery Fee 25-45 min", 
-                              businessRating: 4.2
-                            ),
-                            BizContainerWidget(
-                              actionFunction: () => Get.to(()=>ScheduleBooking()),
-                              businessBanner: 'https://picsum.photos/250?image=1', 
-                              businessName: 'Deep Cleaning Business #1', 
-                              bussinessDesc: "\$2.49 Delivery Fee 25-45 min", 
-                              businessRating: 4.2
-                            ),
-                            BizContainerWidget(
-                              actionFunction: () => Get.to(()=>ScheduleBooking()),
-                              businessBanner: 'https://picsum.photos/250?image=1', 
-                              businessName: 'Deep Cleaning Business #1', 
-                              bussinessDesc: "\$2.49 Delivery Fee 25-45 min", 
-                              businessRating: 4.2
-                            ),
-                          ],
-                        ),
-                      )),
+                            );
+              },
+            );
+          }
+                },
+              ),                  
                   IgnorePointer(
                     child:
                     Container(
                       color: Colors.white,
                       child: Divider(
-                        indent: Get.width *0.4,
-                        endIndent: Get.width *0.4,
-                        thickness: 5,
+                        indent: Get.width *0.42,
+                        endIndent: Get.width *0.42,
+                        thickness: 4,
                       ),
                     ) 
                     

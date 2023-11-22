@@ -35,7 +35,7 @@ class ApiDataProvider {
     http.Response response = await http.post(Uri.parse(baseUrl), body: map);
     if(response.statusCode == 200){
      List  data = json.decode(response.body);
-
+      print(data);
       return data.map((data)=>BusinessModel.fromJson(data)).toList();
     }
     else {
@@ -51,9 +51,20 @@ class ApiDataProvider {
 
     http.Response response = await http.post(Uri.parse(baseUrl), body: map );
     if(response.statusCode == 200){
-      final List responseData = json.decode(response.body);
+      final decodedResponse = json.decode(response.body);
 
-      return responseData.map((mapData) => ServicesModel.fromJson(mapData)).toList();
+      if(decodedResponse['status']=='empty'){
+         return List<ServicesModel>.empty();
+      }else{
+        final List responseData = json.decode(response.body)['data'];
+        // final responseData = [decodedResponse['data']]
+        //   .map((mapData) => ServicesModel.fromJson(mapData))
+        //   .toList();
+        return responseData.map((mapData) => ServicesModel.fromJson(mapData)).toList();
+
+        // return responseData;
+      }
+
     }else{
       throw Exception("Error Occured");
     }
@@ -106,6 +117,24 @@ class ApiDataProvider {
       map['action']= 'add_favourite';
       map['business_id'] = business_id;
       map['user_id'] = user_phone;
+      
+      http.Response response = await http.post(Uri.parse(baseUrl), body: map);
+
+      if(response.statusCode == 200){
+      final responseData = json.decode(response.body);
+     
+      return responseData;
+    }else{
+      throw Exception("Error Occured");
+    }
+  }
+
+  Future updateProfile(String condition, String value, String userId)async{
+      var map = Map<String, dynamic>();
+      map['action']= 'update_profile';
+      map['condition'] = condition;
+      map['value'] = value;
+      map['user_id'] = userId;
       
       http.Response response = await http.post(Uri.parse(baseUrl), body: map);
 

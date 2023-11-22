@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:squeeky/completed_orders_list.dart';
+import 'package:squeeky/controllers/update_profile_controller.dart';
 import 'package:squeeky/screens/account_wallet.dart';
 import 'package:squeeky/screens/favourite_screen.dart';
 import 'package:squeeky/screens/promotions.dart';
@@ -141,8 +142,8 @@ class ViewProfile extends StatelessWidget {
 }
 
 class EditProfile extends StatelessWidget {
-  const EditProfile({super.key});
-
+  EditProfile({super.key});
+  final box = GetStorage();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -168,7 +169,7 @@ class EditProfile extends StatelessWidget {
                       child: Image.asset('assets/carrier.png', fit: BoxFit.cover,),
                     ),
                   ),
-                  Positioned(
+                  const Positioned(
                     bottom: 2,
                     child: CircleAvatar(
                       radius: 15,
@@ -180,41 +181,41 @@ class EditProfile extends StatelessWidget {
               ),
               
               ListTile(
-                onTap: ()=>Get.to(()=>EditProfileScreen(item: 'First name', itemValue: 'Dolly')),
+                onTap: ()=>Get.to(()=>EditProfileScreen(item: 'First name', itemValue: box.read('userFirstName'))),
                 contentPadding: EdgeInsets.zero,
-                title: Text('First name'),
-                subtitle: Text('Dolly', style: titleText,),
+                title: Text('First Name'),
+                subtitle: Text(box.read('userFirstName'), style: titleText,),
                 trailing: Icon(Icons.arrow_forward_ios,  size: 17, color: Colors.grey,),
               ),
               
               ListTile(
-                onTap: ()=>Get.to(()=>EditProfileScreen(item: 'Last name', itemValue: 'Sheep')),
+                onTap: ()=>Get.to(()=>EditProfileScreen(item: 'Last name', itemValue: box.read('userLastName'))),
                 contentPadding: EdgeInsets.zero,
                 title: Text('Last name'),
-                subtitle: Text('Sheep', style: titleText,),
+                subtitle: Text(box.read('userLastName'), style: titleText,),
                 trailing: Icon(Icons.arrow_forward_ios, size: 17, color: Colors.grey,),
               ),
               
               ListTile(
-                onTap: ()=>Get.to(()=>EditProfileScreen(item: 'Phone number', itemValue: '+234 9087675456')),
                 contentPadding: EdgeInsets.zero,
                 title: Text('Phone number'),
                 subtitle: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('+234 9087675456', style: titleText,),
+                    Text(box.read('userPhone'), style: titleText,),
                     Text('Verified'),
                   ],
                 ),
                 trailing: Icon(Icons.arrow_forward_ios ,  size: 17, color: Colors.grey,),
               ),
               ListTile(
+                onTap: ()=>Get.to(()=>EditProfileScreen(item: 'Email address', itemValue: box.read('userEmail'))),
                 contentPadding: EdgeInsets.zero,
-                title: Text('Email address'),
+                title: Text('Email Address'),
                 subtitle: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('dolly@gmail.com', style: titleText,),
+                    Text(box.read('userEmail'), style: titleText,),
                     Text('unverified'),
                   ],
                 ),
@@ -238,12 +239,19 @@ class EditProfile extends StatelessWidget {
 class EditProfileScreen extends StatefulWidget {
   String item, itemValue;
   EditProfileScreen({ required this.item, required this.itemValue,  Key? key}) : super(key: key);
-
   @override
   State<EditProfileScreen> createState() => _EditProfileScreenState();
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
+  final updateController  = Get.put(UpdateUserAccountController());
+  late TextEditingController valueController ;
+  final box = GetStorage();
+  @override
+  void initState() {
+    super.initState();
+    valueController  = TextEditingController(text: widget.itemValue);
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -256,7 +264,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             Text(widget.item, style: text15L,),
             SizedBox(height: 10,),
             TextField(
-              
+                    
+                    controller: valueController,
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       focusColor: Color(0xFFEFECF0),
@@ -267,6 +276,20 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       filled: true,
                     ),
                   ),
+            SizedBox(height:30),
+            TextButton(
+              onPressed: (){
+                updateController.updateProfile(widget.item, valueController.text, box.read('userPhone') );
+              }, 
+              child: Text("Update ${widget.item}", style: textBtn,),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color(0xFF87CEEB),
+                minimumSize: Size.fromHeight(50), 
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.zero
+                )
+              ),
+            )
           ],
         ),
       ),
