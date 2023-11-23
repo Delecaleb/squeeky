@@ -12,7 +12,7 @@ class UpdateUserAccountController extends GetxController{
   void updateProfile(condition, value, userId){
     apiHandler.updateProfile(condition, value, userId).then((response){
       print(response);
-      Get.snackbar('title', response['message']);
+      Get.snackbar('', response['message']);
       if(response['status']=='done'){
         // update the user storage
         if(condition.toUpperCase() =='FIRST NAME'){
@@ -24,7 +24,8 @@ class UpdateUserAccountController extends GetxController{
             box.write('userEmail', value);
         }
 
-        Get.to(()=>Profile());
+        // Get.to(()=>Profile());
+        update();
       }else{
         return '';
       }

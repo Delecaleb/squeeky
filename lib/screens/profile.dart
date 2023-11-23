@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:squeeky/completed_orders_list.dart';
 import 'package:squeeky/controllers/update_profile_controller.dart';
 import 'package:squeeky/screens/account_wallet.dart';
@@ -144,6 +148,35 @@ class ViewProfile extends StatelessWidget {
 class EditProfile extends StatelessWidget {
   EditProfile({super.key});
   final box = GetStorage();
+  var pickedImageFile = Rxn<File>();
+  void changeProofilePics()async{
+    final _image = await ImagePicker().pickImage(source: ImageSource.gallery);
+    if(_image == null) return ;
+    final _imagePath = File(_image.path);
+
+    CroppedFile? croppedFile = await ImageCropper().cropImage(
+      sourcePath: _imagePath.path,
+      aspectRatioPresets: [
+        CropAspectRatioPreset.square,
+        CropAspectRatioPreset.ratio3x2,
+        CropAspectRatioPreset.original,
+        CropAspectRatioPreset.ratio4x3,
+        CropAspectRatioPreset.ratio16x9
+      ],
+    uiSettings: [
+        AndroidUiSettings(
+            toolbarTitle: 'Squeeky Cropper',
+            toolbarColor: Color(0xFF87CEEB),
+            toolbarWidgetColor: Colors.white,
+            initAspectRatio: CropAspectRatioPreset.original,
+            lockAspectRatio: false),
+        IOSUiSettings(
+          title: 'Cropper',
+        ),
+    ]
+    );
+        pickedImageFile.value = (croppedFile != null ? File(croppedFile.path) : null)!;
+      }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -166,15 +199,20 @@ class EditProfile extends StatelessWidget {
                     width: 80,
                     decoration: BoxDecoration(border: Border.all()),
                     child: ClipOval(
-                      child: Image.asset('assets/carrier.png', fit: BoxFit.cover,),
+                      child: Obx(() {
+                          return pickedImageFile.value !=null ? Image.file(pickedImageFile.value!) : Image.asset('assets/carrier.png', fit: BoxFit.cover,);
+                        }
+                      ),
                     ),
                   ),
-                  const Positioned(
+                   Positioned(
                     bottom: 2,
                     child: CircleAvatar(
                       radius: 15,
-                      child: IconButton(icon: Icon(Icons.edit, color: Colors.white, size: 15,), onPressed: null,),
                       backgroundColor: Colors.black,
+                      child: IconButton(
+                        icon: Icon(Icons.edit, color: Colors.white, size: 15,), 
+                        onPressed: ()=>changeProofilePics(),),
                       )
                   )
                 ],
