@@ -1,7 +1,7 @@
 class OrdersModel {
-  String serviceId, extraCategory, extraPrice,extraValue,timeArrival,bookingDate;
+  String serviceId, serviceName, imagePath, extraCategory, extraPrice,extraValue,timeArrival,bookingDate;
   String servicePrice;
-  OrdersModel({required this.serviceId, required this.extraCategory, required this.extraPrice, required this.extraValue, required this.bookingDate, required this.timeArrival, required this.servicePrice});
+  OrdersModel({required this.serviceId, required this.serviceName, required this.imagePath, required this.extraCategory, required this.extraPrice, required this.extraValue, required this.bookingDate, required this.timeArrival, required this.servicePrice});
 
   factory OrdersModel.fromJson(Map<String, dynamic>jsonData){
     return OrdersModel(
@@ -12,6 +12,8 @@ class OrdersModel {
       bookingDate: jsonData['booking_date'], 
       timeArrival: jsonData['time_of_arrival'],
       servicePrice:jsonData['price'],
+      imagePath: jsonData['image_path'],
+      serviceName: jsonData['service_name'],
       ); 
   }
 }

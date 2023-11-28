@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:squeeky/models/business_category.dart';
-import 'package:squeeky/providers/dummy_data_provider.dart';
+// import 'package:squeeky/providers/dummy_data_provider.dart';
 import 'package:squeeky/screens/custom.dart';
 import 'package:squeeky/screens/search_screen.dart';
 import 'package:squeeky/screens/services.dart';
@@ -22,7 +22,7 @@ class _DeliveryState extends State<Delivery> {
   @override
   void initState() {
     // TODO: implement initState
-    dummyServicePro = DummyDataProvider.getProviders();
+    // dummyServicePro = DummyDataProvider.getProviders();
     print(dummyServicePro);
     super.initState();
   }

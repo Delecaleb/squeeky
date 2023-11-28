@@ -204,7 +204,7 @@ class ApiDataProvider {
   Future <List<OrdersModel>>fetchOrders(String userId)async{
     var map = Map<String, dynamic>();
 
-    map['action'] = "fetch_favourites";
+    map['action'] = "fetch_cart";
     map['user_id'] = userId;
 
     http.Response response = await http.post(Uri.parse(baseUrl), body: map );
