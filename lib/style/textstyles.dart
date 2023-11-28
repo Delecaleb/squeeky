@@ -163,7 +163,11 @@ var text20 = TextStyle(
   fontWeight: FontWeight.w400,
   fontFamily: "Khula"
 );
-
+var text20B = TextStyle(
+  fontSize: 20,
+  fontWeight: FontWeight.w800,
+  fontFamily: "Khula"
+);
 var textSec = TextStyle(
   color: Color(0xFF0F984A),
   fontFamily: "Oswald"

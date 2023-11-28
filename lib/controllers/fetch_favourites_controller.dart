@@ -8,7 +8,7 @@ class FetchFavouriteController extends GetxController{
   final apiHandler = ApiDataProvider();
 
   var favourites = <FavouritesModel>[].obs;
-
+  RxBool isloading = true.obs;
   final StorageService storage = StorageService();
   late String userid;
 
@@ -26,6 +26,7 @@ class FetchFavouriteController extends GetxController{
   void getFavourites()async{
     final response = await apiHandler.fetchFavourite(userid);
     favourites.assignAll(response);
+    isloading(false);
   }
 
   

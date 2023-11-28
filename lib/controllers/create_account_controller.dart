@@ -52,7 +52,7 @@ class CreateAccountController extends GetxController {
           storage.saveString('userDeliveryOption', deliveryOption.text);
           storage.saveString('userAddress', address.text);
           storage.saveString('userPostalCode', postalCode.text);
-
+          storage.saveString('userPicture', '');
           Get.offAll(() => HomeScreen());
       }else{
         Get.snackbar('Error', value['message']);

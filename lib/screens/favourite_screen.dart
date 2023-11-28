@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:squeeky/style/textstyles.dart';
 import 'package:squeeky/widgets.dart';
 
 import '../controllers/fetch_favourites_controller.dart';
@@ -21,9 +22,17 @@ class FavouriteScreen extends StatelessWidget {
         children: [
           
           Obx(() {
-              if (favouritesController.favourites.isEmpty) {
-            return Center(
-              child: ShimmerLoader(),
+                if(favouritesController.isloading.value){
+                  return ShimmerLoader();
+                }
+              else if (favouritesController.favourites.isEmpty) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset("assets/tool.jpg"),
+                SizedBox(height: 20,),
+                Text("No Business added to favourite yet", style: text18,),
+              ],
             );
           } else {
             return ListView.builder(
@@ -33,7 +42,7 @@ class FavouriteScreen extends StatelessWidget {
               itemBuilder: (context, index) {
                 final favouriteList = favouritesController.favourites[index];
                 return FavouritesWidget(
-                          imageLink: 'https://picsum.photos/250?image=1',
+                          imageLink: 'https://learncrib.com.ng/squeeky/dashboard/businessfiles/${favouriteList.imagePath}',
                           title: favouriteList.businessName,
                           subSubTitle: '\$1.79 Delivery Fee',
                           subTitle:'20 mins' 

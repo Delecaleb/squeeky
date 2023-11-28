@@ -3,6 +3,7 @@
 
 class ServicesModel {
   final String id;
+  final String serviceId;
   final String businessId;
   final String serviceName;
   final String servicePrice;
@@ -22,6 +23,7 @@ class ServicesModel {
     required this.serviceCategory,
     required this.imagePath,
     required this.extras,
+    required this.serviceId,
   });
 
   factory ServicesModel.fromJson(Map<String, dynamic> json) {
@@ -31,6 +33,7 @@ class ServicesModel {
 
     return ServicesModel(
       id: json['id'],
+      serviceId: json['service_id'],
       businessId: json['business_id'],
       serviceName: json['service_name'],
       servicePrice: json['service_price'],

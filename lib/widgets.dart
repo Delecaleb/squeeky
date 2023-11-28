@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:squeeky/screens/custom.dart';
+import 'package:squeeky/screens/orders_list.dart';
 import 'package:squeeky/style/textstyles.dart';
 
 class InputWidget extends StatelessWidget {
@@ -391,5 +392,65 @@ class ShimmerLoader extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class PillBtn extends StatelessWidget {
+  String title, subtitle;
+
+  PillBtn({super.key, required this.title, required this.subtitle});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal:15, vertical: 3),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(50),
+        border: Border.all(),
+      ),
+      child: Column(children: [
+        Text(title),
+        Text(subtitle)
+      ]),
+    );
+  }
+}
+
+class EmptyBasket extends StatelessWidget {
+  const EmptyBasket({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+              children: [            
+                ListTile(
+                  onTap: ()=>Get.to(()=>OrderLists()),
+                  contentPadding: EdgeInsets.zero,
+                  trailing: ElevatedButton.icon(
+                    onPressed:  ()=>Get.to(()=>OrderLists()), 
+                    icon: Icon(Icons.line_style_rounded), 
+                    label: Text('Orders')
+                  ),
+                ),
+        
+                Text('Basket', style:  titleText,),
+                
+                SizedBox(height: 20,),
+        
+                Image.asset('assets/cart.png', width: Get.width * 0.3),
+                SizedBox(height: 40,),
+                Text("Add items to start a cart", style: titleText,),
+                SizedBox(height: 10,),
+                Text("When you select items from a service or store, your cart will be displayed here" , style: textInfoLG, textAlign: TextAlign.center,),
+                SizedBox(height: 10,),
+                ElevatedButton(
+                  onPressed: (){}, 
+                  child: Text('Start Shopping', style: textBtn,),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xFF87CEEB)
+                  ),
+                )
+              ],
+            );
   }
 }

@@ -1,7 +1,7 @@
 import 'dart:io';
-
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:path/path.dart' as Path;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -13,6 +13,8 @@ import 'package:squeeky/screens/favourite_screen.dart';
 import 'package:squeeky/screens/promotions.dart';
 import 'package:squeeky/style/textstyles.dart';
 import 'package:squeeky/widgets.dart';
+
+import '../providers/api_data_provider.dart';
 
 class Profile extends StatelessWidget {
    Profile({super.key});
@@ -28,8 +30,14 @@ class Profile extends StatelessWidget {
 
             InkWell(
               onTap: ()=>Get.to(()=>ViewProfile()),
-              child: CircleAvatar(
-                child: Icon(Icons.person),
+              child: Container(
+                width: 40,
+                height: 40,
+                  decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  border: Border.all(),
+                  ),
+                child: ClipOval(child: box.read('userPicture') !='' && box.read('userPicture') !=null ? CachedNetworkImage(imageUrl: "https://learncrib.com.ng/squeeky/api/usersPhoto/${box.read('userPicture')}",) : Image.asset('assets/carrier.png', fit: BoxFit.cover,))
               ),
             )
           ],
@@ -100,9 +108,22 @@ class ViewProfile extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(height: 40,),
-            CircleAvatar(
-              radius: 40,
-              child: Icon(Icons.person, size: 60,),
+
+            Container(
+              width: 80,
+              height: 80,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+                border: Border.all(),
+                ),
+              child: ClipOval(
+                child: box.read('userPicture') !='' && box.read('userPicture') !=null ? 
+                CachedNetworkImage(
+                  imageUrl: "https://learncrib.com.ng/squeeky/api/usersPhoto/${box.read('userPicture')}",
+                ) 
+                  : 
+                Image.asset('assets/carrier.png', fit: BoxFit.cover,)
+              ),
             ),
             SizedBox(height: 10,),
             Text(box.read('userFirstName'), style: text18,),
@@ -145,10 +166,37 @@ class ViewProfile extends StatelessWidget {
   }
 }
 
-class EditProfile extends StatelessWidget {
+class EditProfile extends StatefulWidget {
   EditProfile({super.key});
+
+  @override
+  State<EditProfile> createState() => _EditProfileState();
+}
+
+class _EditProfileState extends State<EditProfile> {
   final box = GetStorage();
+
+  final apiHandler = ApiDataProvider();
+
   var pickedImageFile = Rxn<File>();
+
+  RxBool sendingFile = false.obs;
+
+  Future <void> uploadDp(File filePath) async{
+    sendingFile(true);
+    apiHandler.UploadDpFile(filePath, box.read('userPhone')).then((responseData){
+      if(responseData['status']=='done'){
+        Get.snackbar('', responseData['message']);
+        box.write('userPicture', responseData['img_file']);
+        pickedImageFile.value = null;
+        Get.to(()=>EditProfile());
+      }else{
+        Get.snackbar('', responseData['message']);
+      }
+        sendingFile(false);
+    });
+  }
+
   void changeProofilePics()async{
     final _image = await ImagePicker().pickImage(source: ImageSource.gallery);
     if(_image == null) return ;
@@ -175,8 +223,9 @@ class EditProfile extends StatelessWidget {
         ),
     ]
     );
-        pickedImageFile.value = (croppedFile != null ? File(croppedFile.path) : null)!;
+        pickedImageFile.value = croppedFile != null ? File(croppedFile.path) : null;
       }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -193,19 +242,42 @@ class EditProfile extends StatelessWidget {
             children: [
               Stack(
                 children: [
-                  Container(
-                    // color: Colors.amber,
-                    height: 80,
-                    width: 80,
-                    decoration: BoxDecoration(border: Border.all()),
-                    child: ClipOval(
-                      child: Obx(() {
-                          return pickedImageFile.value !=null ? Image.file(pickedImageFile.value!) : Image.asset('assets/carrier.png', fit: BoxFit.cover,);
-                        }
-                      ),
-                    ),
-                  ),
-                   Positioned(
+                  Obx(() {
+                      return Row(
+                        children: [
+                          Container(
+                            height: 80,
+                            width: 80,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50),
+                              border: Border.all(),
+                              ),
+                            child: ClipOval(
+                              child:  pickedImageFile.value !=null ? 
+                              Image.file(pickedImageFile.value!) 
+                              
+                              : 
+                              
+                              Container(
+                                child: box.read('userPicture') !='' && box.read('userPicture') !=null ? CachedNetworkImage(imageUrl: "https://learncrib.com.ng/squeeky/api/usersPhoto/${box.read('userPicture')}",) : Image.asset('assets/carrier.png', fit: BoxFit.cover,)
+                                )
+                                
+                              ),
+                            ),
+                            SizedBox(width: 20,),
+                            /// upload dp button UI  
+                            pickedImageFile.value !=null ?
+                              /// show upload button if file is selected 
+                              ElevatedButton(onPressed: ()=>uploadDp(pickedImageFile.value!), 
+                              // show progress if button is clicked else show text
+                              child: sendingFile.value  ? CircularProgressIndicator() : Text('Update Picture')) 
+                              :
+                              // show notting if no file selected 
+                              const Text('')
+                        ],
+                      );
+                      }),
+                  Positioned(
                     bottom: 2,
                     child: CircleAvatar(
                       radius: 15,

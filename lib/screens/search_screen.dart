@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:squeeky/screens/schedule_booking.dart';
 import 'package:squeeky/style/textstyles.dart';
 
+import '../controllers/cart_contrroller.dart';
 import '../controllers/search_business_controller.dart';
 import '../widgets.dart';
 
@@ -21,6 +22,8 @@ class _SearchScreenState extends State<SearchScreen> {
   String service ='';
   String location = '';
   SearchBusinessController searchBusinessController = Get.put(SearchBusinessController());
+  CartController cartController = Get.put(CartController());
+
   String when = 'Any Day';
   
   void _pickDate ()async{
@@ -32,6 +35,7 @@ class _SearchScreenState extends State<SearchScreen> {
       );
     if(picked !=null){
       setState(() {
+        cartController.bookingDate= picked.toString();
         when = picked.day.toString();
         searchBusinessController.when = picked.day.toString();
       });
@@ -117,6 +121,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 onTap: () {
                   setState(() {
                     location = 'Home';
+                    
                     searchBusinessController.where.text = 'Home' ;
                     showSearchWhere = false;
                     showSelectProperty = true;
@@ -162,7 +167,7 @@ class _SearchScreenState extends State<SearchScreen> {
 class SearchResult extends StatelessWidget {
   SearchResult({super.key});
   SearchBusinessController businessResult = Get.put(SearchBusinessController());
-
+  
   @override
   Widget build(BuildContext context) {
     return  SafeArea(

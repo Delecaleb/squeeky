@@ -1,6 +1,7 @@
 // lib/providers/api_data_provider.dart
 
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:squeeky/models/services_model.dart';
@@ -8,6 +9,7 @@ import 'package:squeeky/models/services_model.dart';
 import '../models/business_category.dart';
 import '../models/business_model.dart';
 import '../models/favourites_model.dart';
+import '../models/orders_model.dart';
 
 class ApiDataProvider {
   final String baseUrl = 'https://learncrib.com.ng/squeeky/api/squeeky.php'; // Replace with your API URL
@@ -57,12 +59,9 @@ class ApiDataProvider {
          return List<ServicesModel>.empty();
       }else{
         final List responseData = json.decode(response.body)['data'];
-        // final responseData = [decodedResponse['data']]
-        //   .map((mapData) => ServicesModel.fromJson(mapData))
-        //   .toList();
+        print(responseData);
         return responseData.map((mapData) => ServicesModel.fromJson(mapData)).toList();
 
-        // return responseData;
       }
 
     }else{
@@ -78,9 +77,14 @@ class ApiDataProvider {
 
     http.Response response = await http.post(Uri.parse(baseUrl), body: map );
     if(response.statusCode == 200){
-      final List responseData = json.decode(response.body);
-      print(responseData);
-      return responseData.map((mapData) => FavouritesModel.fromJson(mapData)).toList();
+      final decodedResponse = json.decode(response.body);
+      print(decodedResponse);
+      if(decodedResponse['status']=='empty'){
+        return List<FavouritesModel>.empty();
+      }else{
+        final List responseData = decodedResponse['data'];
+        return responseData.map((mapData) => FavouritesModel.fromJson(mapData)).toList();
+      }
     }else{
       throw Exception("Error Occured");
     }
@@ -129,6 +133,29 @@ class ApiDataProvider {
     }
   }
 
+  Future addToCart(serviceId, extraCategory, extraPrice,extraValue,timeArrival,bookingDate,servicePrice, user_phone)async{
+      var map = Map<String, dynamic>();
+      map['action']= 'add_to_cart';
+      map['serviceId'] = serviceId;
+      map['extraCategory']= extraCategory;
+      map['extraPrice']= extraPrice;
+      map['extraValue']= extraValue;
+      map['timeArrival']= timeArrival;
+      map['bookingDate'] = bookingDate;
+      map['userId'] = user_phone;
+      map['servicePrice'] = servicePrice;
+      
+      http.Response response = await http.post(Uri.parse(baseUrl), body: map);
+
+      if(response.statusCode == 200){
+      final responseData = json.decode(response.body);
+     
+      return responseData;
+    }else{
+      throw Exception("Error Occured");
+    }
+  }
+
   Future updateProfile(String condition, String value, String userId)async{
       var map = Map<String, dynamic>();
       map['action']= 'update_profile';
@@ -142,6 +169,54 @@ class ApiDataProvider {
       final responseData = json.decode(response.body);
      
       return responseData;
+    }else{
+      throw Exception("Error Occured");
+    }
+  }
+
+  Future UploadDpFile(File filePath, String user)async{
+  
+    var request = http.MultipartRequest('POST', Uri.parse(baseUrl));
+
+    var fileStream = http.ByteStream(Stream.castFrom(filePath.openRead()));
+    var length = await filePath.length();
+
+    var multipartFile = http.MultipartFile('file', fileStream, length,
+        filename: filePath.path.split('/').last);
+
+    request.files.add(multipartFile);
+
+    request.fields['user'] = user;
+    request.fields['action'] = 'upload_dp_file';
+
+    var response = await http.Response.fromStream(await request.send());
+
+    if (response.statusCode == 200) {
+      final responseData = json.decode(response.body);
+      
+      return responseData;
+    } else {
+      throw "Connection error";
+    }
+ 
+  }
+
+  Future <List<OrdersModel>>fetchOrders(String userId)async{
+    var map = Map<String, dynamic>();
+
+    map['action'] = "fetch_favourites";
+    map['user_id'] = userId;
+
+    http.Response response = await http.post(Uri.parse(baseUrl), body: map );
+    if(response.statusCode == 200){
+      final decodedResponse = json.decode(response.body);
+      print(decodedResponse);
+      if(decodedResponse['status']=='empty'){
+        return List<OrdersModel>.empty();
+      }else{
+        final List responseData = decodedResponse['data'];
+        return responseData.map((mapData) => OrdersModel.fromJson(mapData)).toList();
+      }
     }else{
       throw Exception("Error Occured");
     }

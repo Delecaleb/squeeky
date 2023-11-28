@@ -1,9 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:squeeky/screens/profile.dart';
-
 import '../providers/api_data_provider.dart';
+import '../screens/profile.dart';
 
 class UpdateUserAccountController extends GetxController{
   var apiHandler = ApiDataProvider();
@@ -11,7 +9,7 @@ class UpdateUserAccountController extends GetxController{
 
   void updateProfile(condition, value, userId){
     apiHandler.updateProfile(condition, value, userId).then((response){
-      print(response);
+     
       Get.snackbar('', response['message']);
       if(response['status']=='done'){
         // update the user storage
@@ -24,8 +22,9 @@ class UpdateUserAccountController extends GetxController{
             box.write('userEmail', value);
         }
 
-        // Get.to(()=>Profile());
-        update();
+          Get.off(()=>EditProfile());
+          // Get.back();
+        
       }else{
         return '';
       }
