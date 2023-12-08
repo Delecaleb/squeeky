@@ -16,6 +16,8 @@ class CartController extends GetxController{
   var timeArrival  =''.obs();
   var bookingDate  =''.obs();
   var servicePrice = ''.obs();
+  var businessId = ''.obs();
+  var serviceName = ''.obs();
   late String userId;
   
   CartController(){
@@ -31,6 +33,7 @@ class CartController extends GetxController{
 
   void getOrders(user_id)async{
     final responseData = await apiHandler.fetchOrders(userId);
+    final response= await apiHandler.fetchCheckOut(userId);
     ordersList.assignAll(responseData);
   }
 
@@ -39,6 +42,6 @@ class CartController extends GetxController{
   }
 
   void addToCart(user_id)async{
-    final responseData =  await apiHandler.addToCart(serviceId, extraCategory, extraPrice, extraValue, timeArrival, bookingDate, servicePrice, user_id);
+    final responseData =  await apiHandler.addToCart(businessId,serviceId,serviceName, extraCategory, extraPrice, extraValue, timeArrival, bookingDate, servicePrice, user_id);
   }
 }

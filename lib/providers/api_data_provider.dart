@@ -9,6 +9,7 @@ import 'package:squeeky/models/services_model.dart';
 import '../models/business_category.dart';
 import '../models/business_model.dart';
 import '../models/favourites_model.dart';
+import '../models/notification_model.dart';
 import '../models/orders_model.dart';
 
 class ApiDataProvider {
@@ -133,7 +134,7 @@ class ApiDataProvider {
     }
   }
 
-  Future addToCart(serviceId, extraCategory, extraPrice,extraValue,timeArrival,bookingDate,servicePrice, user_phone)async{
+  Future addToCart(businessId,serviceId,serviceName, extraCategory, extraPrice,extraValue,timeArrival,bookingDate,servicePrice, user_phone)async{
       var map = Map<String, dynamic>();
       map['action']= 'add_to_cart';
       map['serviceId'] = serviceId;
@@ -144,7 +145,10 @@ class ApiDataProvider {
       map['bookingDate'] = bookingDate;
       map['userId'] = user_phone;
       map['servicePrice'] = servicePrice;
-      
+      map['serviceName'] = serviceName;
+      map['businessId'] = businessId; 
+
+      print(map);     
       http.Response response = await http.post(Uri.parse(baseUrl), body: map);
 
       if(response.statusCode == 200){
@@ -162,7 +166,7 @@ class ApiDataProvider {
       map['condition'] = condition;
       map['value'] = value;
       map['user_id'] = userId;
-      
+      print(map);
       http.Response response = await http.post(Uri.parse(baseUrl), body: map);
 
       if(response.statusCode == 200){
@@ -210,7 +214,6 @@ class ApiDataProvider {
     http.Response response = await http.post(Uri.parse(baseUrl), body: map );
     if(response.statusCode == 200){
       final decodedResponse = json.decode(response.body);
-      print(decodedResponse);
       if(decodedResponse['status']=='empty'){
         return List<OrdersModel>.empty();
       }else{
@@ -222,5 +225,57 @@ class ApiDataProvider {
     }
   }
 
+  Future <List<NotificationsModel>>fetchNotification(String userId)async{
+    var map = Map<String, dynamic>();
+
+    map['action'] = "fetch_notification";
+    map['user_id'] = userId;
+    print(map);
+    http.Response response = await http.post(Uri.parse(baseUrl), body: map );
+    if(response.statusCode == 200){
+      final decodedResponse = json.decode(response.body);
+      if(decodedResponse['status']=='empty'){
+        return List<NotificationsModel>.empty();
+      }else{
+        final List responseData = decodedResponse['data'];
+        return responseData.map((mapData) => NotificationsModel.fromJson(mapData)).toList();
+      }
+    }else{
+      throw Exception("Error Occured");
+    }
+  }
+
+  Future fetchCheckOut(String userId)async{
+    var map = Map<String, dynamic>();
+
+    map['action'] = "get_check_out_services_and_total";
+    map['userId'] = userId;
+
+    http.Response response = await http.post(Uri.parse(baseUrl), body: map );
+    if(response.statusCode == 200){
+      final decodedResponse = json.decode(response.body);
+      return List.from(decodedResponse["data"]);
+      
+    }else{
+      throw Exception("Error Occured");
+    }
+  }
+
+  Future LoginUser(userId, password)async{
+    var map = Map<String, dynamic>();
+
+    map['action'] = "login_user";
+    map['user_id'] = userId;
+    map['password'] = password;
+    http.Response response = await http.post(Uri.parse(baseUrl), body: map );
+    if(response.statusCode == 200){
+      
+      final decodedResponse = json.decode(response.body);
+      return decodedResponse;
+      
+    }else{
+      throw Exception("Error Occured");
+    }
+  }
 
 }

@@ -1,20 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:grouped_list/grouped_list.dart';
 import 'package:squeeky/screens/placing_order.dart';
 import 'package:squeeky/style/textstyles.dart';
 
+import '../providers/api_data_provider.dart';
+
 class CheckOutScreen extends StatefulWidget {
-  CheckOutScreen({super.key});
+  List services;
+  int subtotal;
+  CheckOutScreen({super.key, required this.services, required this.subtotal});
 
   @override
   State<CheckOutScreen> createState() => _CheckOutScreenState();
 }
 
+final box = GetStorage(); 
 class _CheckOutScreenState extends State<CheckOutScreen> {
+  List<dynamic> businessData = [];
+  final apiHandler = ApiDataProvider();
+
+  var userId = box.read('userPhone');
+  @override
+  void initState() {
+    super.initState();
+    apiHandler.fetchCheckOut(userId).then((data) {
+      setState(() {
+        businessData = data;
+      });
+
+      print(businessData);
+    }).catchError((error) {
+      print("Error fetching data: $error");
+    });
+  }
   final scaffoldKey = GlobalKey <ScaffoldState>();
  bool getInvoice = false;
   @override
   Widget build(BuildContext context) {
+  
+    double serviceCharge = widget.subtotal * 0.1;
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
@@ -25,6 +51,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
         children: [
           Expanded(
             child: SingleChildScrollView(
+              physics: ScrollPhysics(),
               padding: EdgeInsets.symmetric(horizontal: 15),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,12 +74,13 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Row(
+                                const Row(
                                   children: [
                                     Text('Order details')
                                   ],
                                 ),
-                                TextField(
+                                
+                                const TextField(
                                   decoration: InputDecoration(
                                     prefixIcon: Icon(Icons.search),
                                     labelText: 'Enter a new location',
@@ -153,6 +181,30 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       )
                     ],
                   ),
+                  businessData.isEmpty
+                  ? Center(
+                      child: CircularProgressIndicator(),
+                    )
+                    :
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: businessData.length,
+                    itemBuilder: (context, index){
+                       var businessDetails = businessData[index];
+                      
+                        return ExpansionTile(
+                          tilePadding: EdgeInsets.zero,
+                          leading: CircleAvatar(),
+                          title: Text(businessDetails["business_name"], style: text17B,),
+                          subtitle: Text(businessDetails["services"].length.toString()),
+                          children: businessDetails["services"].map<Widget>((service) {
+                              return Text(
+                                  "${service["service_name"]} - \$${service["price"]}");
+                            }).toList(),
+                        );
+                    }
+                  ),
                   ExpansionTile(
                     tilePadding: EdgeInsets.zero,
                     leading: CircleAvatar(),
@@ -162,7 +214,35 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       Text('This is the service')
                     ],
                   ),
+
+                  // ListView.builder(
+                  //   shrinkWrap: true,
+                  //   physics: NeverScrollableScrollPhysics(),
+                  //   itemCount: widget.services.length,
+                  //   itemBuilder: (context, index){
+                  //     var services =  widget.services[index];
+                  //     return Text(services.serviceName);
+                  //   }
+                  //   ),
+
+                  // GroupedListView(
+                  //   elements: widget.services, 
+                  //   shrinkWrap: true,
+                  //   physics: NeverScrollableScrollPhysics(),
+                  //   groupBy: (services)=>Text('widget.services[1]'),
+                  //   groupHeaderBuilder: (services)=>SizedBox(),
+                  //   itemBuilder: (context, index){
+                  //     return ListTile(
+                  //   contentPadding: EdgeInsets.zero,
+                  //   leading: Icon(Icons.bookmark),
+                  //   title: Text('Add promo code', style: text16,),
+                  //   trailing: Icon(Icons.arrow_forward_ios, size: 15,),
+                  // );
+                  //   },
+                  // ),
+
                   Divider(),
+
                   ListTile(
                     contentPadding: EdgeInsets.zero,
                     leading: Icon(Icons.bookmark),
@@ -174,7 +254,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text('Subtotal'),
-                      Text('\$600'),
+                      Text('\$${widget.subtotal}'),
                     ],
                   ),
                   Row(
@@ -189,7 +269,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text('Service'),
-                      Text('\$60'),
+                      Text('\$$serviceCharge'),
                     ],
                   ),
           
@@ -197,7 +277,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text('Total', style: text21,),
-                      Text('\$660', style: titleText,),
+                      Text('\$${widget.subtotal + serviceCharge}', style: titleText,),
                     ],
                   ),
 
@@ -226,16 +306,16 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
             ),
           ),
           TextButton(
-                    onPressed: ()=>Get.to(()=>PlacingOrderSreen()),
-                    child: Text('Next \$xyx', style: titleText,),
-                    style: TextButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.zero
-                      ),
-                      minimumSize: const Size.fromHeight(60),
-                      backgroundColor: const Color(0xFF87CEEB),
-                    ),
-                  )
+            onPressed: ()=>Get.to(()=>PlacingOrderSreen()),
+            child: Text('Next \$ ${widget.subtotal + serviceCharge}', style: titleText,),
+            style: TextButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.zero
+              ),
+              minimumSize: const Size.fromHeight(60),
+              backgroundColor: const Color(0xFF87CEEB),
+            ),
+          )
         ],
       ),
     );

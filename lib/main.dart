@@ -12,7 +12,7 @@ void main() async {
 
 class MyApp extends StatelessWidget {
    MyApp({super.key});
-  
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      body: SafeArea(child: userPhone !='' && userPhone !=null ? HomeScreen() : SignUp()), 
+      body: SafeArea(child: userPhone !='' && userPhone !=null ? HomeScreen(currentIndex: 0,) : SignUp()), 
       // body: Center(
       //   child: Column(
       //     children: [

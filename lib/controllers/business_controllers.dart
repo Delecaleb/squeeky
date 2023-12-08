@@ -4,7 +4,7 @@ import 'package:squeeky/providers/api_data_provider.dart';
 import '../models/business_category.dart';
 import '../models/business_model.dart';
 
-class ServiceController extends GetxController {
+class BusinessController extends GetxController {
   final apiHandler = ApiDataProvider();
   RxBool isloading = true.obs;
   var businessCategories = <BusinessModel>[].obs;
@@ -20,6 +20,18 @@ class ServiceController extends GetxController {
     businessCategories.assignAll(categories);
     isloading(false);
   }
+
+  // BusinessModel ? findBusinessById(String businessId) {
+  //   return   businessCategories.firstWhere((business) => business.businessId == businessId, );
+  // }
+  BusinessModel? findBusinessById(String businessId) {
+  try {
+    return businessCategories.firstWhere((business) => business.businessId == businessId);
+  } catch (e) {
+    print("Business with ID $businessId not found.");
+    return null;
+  }
+}
 
 }
 

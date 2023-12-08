@@ -10,6 +10,7 @@ import 'package:squeeky/completed_orders_list.dart';
 import 'package:squeeky/controllers/update_profile_controller.dart';
 import 'package:squeeky/screens/account_wallet.dart';
 import 'package:squeeky/screens/favourite_screen.dart';
+import 'package:squeeky/screens/home.dart';
 import 'package:squeeky/screens/promotions.dart';
 import 'package:squeeky/style/textstyles.dart';
 import 'package:squeeky/widgets.dart';
@@ -231,6 +232,10 @@ class _EditProfileState extends State<EditProfile> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Edit account'),
+
+        actions: [
+          IconButton(onPressed: ()=>Get.offAll(()=>HomeScreen(currentIndex: 4)), icon: Icon(Icons.home))
+        ],
       ),
 
       body: SingleChildScrollView(
@@ -324,8 +329,10 @@ class _EditProfileState extends State<EditProfile> {
                 title: Text('Email Address'),
                 subtitle: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Text(box.read('userEmail'), style: titleText,),
+                    Expanded(child: Text(box.read('userEmail'), style: titleText,)),
+                    SizedBox(width: 15,),
                     Text('unverified'),
                   ],
                 ),

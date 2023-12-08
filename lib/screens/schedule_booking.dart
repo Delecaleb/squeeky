@@ -184,8 +184,10 @@ final scaffoldKey = GlobalKey<ScaffoldState>();
                         itemBuilder: (BuildContext context, index){
                           final serviceData = servicesOffered.services[index];
                           return InkWell(
-                              onTap: (){
+                              onTap: ()async{
+                                cartController.serviceName = serviceData.serviceName;
                                 cartController.serviceId = serviceData.serviceId;
+                                cartController.servicePrice = serviceData.servicePrice;
                                 Get.to(()=>ContinueScheduling(serviceExtras: serviceData.extras, serviceData: serviceData,));
                               },
                               child: Row(

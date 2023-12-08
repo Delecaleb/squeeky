@@ -13,7 +13,7 @@ import '../controllers/business_controllers.dart';
 class Delivery extends StatelessWidget {
   Delivery({Key? key}) : super(key: key);
 
-  final ServiceController serviceController = Get.put(ServiceController());
+  final BusinessController serviceController = Get.put(BusinessController());
 
   TextEditingController searchController = TextEditingController();
 

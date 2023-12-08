@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:squeeky/controllers/fetch_notification_controller.dart';
 import 'package:squeeky/style/textstyles.dart';
 
 class InboxMessagesScreen extends StatefulWidget {
@@ -81,12 +82,35 @@ class MessagesTab extends StatelessWidget {
 }
 
 class NotificationsTab extends StatelessWidget {
-  const NotificationsTab({Key? key}) : super(key: key);
+  
+  NotificationsTab({Key? key}) : super(key: key);
+  FetchNotificationController fetchNotificationController = Get.put(FetchNotificationController());
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      
+    return SingleChildScrollView(
+      physics: ScrollPhysics(),
+      child: Obx(() {
+          return fetchNotificationController.notificationData.isEmpty ?
+            Center(
+              child: Text("You’re all caught up"),
+            )
+            :
+            ListView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: fetchNotificationController.notificationData.length,
+              itemBuilder: (context, index){
+                var notifications = fetchNotificationController.notificationData[index];
+                return ListTile(
+                  leading: CircleAvatar(),
+                  title: Text(notifications.details, maxLines: 2, overflow: TextOverflow.ellipsis, style: text15B,),
+                  subtitle: Text(notifications.date, style: text12T,),
+                );
+              }
+            ); 
+        }
+      ),
     );
   }
 }

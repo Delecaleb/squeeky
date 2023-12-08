@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:squeeky/controllers/cart_contrroller.dart';
 import 'package:squeeky/screens/checkout.dart';
-import 'package:squeeky/style/textstyles.dart';
 
-import '../controllers/cart_contrroller.dart';
+import '../controllers/business_controllers.dart';
+import '../style/textstyles.dart';
 
-class OrderListScreen extends StatefulWidget {
+class Basket extends StatefulWidget {
+  
+  Basket({super.key});
+
   @override
-  _OrderListScreenState createState() => _OrderListScreenState();
-
+  State<Basket> createState() => _BasketState();
 }
 
-class _OrderListScreenState extends State<OrderListScreen> {
+class _BasketState extends State<Basket> {
   CartController cartController = Get.put(CartController());
+  BusinessController businessController = Get.find();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   int itemCount = 1; // Initial quantity
   int subtotal = 0;
@@ -29,8 +33,7 @@ class _OrderListScreenState extends State<OrderListScreen> {
   
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
+    return  Scaffold(
         key: scaffoldKey,
         appBar: AppBar(
           title: const Text('Order List'),
@@ -42,8 +45,7 @@ class _OrderListScreenState extends State<OrderListScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 itemCount: cartController.ordersList.length, // Replace with the number of order items you have
                 itemBuilder: (context, index) {
-                  var ordersData = cartController.ordersList[index];
-                  
+                  var ordersData = cartController.ordersList[index]; 
                   int servicePrice = ordersData.servicePrice;
                   subtotal += servicePrice; 
                   return Dismissible(
@@ -245,7 +247,6 @@ class _OrderListScreenState extends State<OrderListScreen> {
             )
           ],
         ),
-      ),
     );
   }
 }

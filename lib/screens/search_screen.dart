@@ -167,7 +167,7 @@ class _SearchScreenState extends State<SearchScreen> {
 class SearchResult extends StatelessWidget {
   SearchResult({super.key});
   SearchBusinessController businessResult = Get.put(SearchBusinessController());
-  
+  CartController cartController = Get.put(CartController());
   @override
   Widget build(BuildContext context) {
     return  SafeArea(
@@ -208,7 +208,10 @@ class SearchResult extends StatelessWidget {
               itemBuilder: (context, index) {
                 final businessData = businessResult.searchResult[index];
                 return BizContainerWidget(
-                              actionFunction: () => Get.to(()=>ScheduleBooking(businessDetails: businessData,)),
+                              actionFunction: ()async{
+                                 cartController.businessId = businessData.businessId;
+                                 Get.to(()=>ScheduleBooking(businessDetails: businessData,));
+                                 },
                               businessBanner: 'https://learncrib.com.ng/squeeky/dashboard/businessfiles/${businessData.imagePath}', 
                               businessName: businessData.business_name, 
                               bussinessDesc: businessData.businessDesc, 

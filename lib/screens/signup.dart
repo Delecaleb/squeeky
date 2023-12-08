@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:squeeky/controllers/create_account_controller.dart';
 import 'package:squeeky/screens/create_account.dart';
+import 'package:squeeky/screens/login.dart';
 import 'package:squeeky/style/textstyles.dart';
 
 class SignUp extends StatefulWidget {
@@ -73,7 +74,7 @@ class _SignUpState extends State<SignUp> {
                       ),
                     ],
                   ),
-                ),
+                ), 
                 SizedBox(height: 15,),
                 TextButton(
                   onPressed: (){
@@ -125,7 +126,7 @@ class _SignUpState extends State<SignUp> {
                     ),
                   ),
                 ),
-            
+                            
                 SizedBox(height: 10,),  
                 TextButton(
                   onPressed: null, 
@@ -138,6 +139,18 @@ class _SignUpState extends State<SignUp> {
                       
                     ],
                   ),
+                  style: TextButton.styleFrom(
+                    backgroundColor: Color.fromARGB(56, 119, 119, 119),
+                    minimumSize: Size.fromHeight(50),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5)
+                    ),
+                  ),
+                ),
+                SizedBox(height: 10,),  
+                TextButton(
+                  onPressed: ()=>Get.to(()=>LoginScreen()), 
+                  child: Text("Sign In"),
                   style: TextButton.styleFrom(
                     backgroundColor: Color.fromARGB(56, 119, 119, 119),
                     minimumSize: Size.fromHeight(50),

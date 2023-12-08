@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:squeeky/screens/categories.dart';
 import 'package:squeeky/screens/delivery.dart';
 import 'package:squeeky/screens/messages.dart';
-import 'package:squeeky/screens/orders.dart';
+import 'package:squeeky/screens/basket.dart';
 import 'package:squeeky/screens/profile.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({Key? key}) : super(key: key);
+  int currentIndex;
+  HomeScreen({Key? key, required this.currentIndex}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -14,12 +15,11 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   
-  int currentIndex = 0;
 
   List pages = [
     Delivery(),
     Categories(),
-    Orders(),
+    Basket(),
     InboxMessagesScreen(),
     Profile(),
   ];
@@ -34,9 +34,8 @@ class _HomeScreenState extends State<HomeScreen> {
         showUnselectedLabels: true,
         onTap: (int index){
           setState(() {
-            currentIndex = index;
+           widget.currentIndex = index;
           });
-          print(currentIndex);
         },
         items: const [
           BottomNavigationBarItem(
@@ -62,11 +61,11 @@ class _HomeScreenState extends State<HomeScreen> {
             label: 'Account'
           )
         ],
-        currentIndex: currentIndex,
+        currentIndex: widget.currentIndex,
         type: BottomNavigationBarType.fixed,
         ),
 
-        body: pages[currentIndex] ,
+        body: pages[widget.currentIndex] ,
     );
   }
 }

@@ -14,14 +14,14 @@ class PlacingOrderSreen extends StatefulWidget {
 class _PlacingOrderSreenState extends State<PlacingOrderSreen> {
   void initState() {
     // TODO: implement initState
-    // Timer(
-    //   Duration(seconds: 20),
-    //   (){
-    //     Navigator.of(context).pushReplacement(
-    //     MaterialPageRoute(builder: (context) => ReceiptScreen()),
-    //   );
-    //   }    
-    // );
+    Timer(
+      Duration(seconds: 20),
+      (){
+        Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => ReceiptScreen()),
+      );
+      }    
+    );
     super.initState();
   }
   @override
@@ -108,7 +108,7 @@ class ReceiptScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(icon : Icon(Icons.cancel), onPressed: () => Get.offAll(()=>HomeScreen()),),
+        leading: IconButton(icon : Icon(Icons.cancel), onPressed: () => Get.offAll(()=>HomeScreen(currentIndex: 0,)),),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -161,7 +161,7 @@ class ReceiptScreen extends StatelessWidget {
                     child: Text('10', textAlign: TextAlign.center, style: text17L,),
                     decoration: BoxDecoration(
                       border: Border.all()
-                      ),
+                      ), 
                   ),
                   title: Text('Deck Cleaning', style:text17L),
                   trailing: Text('\$200', style: text17L,),
