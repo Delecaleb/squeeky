@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:squeeky/controllers/cart_contrroller.dart';
-import 'package:squeeky/screens/orderlist.dart';
+import 'package:squeeky/screens/checkout_orderlist.dart';
 import 'package:squeeky/style/textstyles.dart';
 import 'package:squeeky/widgets.dart';
 

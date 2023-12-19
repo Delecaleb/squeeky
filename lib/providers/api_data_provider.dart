@@ -38,7 +38,7 @@ class ApiDataProvider {
     http.Response response = await http.post(Uri.parse(baseUrl), body: map);
     if(response.statusCode == 200){
      List  data = json.decode(response.body);
-      print(data);
+
       return data.map((data)=>BusinessModel.fromJson(data)).toList();
     }
     else {
@@ -60,7 +60,7 @@ class ApiDataProvider {
          return List<ServicesModel>.empty();
       }else{
         final List responseData = json.decode(response.body)['data'];
-        print(responseData);
+      
         return responseData.map((mapData) => ServicesModel.fromJson(mapData)).toList();
 
       }
@@ -122,12 +122,9 @@ class ApiDataProvider {
       map['action']= 'add_favourite';
       map['business_id'] = business_id;
       map['user_id'] = user_phone;
-      
       http.Response response = await http.post(Uri.parse(baseUrl), body: map);
-
       if(response.statusCode == 200){
-      final responseData = json.decode(response.body);
-     
+      final responseData = json.decode(response.body);  
       return responseData;
     }else{
       throw Exception("Error Occured");
@@ -148,12 +145,9 @@ class ApiDataProvider {
       map['serviceName'] = serviceName;
       map['businessId'] = businessId; 
 
-      print(map);     
       http.Response response = await http.post(Uri.parse(baseUrl), body: map);
-
       if(response.statusCode == 200){
       final responseData = json.decode(response.body);
-     
       return responseData;
     }else{
       throw Exception("Error Occured");
@@ -166,12 +160,9 @@ class ApiDataProvider {
       map['condition'] = condition;
       map['value'] = value;
       map['user_id'] = userId;
-      print(map);
       http.Response response = await http.post(Uri.parse(baseUrl), body: map);
-
       if(response.statusCode == 200){
       final responseData = json.decode(response.body);
-     
       return responseData;
     }else{
       throw Exception("Error Occured");
@@ -179,25 +170,17 @@ class ApiDataProvider {
   }
 
   Future UploadDpFile(File filePath, String user)async{
-  
     var request = http.MultipartRequest('POST', Uri.parse(baseUrl));
-
     var fileStream = http.ByteStream(Stream.castFrom(filePath.openRead()));
     var length = await filePath.length();
-
     var multipartFile = http.MultipartFile('file', fileStream, length,
         filename: filePath.path.split('/').last);
-
     request.files.add(multipartFile);
-
     request.fields['user'] = user;
     request.fields['action'] = 'upload_dp_file';
-
     var response = await http.Response.fromStream(await request.send());
-
     if (response.statusCode == 200) {
       final responseData = json.decode(response.body);
-      
       return responseData;
     } else {
       throw "Connection error";
@@ -267,6 +250,57 @@ class ApiDataProvider {
     map['action'] = "login_user";
     map['user_id'] = userId;
     map['password'] = password;
+    http.Response response = await http.post(Uri.parse(baseUrl), body: map );
+    if(response.statusCode == 200){
+      
+      final decodedResponse = json.decode(response.body);
+      return decodedResponse;
+      
+    }else{
+      throw Exception("Error Occured");
+    }
+  }
+
+    Future addQuantity(serviceid, userid)async{
+    var map = Map<String, dynamic>();
+
+    map['action'] = "increase_qty";
+    map['serviceid'] = serviceid;
+    map['userid'] = userid;
+    http.Response response = await http.post(Uri.parse(baseUrl), body: map );
+    if(response.statusCode == 200){
+      
+      final decodedResponse = json.decode(response.body);
+      return decodedResponse;
+      
+    }else{
+      throw Exception("Error Occured");
+    }
+  }
+
+  Future removeQuantity(serviceid, userid)async{
+    var map = Map<String, dynamic>();
+
+    map['action'] = "decrease_qty";
+    map['serviceid'] = serviceid;
+    map['userid'] = userid;
+    http.Response response = await http.post(Uri.parse(baseUrl), body: map );
+    if(response.statusCode == 200){
+      
+      final decodedResponse = json.decode(response.body);
+      return decodedResponse;
+      
+    }else{
+      throw Exception("Error Occured");
+    }
+  }
+
+  Future removeCartItem(serviceid, userid)async{
+    var map = Map<String, dynamic>();
+
+    map['action'] = "remove_item";
+    map['serviceid'] = serviceid;
+    map['userid'] = userid;
     http.Response response = await http.post(Uri.parse(baseUrl), body: map );
     if(response.statusCode == 200){
       

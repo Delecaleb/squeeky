@@ -7,6 +7,11 @@ import '../models/orders_model.dart';
 
 class CartController extends GetxController{
   var ordersList = <OrdersModel>[].obs;
+  RxBool isLoading = false.obs;
+  RxBool loadingQty = false.obs;
+  RxBool loadingQtyRm = false.obs;
+  RxBool removeItemLoading = false.obs;
+
   final apiHandler = ApiDataProvider();
   final box = GetStorage();
   var serviceId =''.obs(); 
@@ -24,17 +29,14 @@ class CartController extends GetxController{
     userId = box.read('userPhone');
   }
 
-  @override
-  void onInit() {
-    // TODO: implement onInit
-    super.onInit();
-    getOrders(userId);
-  }
+  
 
-  void getOrders(user_id)async{
+  void getOrders()async{
+    isLoading(true);
     final responseData = await apiHandler.fetchOrders(userId);
     final response= await apiHandler.fetchCheckOut(userId);
     ordersList.assignAll(responseData);
+    isLoading(false);
   }
 
   void addToOrders(){
@@ -44,4 +46,29 @@ class CartController extends GetxController{
   void addToCart(user_id)async{
     final responseData =  await apiHandler.addToCart(businessId,serviceId,serviceName, extraCategory, extraPrice, extraValue, timeArrival, bookingDate, servicePrice, user_id);
   }
+
+  void incrementQuantity(serviceid) async {
+     loadingQty(true);
+
+     final response = await apiHandler.addQuantity(serviceid, userId).then((value) {
+      loadingQty(false);
+     });
+  }
+
+  void decrementQuantity(serviceid) async {
+     loadingQtyRm(true);
+
+     final response = await apiHandler.removeQuantity(serviceid, userId).then((value) {
+      loadingQtyRm(false);
+     });
+  }
+
+  void removeItem(serviceid) async {
+     removeItemLoading(true);
+
+     final response = await apiHandler.removeCartItem(serviceid, userId).then((value) {
+      removeItemLoading(false);
+     });
+  }
+
 }

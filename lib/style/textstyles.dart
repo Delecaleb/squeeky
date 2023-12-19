@@ -141,6 +141,12 @@ var text12T = TextStyle(
   color: Color(0xFF717171),
   fontFamily: "Oswald"
 );
+
+var text12L = TextStyle(
+  fontSize: 12,
+  color: Color.fromARGB(255, 158, 158, 158),
+  fontFamily: "Oswald"
+);
 var text13 = TextStyle(
   fontSize: 13,
   fontWeight: FontWeight.w600,

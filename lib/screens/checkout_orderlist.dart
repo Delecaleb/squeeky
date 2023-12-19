@@ -1,30 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:squeeky/controllers/cart_contrroller.dart';
 import 'package:squeeky/screens/checkout.dart';
-import 'package:squeeky/widgets.dart';
+import 'package:squeeky/style/textstyles.dart';
 
-import '../controllers/business_controllers.dart';
-import '../style/textstyles.dart';
+import '../controllers/cart_contrroller.dart';
+import '../widgets.dart';
 
-class Basket extends StatefulWidget {
-  
-  Basket({super.key});
-
+class OrderListScreen extends StatefulWidget {
   @override
-  State<Basket> createState() => _BasketState();
+  _OrderListScreenState createState() => _OrderListScreenState();
+
 }
 
-class _BasketState extends State<Basket> {
+class _OrderListScreenState extends State<OrderListScreen> {
   CartController cartController = Get.put(CartController());
-  BusinessController businessController = Get.find();
-
-  @override
-  void initState() {
-    super.initState();
-    cartController.getOrders();
-  }
-
   final scaffoldKey = GlobalKey<ScaffoldState>();
   int itemCount = 1; // Initial quantity
   int subtotal = 0;
@@ -38,10 +27,17 @@ class _BasketState extends State<Basket> {
 
     return subtotal;
   }
+
+  @override
+  void initState() {
+    super.initState();
+    cartController.getOrders();
+  }
   
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return MaterialApp(
+      home: Scaffold(
         key: scaffoldKey,
         appBar: AppBar(
           title: const Text('Order List'),
@@ -272,15 +268,15 @@ class _BasketState extends State<Basket> {
                                   Text("Enter code"),
                                 ],
                               ),
-                               const Expanded(
+                               Expanded(
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Icon(Icons.approval_outlined, size: 40,),
+                                    const SizedBox(height: 25,),
+                                    const Text('Get your first promotion code'),
                                     SizedBox(height: 25,),
-                                    Text('Get your first promotion code'),
-                                    SizedBox(height: 25,),
-                                    Text('Invite a friend and save xyz on your first order')
+                                    const Text('Invite a friend and save xyz on your first order')
                                   ],
                                 )
                                 ),
@@ -311,6 +307,7 @@ class _BasketState extends State<Basket> {
             )
           ],
         ),
+      ),
     );
   }
 }

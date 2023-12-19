@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:grouped_list/grouped_list.dart';
+import 'package:squeeky/screens/pay_screen.dart';
 import 'package:squeeky/screens/placing_order.dart';
 import 'package:squeeky/style/textstyles.dart';
 
@@ -197,7 +198,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           tilePadding: EdgeInsets.zero,
                           leading: CircleAvatar(),
                           title: Text(businessDetails["business_name"], style: text17B,),
-                          subtitle: Text(businessDetails["services"].length.toString()),
+                          subtitle: Text(" ${businessDetails["services"].length.toString()} item(s)"),
                           children: businessDetails["services"].map<Widget>((service) {
                               return Text(
                                   "${service["service_name"]} - \$${service["price"]}");
@@ -205,15 +206,15 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         );
                     }
                   ),
-                  ExpansionTile(
-                    tilePadding: EdgeInsets.zero,
-                    leading: CircleAvatar(),
-                    title: Text('Power Washing Business', style: text17B,),
-                    subtitle: Text('2 items'),
-                    children: [
-                      Text('This is the service')
-                    ],
-                  ),
+                  // ExpansionTile(
+                  //   tilePadding: EdgeInsets.zero,
+                  //   leading: CircleAvatar(),
+                  //   title: Text('Power Washing Business', style: text17B,),
+                  //   subtitle: Text('2 items'),
+                  //   children: [
+                  //     Text('This is the service')
+                  //   ],
+                  // ),
 
                   // ListView.builder(
                   //   shrinkWrap: true,
@@ -306,7 +307,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
             ),
           ),
           TextButton(
-            onPressed: ()=>Get.to(()=>PlacingOrderSreen()),
+            onPressed: ()=>Get.to(()=>PaymentScreen(userId: userId,)),
             child: Text('Next \$ ${widget.subtotal + serviceCharge}', style: titleText,),
             style: TextButton.styleFrom(
               shape: RoundedRectangleBorder(

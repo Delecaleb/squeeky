@@ -367,29 +367,50 @@ class HomeScreenActionBtnWidget extends StatelessWidget {
 class ShimmerLoader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Shimmer.fromColors(
-      baseColor: Colors.grey[300]!,
-      highlightColor: Colors.grey[100]!,
-      child: Column(
-        children: [
-          Container(
-                width: Get.width,
-                height: 130.0,
-                color: Colors.white,
-              ),
-          SizedBox(height: 10,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                width: Get.width *0.7,
-                height: 60.0,
-                color: Colors.white,
-              ),
-              CircleAvatar(),
-            ],
-          ),
-        ],
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Shimmer.fromColors(
+        baseColor: Colors.grey[300]!,
+        highlightColor: Colors.grey[100]!,
+        child: Column(
+          children: [
+            Container(
+                  width: Get.width,
+                  height: 130.0,
+                  color: Colors.white,
+                ),
+            SizedBox(height: 10,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  width: Get.width *0.7,
+                  height: 60.0,
+                  color: Colors.white,
+                ),
+                CircleAvatar(),
+              ],
+            ),
+            SizedBox(height: 20,),
+            Container(
+                  width: Get.width,
+                  height: 130.0,
+                  color: Colors.white,
+                ),
+            SizedBox(height: 10,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  width: Get.width *0.5,
+                  height: 60.0,
+                  color: Colors.white,
+                ),
+                CircleAvatar(),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

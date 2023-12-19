@@ -32,7 +32,7 @@ class  LoginAccountController extends GetxController {
           storage.saveString('userAddress',  responseData['user_street_address']);
           storage.saveString('userPostalCode',  responseData['user_postcode']);
           storage.saveString('userPicture',  responseData['user_picture']);
-          // Get.offAll(() => HomeScreen(currentIndex: 0,));
+          Get.offAll(() => HomeScreen(currentIndex: 0,));
           isLoading(false);
       }else{
         Get.snackbar('Error', value['message']);

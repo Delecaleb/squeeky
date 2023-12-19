@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:squeeky/controllers/fetch_notification_controller.dart';
 import 'package:squeeky/style/textstyles.dart';
 
+import '../models/notification_model.dart';
+
 class InboxMessagesScreen extends StatefulWidget {
   InboxMessagesScreen({Key? key}) : super(key: key);
 
@@ -103,9 +105,10 @@ class NotificationsTab extends StatelessWidget {
               itemBuilder: (context, index){
                 var notifications = fetchNotificationController.notificationData[index];
                 return ListTile(
+                  onTap: ()=>Get.to(()=>NotificationDetailsScreen(notificationItem: notifications)),
                   leading: CircleAvatar(),
                   title: Text(notifications.details, maxLines: 2, overflow: TextOverflow.ellipsis, style: text15B,),
-                  subtitle: Text(notifications.date, style: text12T,),
+                  subtitle: Text(notifications.date, style: text12L,),
                 );
               }
             ); 
@@ -183,6 +186,32 @@ class _NewMessageScreenState extends State<NewMessageScreen> {
                 ),
               )
             ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
+class NotificationDetailsScreen extends StatelessWidget {
+  NotificationsModel notificationItem;
+  
+  NotificationDetailsScreen({Key? key, required this.notificationItem}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.symmetric(
+          horizontal: 20,
+        ),
+        child: ListTile(
+          title: Text(notificationItem.details),
+          subtitle: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(notificationItem.date, textAlign: TextAlign.end, style: text12L,),
           ),
         ),
       ),
