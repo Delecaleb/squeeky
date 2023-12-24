@@ -11,8 +11,6 @@ import '../models/completed_order_model.dart';
 class ReceiptScreen extends StatelessWidget {
   CompletedOrderModel completedOrder;
   ReceiptScreen({Key? key, required this.completedOrder}) : super(key: key);
-
-  @override
   
   @override
   Widget build(BuildContext context) {

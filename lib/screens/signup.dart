@@ -15,7 +15,7 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  var countryCode = 'United Kingdom';
+  var countryCode = 'Canada';
   var countryCallCode = "+44";
   var createAccount = Get.put(CreateAccountController());
   @override
