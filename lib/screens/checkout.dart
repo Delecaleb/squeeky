@@ -27,13 +27,12 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   void initState() {
     super.initState();
     apiHandler.fetchCheckOut(userId).then((data) {
+      print(data);
       setState(() {
         businessData = data;
       });
-
-      print(businessData);
     }).catchError((error) {
-      print("Error fetching data: $error");
+      throw("Error fetching data: $error");
     });
   }
   final scaffoldKey = GlobalKey <ScaffoldState>();
@@ -307,7 +306,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
             ),
           ),
           TextButton(
-            onPressed: ()=>Get.to(()=>PaymentScreen(userId: userId,)),
+            onPressed: ()=>Get.to(()=>PaymentScreen(userId: userId, businessData: businessData,)),
             child: Text('Next \$ ${widget.subtotal + serviceCharge}', style: titleText,),
             style: TextButton.styleFrom(
               shape: RoundedRectangleBorder(

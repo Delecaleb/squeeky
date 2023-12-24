@@ -34,7 +34,7 @@ class CartController extends GetxController{
   void getOrders()async{
     isLoading(true);
     final responseData = await apiHandler.fetchOrders(userId);
-    final response= await apiHandler.fetchCheckOut(userId);
+    // final response= await apiHandler.fetchCheckOut(userId);
     ordersList.assignAll(responseData);
     isLoading(false);
   }

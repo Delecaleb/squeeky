@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:location/location.dart';
-import 'package:squeeky/screens/address.dart';
+// import 'package:location/location.dart';
 import 'package:squeeky/screens/payment_method.dart';
 import 'package:squeeky/style/textstyles.dart';
 
@@ -15,36 +14,38 @@ class TermsAndConditions extends StatefulWidget {
 class _TermsAndConditionsState extends State<TermsAndConditions> {
   int currentIndex = 0;
   bool _agreeMent = false;
-  Location location = Location();
+  // Location location = Location();
 
-  void getLocationFunc() async {
-    bool _serviceEnabled;
+  // void getLocationFunc() async {
+  //   bool _serviceEnabled;
 
-    PermissionStatus _permissionGranted;
+  //   PermissionStatus _permissionGranted;
 
-    LocationData _locationData;
+  //   LocationData _locationData;
 
-    // check if location service is enabled
-    _serviceEnabled = await location.serviceEnabled();
-    if(!_serviceEnabled){
-      _serviceEnabled = await location.requestService();
-      if(!_serviceEnabled){
-        print('Service not enabled');
-        return;
-      }
-    }
+  //   // check if location service is enabled
+  //   _serviceEnabled = await location.serviceEnabled();
+  //   if(!_serviceEnabled){
+  //     _serviceEnabled = await location.requestService();
+  //     if(!_serviceEnabled){
+  //       print('Service not enabled');
+  //       return;
+  //     }
+  //   }
 
-    _permissionGranted = await location.hasPermission();
+  //   _permissionGranted = await location.hasPermission();
 
-    if(_permissionGranted == PermissionStatus.denied){
-        _permissionGranted = await location.requestPermission();
+  //   if(_permissionGranted == PermissionStatus.denied){
+  //       _permissionGranted = await location.requestPermission();
 
-        if(_permissionGranted !=PermissionStatus.granted){
-          return;
-        }
-    }
-    _locationData = await location.getLocation();
-  }
+  //       if(_permissionGranted !=PermissionStatus.granted){
+  //         return;
+  //       }
+  //   }
+  //   _locationData = await location.getLocation();
+  // }
+  
+  
   int totalIndex = 4;
   void gotoNext(){
     if(currentIndex < totalIndex -1){

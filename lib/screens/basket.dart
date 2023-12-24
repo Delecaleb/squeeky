@@ -50,13 +50,27 @@ class _BasketState extends State<Basket> {
           children: [
             Expanded(
               child: Obx(() {
-                  return cartController.isLoading.value ? ShimmerLoader() 
-                  
-                  : 
-                  
-                   ListView.builder(
+                  if(cartController.isLoading.value){
+                    return  ShimmerLoader(); 
+                  }else if(cartController.ordersList.isEmpty){
+                    return Container(
+                      width: Get.width,
+                      height: Get.height,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Image.asset("assets/cart.png"),
+                          SizedBox(height: 20,),
+                          Text("Empty Basket", style: text18,),
+                        ],
+                      ),
+                    );
+                  }                  
+                  else{
+                    return ListView.builder(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
-                    itemCount: cartController.ordersList.length, // Replace with the number of order items you have
+                    itemCount: cartController.ordersList.length, 
                     itemBuilder: (context, index) {
                       var ordersData = cartController.ordersList[index]; 
                       int servicePrice = ordersData.servicePrice;
@@ -238,78 +252,94 @@ class _BasketState extends State<Basket> {
                         ),
                       );
                     },
-                  );
+                  );  
+                  }
+                   
                 }
               ),
             ),
             
-            ListTile(
-              leading: const Icon(Icons.bookmark_border),
-              title: const Text('Add promo code Popular'),
-              trailing: const Icon(Icons.arrow_forward_ios),
-              onTap: (){
-                
-                scaffoldKey.currentState!.showBottomSheet(
-                  
-                (BuildContext context){
-                    return StatefulBuilder(
-                      builder: (BuildContext sheetContext, StateSetter setState) {
-                        return Container(
-                          color: Colors.white,
-                          height: Get.height,
-                          width: Get.width,
-                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            Obx(() {
+                return !cartController.isLoading.value && !cartController.ordersList.isEmpty ? ListTile(
+                  leading: const Icon(Icons.bookmark_border),
+                  title: const Text('Add promo code Popular'),
+                  trailing: const Icon(Icons.arrow_forward_ios),
+                  onTap: (){
+                    
+                    scaffoldKey.currentState!.showBottomSheet(
+                      
+                    (BuildContext context){
+                        return StatefulBuilder(
+                          builder: (BuildContext sheetContext, StateSetter setState) {
+                            return Container(
+                              color: Colors.white,
+                              height: Get.height,
+                              width: Get.width,
+                              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  IconButton(
-                                    icon: const Icon(Icons.close), 
-                                    onPressed: ()=>Navigator.pop(context),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      IconButton(
+                                        icon: const Icon(Icons.close), 
+                                        onPressed: ()=>Navigator.pop(context),
+                                        ),
+                                      Text("Enter code"),
+                                    ],
+                                  ),
+                                   const Expanded(
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Icon(Icons.approval_outlined, size: 40,),
+                                        SizedBox(height: 25,),
+                                        Text('Get your first promotion code'),
+                                        SizedBox(height: 25,),
+                                        Text('Invite a friend and save xyz on your first order')
+                                      ],
+                                    )
                                     ),
-                                  Text("Enter code"),
+                                  
+                                  ElevatedButton(onPressed: (){}, child: Text('Invite a friend')),
+                                  SizedBox(height: Get.height *0.15,)
                                 ],
                               ),
-                               const Expanded(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(Icons.approval_outlined, size: 40,),
-                                    SizedBox(height: 25,),
-                                    Text('Get your first promotion code'),
-                                    SizedBox(height: 25,),
-                                    Text('Invite a friend and save xyz on your first order')
-                                  ],
-                                )
-                                ),
-                              
-                              ElevatedButton(onPressed: (){}, child: Text('Invite a friend')),
-                              SizedBox(height: Get.height *0.15,)
-                            ],
-                          ),
+                            );
+                          }
                         );
                       }
                     );
-                  }
-                );
-              
-              },
+                  
+                  },
+                ):
+                Container();
+              }
             ),
-            ListTile(
-              leading: Text("Subtotal", style: text21,),
-              trailing: Text("\$${calculateSubtotal()}", style: text21,),
+            
+            Obx(() {
+                return !cartController.isLoading.value && !cartController.ordersList.isEmpty ? ListTile(
+                  leading: Text("Subtotal", style: text21,),
+                  trailing: Text("\$${calculateSubtotal()}", style: text21,),
+                ):
+                Text('');
+              }
             ),
-            TextButton(
-              onPressed: ()=>Get.to(()=>CheckOutScreen(services: cartController.ordersList, subtotal: calculateSubtotal(), )),
-              child: Text('Go to checkout', style: btnBoldLight,),
-              style: TextButton.styleFrom(
-                minimumSize: const Size.fromHeight(60),
-                backgroundColor: const Color(0xFF87CEEB),
-              ),
-            )
-          ],
+            Obx(() {
+                return !cartController.isLoading.value && !cartController.ordersList.isEmpty ? TextButton(
+                  onPressed: ()=>Get.to(()=>CheckOutScreen(services: cartController.ordersList, subtotal: calculateSubtotal(), )),
+                  child: Text('Go to checkout', style: btnBoldLight,),
+                  style: TextButton.styleFrom(
+                    minimumSize: const Size.fromHeight(60),
+                    backgroundColor: const Color(0xFF87CEEB),
+                  ),
+                ):
+                Text('');
+              }
+            ),
+            ]
+          
         ),
     );
   }

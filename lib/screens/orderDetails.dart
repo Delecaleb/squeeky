@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:squeeky/screens/placing_order.dart';
+import 'package:squeeky/screens/completed_orders_receipt.dart';
 import 'package:squeeky/screens/ratingservices.dart';
 import 'package:squeeky/style/textstyles.dart';
-import 'package:squeeky/widgets.dart';
+
+import '../models/completed_order_model.dart';
 
 class OrderDetailsScreen extends StatelessWidget {
-  const OrderDetailsScreen({super.key});
+  
+  CompletedOrderModel orderDetails;
+  
+  OrderDetailsScreen({super.key, required this.orderDetails});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Order #1813D'),
+        title: Text('Order #${orderDetails.servicesOfferedList[0].orderId}'),
 
         actions: [Text('Help')],
       ),
@@ -28,14 +32,14 @@ class OrderDetailsScreen extends StatelessWidget {
                   width: Get.width,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: NetworkImage('https://picsum.photos/250?image=1'),
+                      image: NetworkImage('https://learncrib.com.ng/squeeky/dashboard/businessfiles/${orderDetails.imagePath}'),
                       fit: BoxFit.cover
                       )
                   ),
                 ),
                 
-                 const ListTile(
-                   title: Text('Lawn Mowing Bussiness'),
+                ListTile(
+                   title: Text(orderDetails.businessName),
                 
                    subtitle: Text.rich(
                            TextSpan(
@@ -51,14 +55,20 @@ class OrderDetailsScreen extends StatelessWidget {
                    trailing: ElevatedButton(onPressed: ()=>Get.to(()=>RatingServicesScreen()), child: Text('Rate service')),
                  ), 
                 
-                 ExpansionTile(
+                 ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: orderDetails.servicesOfferedList.length,
+                  itemBuilder: (context, index2){
+                    var servicesOffered = orderDetails.servicesOfferedList[index2];
+                    return ExpansionTile(
                    leading: Container(
                      width: 24,
                      height: 24,
                      color: Color(0xFFEFECF0),
-                     child:  Text('1', style: text14, textAlign: TextAlign.center,),
+                     child:  Text('${index2+1}', style: text14, textAlign: TextAlign.center,),
                    ),
-                   title: Text('Basic Lawn Mowing'),
+                   title: Text(servicesOffered.serviceName),
                    subtitle: Text('Read more'),
                    trailing: Text(''),
                    expandedAlignment: Alignment.bottomLeft,
@@ -66,22 +76,43 @@ class OrderDetailsScreen extends StatelessWidget {
                    children: [
                      Text('data'),
                    ],
-                   ),
-                   ListTile(
-                      leading: Container(
-                        width: 24,
-                        height: 24,
-                        color: Color(0xFFEFECF0),
-                        child:  Text('1', style: text14, textAlign: TextAlign.center,),
-                      ),
-                      title: Text('Basic Lawn Mowing'),
-                      subtitle: ShowMoreLessWidget(fullText: "Choice of Lawn Size Large ( 20,000-25,000 sqft.) Choice grass height Medium Number of Trees 0"),
-                   ),
+                   );
+                  
+                  }
+
+                 ),
+                //  ExpansionTile(
+                //    leading: Container(
+                //      width: 24,
+                //      height: 24,
+                //      color: Color(0xFFEFECF0),
+                //      child:  Text('1', style: text14, textAlign: TextAlign.center,),
+                //    ),
+                //    title: Text('Basic Lawn Mowing'),
+                //    subtitle: Text('Read more'),
+                //    trailing: Text(''),
+                //    expandedAlignment: Alignment.bottomLeft,
+                //    childrenPadding: EdgeInsets.all(15),
+                //    children: [
+                //      Text('data'),
+                //    ],
+                //    ),
+                   
+                  //  ListTile(
+                  //     leading: Container(
+                  //       width: 24,
+                  //       height: 24,
+                  //       color: Color(0xFFEFECF0),
+                  //       child:  Text('1', style: text14, textAlign: TextAlign.center,),
+                  //     ),
+                  //     title: Text('Basic Lawn Mowing'),
+                  //     subtitle: ShowMoreLessWidget(fullText: "Choice of Lawn Size Large ( 20,000-25,000 sqft.) Choice grass height Medium Number of Trees 0"),
+                  //  ),
                    
               ],
             ),
             ElevatedButton(
-              onPressed: ()=>Get.to(()=>ReceiptScreen()), child: Text('View receipt'),
+              onPressed: ()=>Get.to(()=>ReceiptScreen(completedOrder: orderDetails,)), child: Text('View receipt'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Color(0xFFEFECF0),
                 minimumSize: Size.fromHeight(60),

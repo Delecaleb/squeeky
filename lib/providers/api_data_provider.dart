@@ -8,6 +8,7 @@ import 'package:squeeky/models/services_model.dart';
 
 import '../models/business_category.dart';
 import '../models/business_model.dart';
+import '../models/completed_order_model.dart';
 import '../models/favourites_model.dart';
 import '../models/notification_model.dart';
 import '../models/orders_model.dart';
@@ -237,6 +238,7 @@ class ApiDataProvider {
     http.Response response = await http.post(Uri.parse(baseUrl), body: map );
     if(response.statusCode == 200){
       final decodedResponse = json.decode(response.body);
+      print(decodedResponse);
       return List.from(decodedResponse["data"]);
       
     }else{
@@ -307,6 +309,29 @@ class ApiDataProvider {
       final decodedResponse = json.decode(response.body);
       return decodedResponse;
       
+    }else{
+      throw Exception("Error Occured");
+    }
+  }
+
+  Future <List<CompletedOrderModel>>fetchCompletedOrders(String userId)async{
+    var map = Map<String, dynamic>();
+
+    map['action'] = "fetch_completed_orders";
+    map['userId'] = userId;
+
+    http.Response response = await http.post(Uri.parse(baseUrl), body: map );
+    if(response.statusCode == 200){
+      final decodedResponse = json.decode(response.body);
+
+      print(decodedResponse);
+
+      if(decodedResponse['status']=='empty'){
+        return List<CompletedOrderModel>.empty();
+      }else{
+        final List responseData = decodedResponse['data'];
+        return responseData.map((mapData) => CompletedOrderModel.fromJson(mapData)).toList();
+      }
     }else{
       throw Exception("Error Occured");
     }
