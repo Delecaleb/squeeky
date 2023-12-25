@@ -54,7 +54,15 @@ class CompletedOrders extends StatelessWidget {
                   onTap: () => Get.to(()=>OrderDetailsScreen(orderDetails: completedOrders,)),
                   leading: Image.network("https://learncrib.com.ng/squeeky/dashboard/businessfiles/${completedOrders.imagePath}"),
                   title: Text(completedOrders.businessName),
-                  subtitle: Text("${completedOrders.servicesOfferedList.length} item(s) \$298.03 \n 01 Nov Completed "),
+                  subtitle: Text.rich( TextSpan(text: "${completedOrders.servicesOfferedList.length} item(s) \$${completedOrders.total} \n", 
+                  children: [
+                    TextSpan(
+                      text: completedOrders.dateCompleted, style: TextStyle(
+                        color:  completedOrders.dateCompleted.toLowerCase() =='pending' ? Color.fromARGB(255, 195, 134, 130) : Colors.green,
+                      )
+                    )
+                  ]
+                  )),
                 ); 
             }
             );

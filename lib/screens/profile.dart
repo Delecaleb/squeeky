@@ -11,6 +11,7 @@ import 'package:squeeky/controllers/update_profile_controller.dart';
 import 'package:squeeky/screens/account_wallet.dart';
 import 'package:squeeky/screens/favourite_screen.dart';
 import 'package:squeeky/screens/home.dart';
+import 'package:squeeky/screens/login.dart';
 import 'package:squeeky/screens/promotions.dart';
 import 'package:squeeky/style/textstyles.dart';
 import 'package:squeeky/widgets.dart';
@@ -154,7 +155,12 @@ class ViewProfile extends StatelessWidget {
               color: Color(0xFFF7F4F8),
             ),
             InkWell(
-              onTap: null,
+              onTap: (){
+                /// remove all storage data
+                box.erase();                
+                /// navigate to login screen
+                Get.to(()=>LoginScreen());
+              },
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                 width: double.maxFinite,

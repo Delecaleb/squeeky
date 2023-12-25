@@ -4,7 +4,9 @@ import 'package:get/get.dart';
 import 'package:squeeky/style/textstyles.dart';
 
 class RatingServicesScreen extends StatefulWidget {
-  const RatingServicesScreen({Key? key}) : super(key: key);
+  String imagePath, businessName, service, businessId, servicesId, orderId;
+  
+  RatingServicesScreen({Key? key, required this.businessName, required this.service, required this.imagePath, required this.orderId, required this.servicesId, required this.businessId}) : super(key: key);
 
   @override
   State<RatingServicesScreen> createState() => _RatingServicesScreenState();

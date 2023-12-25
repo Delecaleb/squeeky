@@ -44,15 +44,22 @@ class OrderDetailsScreen extends StatelessWidget {
                    subtitle: Text.rich(
                            TextSpan(
                            children: [
-                             TextSpan(text: 'Order completed . ', style: TextStyle(color: Color(0xFF0F984A))),
-                             TextSpan(text: 'Today at 15:06')
+                            if(orderDetails.dateCompleted.toLowerCase() =='pending')...[
+                              TextSpan(text: "Order ${orderDetails.dateCompleted}", style: TextStyle(color:  Color.fromARGB(255, 195, 134, 130))),
+                            ]else...[
+                                 TextSpan(text: "Order Completed  ", style: TextStyle(color: Color(0xFF0F984A))),  TextSpan(text: '${orderDetails.dateCompleted}')
+                            ],
+                             
                            ]
                          )
                          ),
                    ),
                  ListTile(
                    title: Text('Your order', style: text21,),
-                   trailing: ElevatedButton(onPressed: ()=>Get.to(()=>RatingServicesScreen()), child: Text('Rate service')),
+                   trailing: ElevatedButton(
+                    /// if order is pending no rating allow
+                    onPressed: orderDetails.dateCompleted.toLowerCase() =='pending' ? null : ()=>Get.to(()=>RatingServicesScreen(businessId: '', businessName: orderDetails.businessName, imagePath: orderDetails.imagePath, orderId: '', service: '', servicesId: '',)), child: Text('Rate service')
+                    ),
                  ), 
                 
                  ListView.builder(

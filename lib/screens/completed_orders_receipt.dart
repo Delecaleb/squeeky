@@ -41,7 +41,7 @@ class ReceiptScreen extends StatelessWidget {
                 
                 ListTile(
                   title: Text("Total", style: text34,),
-                  trailing: Text('\$ 600', style: text34),
+                  trailing: Text('\$${completedOrder.total}', style: text34),
                 ),
                 SizedBox(height: 25,),
                 Divider(
@@ -66,7 +66,7 @@ class ReceiptScreen extends StatelessWidget {
                               ),
                           ),
                           title: Text(services.serviceName, style:text17L),
-                          trailing: Text('\$200', style: text17L,),
+                          trailing: Text('\$${services.serviceTotal}', style: text17L,),
                         );
                   }
                 
@@ -79,12 +79,12 @@ class ReceiptScreen extends StatelessWidget {
                 SizedBox(height: 25,),
                 ListTile(
                   title: Text("Subtotal", style: text17L,),
-                  trailing: Text('\$ 600', style: text17L),
+                  trailing: Text('\$${completedOrder.subTotal}', style: text17L),
                 ),
                 SizedBox(height: 25,),
                 ListTile(
                   title: Text("Service fee", style: text17L,),
-                  trailing: Text('\$ 600', style: text17L),
+                  trailing: Text('\$ ${completedOrder.serviceCharge}', style: text17L),
                 ),
                 SizedBox(height: 15,),
                 Text('Payments', style: text18,),
