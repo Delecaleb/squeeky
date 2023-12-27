@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:squeeky/controllers/fetch_notification_controller.dart';
+import 'package:squeeky/controllers/messages_contact_controller.dart';
 import 'package:squeeky/style/textstyles.dart';
 
 import '../models/notification_model.dart';
@@ -47,8 +48,11 @@ class _InboxMessagesScreenState extends State<InboxMessagesScreen> with SingleTi
 }
 
 class MessagesTab extends StatelessWidget {
-  const MessagesTab({Key? key}) : super(key: key);
+  
+  MessagesTab({Key? key}) : super(key: key);
 
+  MessagesContactController messageContacts = Get.put(MessagesContactController());
+  
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
