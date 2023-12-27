@@ -370,7 +370,7 @@ class ShimmerLoader extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Shimmer.fromColors(
-        baseColor: Colors.grey[300]!,
+        baseColor: Color.fromARGB(255, 234, 233, 233)!,
         highlightColor: Colors.grey[100]!,
         child: Column(
           children: [

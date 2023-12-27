@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:squeeky/style/textstyles.dart';
 
+import '../providers/api_data_provider.dart';
+
 class RatingServicesScreen extends StatefulWidget {
-  String imagePath, businessName, service, businessId, servicesId, orderId;
+  String imagePath, businessName,  businessId;
+  List<String> serviceId; 
+  List<String> orderId ;
   
-  RatingServicesScreen({Key? key, required this.businessName, required this.service, required this.imagePath, required this.orderId, required this.servicesId, required this.businessId}) : super(key: key);
+  RatingServicesScreen({Key? key, required this.businessName, required this.imagePath, required this.orderId, required this.serviceId, required this.businessId}) : super(key: key);
 
   @override
   State<RatingServicesScreen> createState() => _RatingServicesScreenState();
@@ -14,6 +19,28 @@ class RatingServicesScreen extends StatefulWidget {
 
 class _RatingServicesScreenState extends State<RatingServicesScreen> {
   double initialRate = 0;
+  final box = GetStorage();
+
+  late String userId;
+  late bool status = false;
+  late double currentRate;
+
+  final apiProvider = ApiDataProvider();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    userId = box.read('userPhone');
+
+    apiProvider.checkServiceRating(widget.businessId, userId, widget.serviceId, widget.orderId).then((value){
+      setState(() {
+        status = value['status'];
+        initialRate = value['rate'];
+      });
+    });
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,8 +51,8 @@ class _RatingServicesScreenState extends State<RatingServicesScreen> {
         children: [
           Container(
                     padding: EdgeInsets.symmetric(horizontal:20, vertical: 25),
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(image: NetworkImage('https://picsum.photos/250?image=1'),
+                    decoration: BoxDecoration(
+                      image: DecorationImage(image: NetworkImage('https://learncrib.com.ng/squeeky/dashboard/businessfiles/${widget.imagePath}'),
                       fit: BoxFit.cover
                       ),
                     ),
@@ -48,11 +75,14 @@ class _RatingServicesScreenState extends State<RatingServicesScreen> {
                     direction: Axis.horizontal,
                     allowHalfRating: true,
                     itemCount: 5, 
+                    ignoreGestures: !status,
                     itemBuilder: (context, _)=>Icon(Icons.star, color: Colors.amber,), 
                     onRatingUpdate: (double value) { 
-                      setState(() {
-                        initialRate = value;
-                      });
+                      if (!status) {
+                        setState(() {
+                          initialRate = value;
+                        });
+                      }
                      },
                   ),
                   SizedBox(height: 30,),
@@ -64,8 +94,15 @@ class _RatingServicesScreenState extends State<RatingServicesScreen> {
               ),
             )
             ),
+          if(status! )...[
+
           ElevatedButton(
-              onPressed: ()=>Get.to(()=>RateResponse()),
+              onPressed: status! ? null : (){
+                // add rating
+                apiProvider.rateService(widget.businessId, userId, widget.serviceId, widget.orderId, initialRate.toString(), 'review').then((value){
+                });
+                Get.to(()=>RateResponse());
+              },
               child: Text('Submit', style: btnBoldLight,),
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size.fromHeight(60),
@@ -73,6 +110,7 @@ class _RatingServicesScreenState extends State<RatingServicesScreen> {
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero)
               ),
             )
+          ] 
         ],
       ),
     );

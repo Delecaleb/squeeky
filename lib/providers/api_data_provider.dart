@@ -9,6 +9,7 @@ import 'package:squeeky/models/services_model.dart';
 import '../models/business_category.dart';
 import '../models/business_model.dart';
 import '../models/completed_order_model.dart';
+import '../models/contact_model.dart';
 import '../models/favourites_model.dart';
 import '../models/notification_model.dart';
 import '../models/orders_model.dart';
@@ -336,5 +337,57 @@ class ApiDataProvider {
       throw Exception("Error Occured");
     }
   }
+
+  Future rateService(String businessId, String userId, List<String> serviceId, List<String> orderId, rating, review)async{
+      var map = Map<String, dynamic>();
+      map['action']= 'rate_service';
+      map['business_id'] = businessId;
+      map['user_id'] = userId;
+      map['service_id'] = serviceId.join(',');
+      map['order_id'] = orderId.join(',');
+      map['rating'] = rating;
+      map['review'] = review;
+      
+      http.Response response = await http.post(Uri.parse(baseUrl), body: map);
+      if(response.statusCode == 200){
+      final responseData = json.decode(response.body);  
+      return responseData;
+    }else{
+      throw Exception("Error Occured");
+    }
+  }
+
+  Future checkServiceRating(String businessId, String userId, List<String> serviceId, List<String> orderId)async{
+      var map = Map<String, dynamic>();
+      map['action']= 'check_service_rating';
+      map['business_id'] = businessId;
+      map['user_id'] = userId;
+      map['service_id'] = serviceId.join(',');
+      map['order_id'] = orderId.join(',');      
+      http.Response response = await http.post(Uri.parse(baseUrl), body: map);
+      if(response.statusCode == 200){
+      final responseData = json.decode(response.body);  
+      return responseData;
+    }else{
+      throw Exception("Error Occured");
+    }
+  }
+
+  Future <List<ContactModel>> getContactList (userId) async {
+    var map = Map<String, dynamic>();
+
+    map['action'] = 'get_contact_list';
+    map['user_id'] = userId;
+
+    http.Response response = await http.post(Uri.parse(baseUrl), body: map);
+    if(response.statusCode == 200){
+      final responseData = json.decode(response.body);
+      return responseData.map((mapData)=>ContactModel.fromJson(mapData)).toList();
+    }else{
+      throw Exception("Error Occured");
+    }
+
+  }
+
 
 }

@@ -16,7 +16,7 @@ class OrderDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Order #${orderDetails.servicesOfferedList[0].orderId}'),
+        title: Text('Order #${orderDetails.servicesOfferedList[0].paymentId}'),
 
         actions: [Text('Help')],
       ),
@@ -57,8 +57,20 @@ class OrderDetailsScreen extends StatelessWidget {
                  ListTile(
                    title: Text('Your order', style: text21,),
                    trailing: ElevatedButton(
+
                     /// if order is pending no rating allow
-                    onPressed: orderDetails.dateCompleted.toLowerCase() =='pending' ? null : ()=>Get.to(()=>RatingServicesScreen(businessId: '', businessName: orderDetails.businessName, imagePath: orderDetails.imagePath, orderId: '', service: '', servicesId: '',)), child: Text('Rate service')
+                    onPressed: orderDetails.dateCompleted.toLowerCase() =='pending' ? null : (){
+                    final orderIds = orderDetails.servicesOfferedList.map((service) => service.orderId).toList();
+                    final serviceIds = orderDetails.servicesOfferedList.map((e) => e.serviceId).toList();
+                      Get.to(()=>RatingServicesScreen(
+                        businessId: orderDetails.businessId, 
+                        businessName: orderDetails.businessName, 
+                        imagePath: orderDetails.imagePath, 
+                        orderId: orderIds,  
+                        serviceId: serviceIds)
+                      ); 
+                    },
+                      child: Text('Rate service')
                     ),
                  ), 
                 
