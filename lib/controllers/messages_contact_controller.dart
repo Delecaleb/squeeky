@@ -7,6 +7,8 @@ import '../models/contact_model.dart';
 class MessagesContactController extends GetxController{
   var contactsList = <ContactModel>[].obs;
   
+  RxBool isLoading = false.obs;
+
   final apiHandler = ApiDataProvider();
   
   var box = GetStorage();
@@ -23,8 +25,10 @@ class MessagesContactController extends GetxController{
     fetchContacts();
   } 
 
-  void fetchContacts(){
-    var contactData = apiHandler.getContactList(userId);
-    contactsList.assignAll(contactsList);
+  void fetchContacts()async{
+    isLoading(true);
+    final contactData = await apiHandler.getContactList(userId);
+    contactsList.assignAll(contactData);
+    isLoading(false);
   }
 }

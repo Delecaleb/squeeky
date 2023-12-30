@@ -81,7 +81,7 @@ class ApiDataProvider {
     http.Response response = await http.post(Uri.parse(baseUrl), body: map );
     if(response.statusCode == 200){
       final decodedResponse = json.decode(response.body);
-      print(decodedResponse);
+      
       if(decodedResponse['status']=='empty'){
         return List<FavouritesModel>.empty();
       }else{
@@ -215,7 +215,7 @@ class ApiDataProvider {
 
     map['action'] = "fetch_notification";
     map['user_id'] = userId;
-    print(map);
+    
     http.Response response = await http.post(Uri.parse(baseUrl), body: map );
     if(response.statusCode == 200){
       final decodedResponse = json.decode(response.body);
@@ -239,7 +239,7 @@ class ApiDataProvider {
     http.Response response = await http.post(Uri.parse(baseUrl), body: map );
     if(response.statusCode == 200){
       final decodedResponse = json.decode(response.body);
-      print(decodedResponse);
+      
       return List.from(decodedResponse["data"]);
       
     }else{
@@ -325,8 +325,6 @@ class ApiDataProvider {
     if(response.statusCode == 200){
       final decodedResponse = json.decode(response.body);
 
-      print(decodedResponse);
-
       if(decodedResponse['status']=='empty'){
         return List<CompletedOrderModel>.empty();
       }else{
@@ -380,13 +378,59 @@ class ApiDataProvider {
     map['user_id'] = userId;
 
     http.Response response = await http.post(Uri.parse(baseUrl), body: map);
+    
     if(response.statusCode == 200){
-      final responseData = json.decode(response.body);
-      return responseData.map((mapData)=>ContactModel.fromJson(mapData)).toList();
+      final decodedResponse = json.decode(response.body);
+      
+      if(decodedResponse['status']=='empty'){
+        return List<ContactModel>.empty();
+      }else{
+        final List responseData = decodedResponse['data'];
+        // print(responseData);
+        return  responseData.map((mapData) => ContactModel.fromJson(mapData)).toList();
+      }
     }else{
       throw Exception("Error Occured");
     }
 
+  }
+
+  
+Future<List<Map<String, dynamic>>> getMessages(userId, businessId) async {
+  var map = Map<String, dynamic>();
+
+  map['action'] = 'get_messages';
+  map['user_id'] = userId;
+  map['business_id'] = businessId;
+
+  http.Response response = await http.post(Uri.parse(baseUrl), body: map);
+
+  if (response.statusCode == 200) {
+    final decodedResponse = json.decode(response.body);
+    final responseData = decodedResponse['data'];
+    print(responseData);
+    return List<Map<String, dynamic>>.from(responseData);
+  } else {
+    throw Exception("Error Occurred");
+  }
+}
+
+  Future saveMessages(userId, businessId, textMessage) async {
+    var map = Map<String, dynamic>();
+
+    map['action'] = 'save_messages';
+    map['user_id'] = userId;
+    map['business_id'] = businessId;
+    map['textMessage']= textMessage;  
+
+    http.Response response = await http.post(Uri.parse(baseUrl), body: map);
+    
+    if(response.statusCode == 200){
+      final decodedResponse = json.decode(response.body);
+        return  decodedResponse; 
+    }else{
+      throw Exception("Error Occured");
+    }
   }
 
 
