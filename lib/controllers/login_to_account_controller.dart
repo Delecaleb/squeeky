@@ -9,6 +9,7 @@ class  LoginAccountController extends GetxController {
   var serviceHandler = ApiDataProvider();
   final StorageService storage = StorageService();
   RxBool isLoading = false.obs;
+  RxString errorMsg = ''.obs;
 
   TextEditingController userController = TextEditingController();
 
@@ -19,10 +20,10 @@ class  LoginAccountController extends GetxController {
     serviceHandler.LoginUser(userController.text, passwordController.text)
         .then((value) async {
       
-      final responseData = value['data'][0];
 
-      print(responseData['user_phone']);
       if(value['status'] =="done"){
+      final responseData = value['data'][0];
+      print(responseData['user_phone']);
           Get.snackbar('Done', value['message']);
           storage.saveString('userPhone', responseData['user_phone']);
           storage.saveString('userEmail', responseData['user_email']);
@@ -35,7 +36,9 @@ class  LoginAccountController extends GetxController {
           Get.offAll(() => HomeScreen(currentIndex: 0,));
           isLoading(false);
       }else{
+        errorMsg(value['message']);
         Get.snackbar('Error', value['message']);
+        isLoading(false);
       }
     });
   }

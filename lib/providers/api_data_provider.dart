@@ -257,6 +257,7 @@ class ApiDataProvider {
     if(response.statusCode == 200){
       
       final decodedResponse = json.decode(response.body);
+      print(decodedResponse);
       return decodedResponse;
       
     }else{

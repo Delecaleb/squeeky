@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:squeeky/screens/create_account.dart';
+import 'package:squeeky/screens/signup.dart';
 import 'package:squeeky/style/textstyles.dart';
 
 import '../controllers/login_to_account_controller.dart';
@@ -32,7 +33,16 @@ class LoginScreen extends StatelessWidget {
                 InputWidget(label: 'User ID e.g name@example.com', input_controller: loginToAccount.userController, inputIcon: Icon(Icons.mail_outline), obscureText:false),
                 SizedBox(height: 10,),
                 InputWidget(label: 'password', input_controller: loginToAccount.passwordController, inputIcon: Icon(Icons.lock_outline_rounded), obscureText:true),
+                
                 SizedBox(height: 10,),
+                
+                Obx(() {
+                    return Text(loginToAccount.errorMsg.value, style: TextStyle(color: Colors.red),);
+                  }
+                ),
+
+                SizedBox(height: 10,),
+
                 Obx(() {
                     return loginToAccount.isLoading.value ? 
                     Center(child: CircularProgressIndicator()) 
@@ -73,7 +83,7 @@ class LoginScreen extends StatelessWidget {
                     ),
                 SizedBox(height: 20,),
                 TextButton(
-                  onPressed: null, 
+                  onPressed: ()=>Get.to(()=>SignUp()), 
                   child: Text('Create Account'),
                   
                   style: TextButton.styleFrom(

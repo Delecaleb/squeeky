@@ -31,12 +31,9 @@ class _SignUpState extends State<SignUp> {
               children: [
                 Text('Enter your mobile number', style: text20,),
                 SizedBox(height: 15,),
-                Container(
-                  width: Get.width,
-                  child: Row(
-                    children: [
-                      Container(
-                        child: CountryCodePicker(
+                ListTile(
+                  contentPadding: EdgeInsets.zero,                  
+                  leading: CountryCodePicker(
                           initialSelection: countryCode,
                           showDropDownButton: true,
                           padding: EdgeInsets.all(2),
@@ -48,10 +45,7 @@ class _SignUpState extends State<SignUp> {
                             });
                           },
                         ),
-                      ),
-                
-                      Expanded(
-                        child: TextField(
+                  title: TextField(
                           inputFormatters: [
                             FilteringTextInputFormatter.digitsOnly,
                           ],
@@ -71,10 +65,52 @@ class _SignUpState extends State<SignUp> {
                             ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                ), 
+                ),
+                // Container(
+                //   width: Get.width,
+                //   child: Row(
+                //     children: [
+                //       Container(
+                //         child: CountryCodePicker(
+                //           initialSelection: countryCode,
+                //           showDropDownButton: true,
+                //           padding: EdgeInsets.all(2),
+                //           hideMainText: true,
+                //           showFlag: true,
+                //           onChanged: (value) {
+                //             setState(() {
+                //              countryCallCode = value.toString();
+                //             });
+                //           },
+                //         ),
+                //       ),
+                
+                //       Expanded(
+                //         child: TextField(
+                //           inputFormatters: [
+                //             FilteringTextInputFormatter.digitsOnly,
+                //           ],
+                //           controller: createAccount.phoneNumberController,
+                //           keyboardType: TextInputType.phone,
+                //           decoration: InputDecoration(
+                //             border: InputBorder.none,
+                //             focusColor: Color(0xFFEFECF0),
+                //             fillColor: Color(0xFFEFECF0),
+                //             focusedBorder: OutlineInputBorder(
+                //               borderSide: BorderSide(color: Colors.black,)
+                //             ),
+                //             filled: true,
+                //             prefixIcon: Padding(
+                //               padding: const EdgeInsets.only(top:10.0, left: 5),
+                //               child: Text(countryCallCode, style: text14,),
+                //             ),
+                //           ),
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ), 
+                
                 SizedBox(height: 15,),
                 TextButton(
                   onPressed: (){
