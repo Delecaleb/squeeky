@@ -7,8 +7,8 @@ import 'package:squeeky/screens/success_payment_reciept.dart';
 import 'package:squeeky/style/textstyles.dart';
 
 class PlacingOrderSreen extends StatefulWidget {
-  List<dynamic> paidOrders;
-  PlacingOrderSreen({Key? key, required this.paidOrders}) : super(key: key);
+  List<dynamic> paidOrders ; String total, subtotal, serviceFee, businessName;
+  PlacingOrderSreen({Key? key, required this.paidOrders, required this.total, required this.subtotal, required this.businessName, required this.serviceFee}) : super(key: key);
 
   @override
   State<PlacingOrderSreen> createState() => _PlacingOrderSreenState();
@@ -21,7 +21,7 @@ class _PlacingOrderSreenState extends State<PlacingOrderSreen> {
       Duration(seconds: 5),
       (){
         Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => SucessPaymentReceiptScreen( successPayment: widget.paidOrders,)),
+        MaterialPageRoute(builder: (context) => SucessPaymentReceiptScreen( successPayment: widget.paidOrders, businessName: '', serviceFee: '', subtotal: '', total: '',)),
       );
       }    
     );

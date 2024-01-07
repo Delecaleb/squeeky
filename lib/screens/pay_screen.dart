@@ -34,7 +34,7 @@ class PaymentScreen extends StatelessWidget {
 
         if (request.url.startsWith('http://success-squeek-flutter')) {
           // String? amount = await responseUri.queryParameters['amount'];
-          Get.to(()=>PlacingOrderSreen(paidOrders: businessData,));
+          Get.to(()=>PlacingOrderSreen(paidOrders: businessData, businessName: '', serviceFee: '', subtotal: '', total: '',));
           return NavigationDecision.prevent;
         }else if(request.url.startsWith('http://error-squeek-pay')){
 

@@ -18,8 +18,8 @@ class PaymentMethod extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           children: [
-            Text('Select your preferred payment method', style: text26,),
-      
+            // Text('Select your preferred payment method', style: text26,),
+            Text('Squeeky payment method', style: text26,),
             ListTile(
               contentPadding: EdgeInsets.zero,
               leading: Container(
@@ -39,7 +39,8 @@ class PaymentMethod extends StatelessWidget {
               leading: Icon(Icons.credit_card),
               title: Text('Credit or debit card'),
               trailing: Icon(Icons.arrow_forward_ios_rounded, size: 15,),
-              onTap: () => Get.to(()=>CreditCard()),
+              // onTap: () => Get.to(()=>CreditCard()),
+              onTap: () => Get.to(()=>Address()),
             ),
           ],
         ),

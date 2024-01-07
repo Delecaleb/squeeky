@@ -9,6 +9,7 @@ class CreateAccountController extends GetxController {
   var serviceHandler = ApiDataProvider();
   final StorageService storage = StorageService();
   RxBool isLoading = false.obs;
+  RxString phoneNumberWithCcode = ''.obs;
   TextEditingController address = TextEditingController();
   TextEditingController postalCode = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -31,7 +32,7 @@ class CreateAccountController extends GetxController {
             lastNameController.text,
             emailController.text,
             passwordController.text,
-            phoneNumberController.text,
+            phoneNumberWithCcode,
             address.text,
             postalCode.text,
             buildingNameController.text,
@@ -45,7 +46,7 @@ class CreateAccountController extends GetxController {
       isLoading(false);
       print(value);
       if(value['status'] =="done"){
-          storage.saveString('userPhone', phoneNumberController.text);
+          storage.saveString('userPhone', phoneNumberWithCcode.value);
           storage.saveString('userEmail', emailController.text);
           storage.saveString('userFirstName', firstNameController.text);
           storage.saveString('userLastName', lastNameController.text);

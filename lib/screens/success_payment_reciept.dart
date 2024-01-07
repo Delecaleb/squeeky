@@ -4,13 +4,13 @@ import 'package:squeeky/screens/home.dart';
 import 'package:squeeky/style/textstyles.dart';
 
 class SucessPaymentReceiptScreen extends StatelessWidget {
-  List<dynamic> successPayment;
-  SucessPaymentReceiptScreen({Key? key, required this.successPayment}) : super(key: key);
-
+  List<dynamic> successPayment; String total, subtotal, serviceFee, businessName;
+  SucessPaymentReceiptScreen({Key? key, required this.successPayment, required this.total, required this.subtotal, required this.businessName, required this.serviceFee}) : super(key: key);
   @override
   
   @override
   Widget build(BuildContext context) {
+  print(successPayment);
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(icon : Icon(Icons.cancel), onPressed: () => Get.offAll(()=>HomeScreen(currentIndex: 0,)),),
@@ -38,7 +38,7 @@ class SucessPaymentReceiptScreen extends StatelessWidget {
                 
                 ListTile(
                   title: Text("Total", style: text34,),
-                  trailing: Text('\$ 600', style: text34),
+                  trailing: Text('\$$total', style: text34),
                 ),
                 SizedBox(height: 25,),
                 Divider(

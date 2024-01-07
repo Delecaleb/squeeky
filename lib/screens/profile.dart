@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:squeeky/completed_orders_list.dart';
 import 'package:squeeky/controllers/update_profile_controller.dart';
 import 'package:squeeky/screens/account_wallet.dart';
@@ -62,26 +63,29 @@ class Profile extends StatelessWidget {
             ListTile(
               leading: Icon(Icons.line_style),
               title: Text('Promotions'),
+              subtitle: Text('Coming soon', style: text12L,),
               onTap: ()=>Get.to(()=>Promotions()),
             ),
-            SizedBox(height: 20,),
-            ListTile(
-              leading: Icon(Icons.control_camera_rounded),
-              title: Text('Help'),
-            ),
-            SizedBox(height: 20,),
+          const  SizedBox(height: 20,),
+          // const  ListTile(
+          //     leading: Icon(Icons.control_camera_rounded),
+          //     title: Text('Help'),
+          //   ),
+            // SizedBox(height: 20,),
             ListTile(
               leading: Icon(Icons.stars),
               title: Text('Services Rewards'),
+              subtitle: Text('Coming soon', style: text12L,),
             ),
+            // SizedBox(height: 20,),
+            // ListTile(
+            //   leading: Icon(Icons.cases),
+            //   title: Text('Business Preferences'),
+            //   subtitle:Text('Make work meals quicker and easier', style: TextStyle(color: Color(0xFF0F984A)),),
+            // ),
             SizedBox(height: 20,),
             ListTile(
-              leading: Icon(Icons.cases),
-              title: Text('Business Preferences'),
-              subtitle:Text('Make work meals quicker and easier', style: TextStyle(color: Color(0xFF0F984A)),),
-            ),
-            SizedBox(height: 20,),
-            ListTile(
+              onTap: () => Share.share('Im inviting you to sign up on squeeky. Squeeky helps you to access cleaning businesses at the tip', subject: 'Squeeky Clean'),
               leading: Icon(Icons.cases),
               title: Text('Invite friends'),
               subtitle:Text('Get \$10 off your order'),

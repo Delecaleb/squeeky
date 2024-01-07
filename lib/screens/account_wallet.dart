@@ -47,11 +47,11 @@ class AccountWallet extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 30,),
-              ListTile(
-                leading: Icon(Icons.card_giftcard),
-                title: Text("*****2125"),
-                trailing: Icon(Icons.arrow_forward_ios),
-              ),
+              // ListTile(
+              //   leading: Icon(Icons.card_giftcard),
+              //   title: Text("*****2125"),
+              //   trailing: Icon(Icons.arrow_forward_ios),
+              // ),
               ListTile(
                 leading: Icon(Icons.add),
                 title: Text("Add payment method"),

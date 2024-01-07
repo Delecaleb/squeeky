@@ -117,6 +117,9 @@ class _SignUpState extends State<SignUp> {
                     if(createAccount.phoneNumberController.text==''){
                         Get.snackbar('Mobile number is compulsory','');
                     }else{
+                        setState(() {
+                          createAccount.phoneNumberWithCcode.value = countryCallCode+ createAccount.phoneNumberController.text;
+                        });
                         Get.to(()=>CreateAccount(phoneNumber: countryCallCode+ createAccount.phoneNumberController.text,));
                     }
                   },
