@@ -36,7 +36,7 @@ class AccountWallet extends StatelessWidget {
                     SizedBox(height: 20,),
                     TextButton.icon(
                       onPressed: (){}, 
-                      label: Text('Gift Card', style: textBtn,),
+                      label: Text('Top Up', style: textBtn,),
                       icon: Icon(Icons.add, color: Colors.white,), 
                       style: TextButton.styleFrom(
                         backgroundColor: Colors.black,

@@ -11,6 +11,8 @@ import '../providers/api_data_provider.dart';
 class CheckOutScreen extends StatefulWidget {
   List services;
   int subtotal;
+
+  String businessName ='';
   CheckOutScreen({super.key, required this.services, required this.subtotal});
 
   @override
@@ -192,13 +194,16 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     itemCount: businessData.length,
                     itemBuilder: (context, index){
                        var businessDetails = businessData[index];
-                      
+                       
                         return ExpansionTile(
                           tilePadding: EdgeInsets.zero,
                           leading: CircleAvatar(),
                           title: Text(businessDetails["business_name"], style: text17B,),
                           subtitle: Text(" ${businessDetails["services"].length.toString()} item(s)"),
                           children: businessDetails["services"].map<Widget>((service) {
+                            // setState(() {
+                            //   widget.businessName =businessDetails["business_name"];
+                            // });
                               return Text(
                                   "${service["service_name"]} - \$${service["price"]}");
                             }).toList(),
@@ -306,7 +311,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
             ),
           ),
           TextButton(
-            onPressed: ()=>Get.to(()=>PaymentScreen(userId: userId, businessData: businessData,)),
+            onPressed: ()=>Get.to(()=>PaymentScreen(userId: userId, businessData: businessData, businessName: widget.businessName, serviceFee: '${serviceCharge}', subtotal: '${widget.subtotal}', total: '${widget.subtotal + serviceCharge}',)),
             child: Text('Next \$ ${widget.subtotal + serviceCharge}', style: titleText,),
             style: TextButton.styleFrom(
               shape: RoundedRectangleBorder(

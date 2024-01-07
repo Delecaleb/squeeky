@@ -91,10 +91,10 @@ class Profile extends StatelessWidget {
               subtitle:Text('Get \$10 off your order'),
             ),
             SizedBox(height: 20,),
-            ListTile(
-              leading: Icon(Icons.remove_red_eye_rounded),
-              title: Text('Privacy'),
-            ),
+            // ListTile(
+            //   leading: Icon(Icons.remove_red_eye_rounded),
+            //   title: Text('Privacy'),
+            // ),
           ],
         ),
       ),

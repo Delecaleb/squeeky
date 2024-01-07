@@ -21,7 +21,7 @@ class _PlacingOrderSreenState extends State<PlacingOrderSreen> {
       Duration(seconds: 5),
       (){
         Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => SucessPaymentReceiptScreen( successPayment: widget.paidOrders, businessName: '', serviceFee: '', subtotal: '', total: '',)),
+        MaterialPageRoute(builder: (context) => SucessPaymentReceiptScreen( successPayment: widget.paidOrders, businessName: widget.businessName, serviceFee: widget.serviceFee, subtotal: widget.subtotal, total: widget.total,)),
       );
       }    
     );

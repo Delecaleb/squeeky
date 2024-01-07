@@ -6,8 +6,8 @@ import 'package:squeeky/screens/placing_order.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class PaymentScreen extends StatelessWidget {
-   String userId; List<dynamic> businessData; 
-   PaymentScreen({Key? key, required this.userId, required this.businessData}) : super(key: key);
+   String userId; List<dynamic> businessData; String total, subtotal, serviceFee, businessName;
+   PaymentScreen({Key? key, required this.userId, required this.businessData, required this.total, required this.subtotal, required this.businessName, required this.serviceFee}) : super(key: key);
   
   final controller = WebViewController()
   ..setJavaScriptMode(JavaScriptMode.unrestricted)
@@ -34,7 +34,7 @@ class PaymentScreen extends StatelessWidget {
 
         if (request.url.startsWith('http://success-squeek-flutter')) {
           // String? amount = await responseUri.queryParameters['amount'];
-          Get.to(()=>PlacingOrderSreen(paidOrders: businessData, businessName: '', serviceFee: '', subtotal: '', total: '',));
+          Get.to(()=>PlacingOrderSreen(paidOrders: businessData, businessName: businessName, serviceFee: serviceFee, subtotal: subtotal, total: total,));
           return NavigationDecision.prevent;
         }else if(request.url.startsWith('http://error-squeek-pay')){
 

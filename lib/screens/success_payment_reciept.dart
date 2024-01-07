@@ -23,7 +23,7 @@ class SucessPaymentReceiptScreen extends StatelessWidget {
                 Container(
                   color: Color(0xFF87CEEB),
                   padding: EdgeInsets.only(left: 20, right: 40, top: 40, bottom: 40),
-                  child: Text('Here’s your order summary for ${successPayment[0]['businessName']}', style: text34,)
+                  child: Text('Here’s your order summary for $businessName', style: text34,)
                 ),
                 Container(
                   height: Get.height*0.2,
@@ -76,12 +76,12 @@ class SucessPaymentReceiptScreen extends StatelessWidget {
                 SizedBox(height: 25,),
                 ListTile(
                   title: Text("Subtotal", style: text17L,),
-                  trailing: Text('\$ 600', style: text17L),
+                  trailing: Text('\$$subtotal', style: text17L),
                 ),
                 SizedBox(height: 25,),
                 ListTile(
                   title: Text("Service fee", style: text17L,),
-                  trailing: Text('\$ 600', style: text17L),
+                  trailing: Text('\$$serviceFee', style: text17L),
                 ),
                 SizedBox(height: 15,),
                 Text('Payments', style: text18,),
