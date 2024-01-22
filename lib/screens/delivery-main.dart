@@ -96,7 +96,7 @@ class _DeliveryState extends State<Delivery> {
                           borderRadius: BorderRadius.circular(8)
                         ),
                           child:ListTile(
-                        onTap: ()=>Get.to(()=>CustomScreen()),
+                        onTap: ()=>Get.to(()=>CustomScreen(query: '',)),
                         trailing: Image.asset(
                                     'assets/house.png',
                                     fit: BoxFit.cover,
@@ -115,7 +115,7 @@ class _DeliveryState extends State<Delivery> {
                           borderRadius: BorderRadius.circular(8)
                         ),
                           child: ListTile(
-                        onTap: ()=>Get.to(()=>ServicesScreen()),
+                        onTap: ()=>Get.to(()=>ServicesScreen(query: '',)),
                         trailing: Image.asset(
                                     'assets/car.png',
                                     fit: BoxFit.cover,
@@ -132,7 +132,7 @@ class _DeliveryState extends State<Delivery> {
                           borderRadius: BorderRadius.circular(8)
                         ),
                           child: ListTile(
-                        onTap: ()=>Get.to(()=>ServicesScreen()),
+                        onTap: ()=>Get.to(()=>ServicesScreen(query: '',)),
                         trailing: Image.asset(
                                     'assets/wash.png',
                                     fit: BoxFit.cover,
@@ -144,7 +144,7 @@ class _DeliveryState extends State<Delivery> {
                         
 
                         ListTile(
-                          onTap: ()=>Get.to(()=>ServicesScreen()),
+                          onTap: ()=>Get.to(()=>ServicesScreen(query: '',)),
                           
                           title: Text('Find Services', style: text17B,),
                         )

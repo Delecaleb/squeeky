@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:squeeky/screens/account_top_up.dart';
+import 'package:squeeky/screens/top_up_paypal.dart';
 import 'package:squeeky/style/textstyles.dart';
 
-class AccountWallet extends StatelessWidget {
-  const AccountWallet({super.key});
+class AccountTopUpScreen extends StatelessWidget {
+  const AccountTopUpScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Wallet'),
+        title: Text('Top Up'),
       ),
       body: SingleChildScrollView(
+        padding: EdgeInsets.symmetric(horizontal: 20),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
                 padding: EdgeInsets.all(30),
@@ -33,31 +35,31 @@ class AccountWallet extends StatelessWidget {
                     ListTile(
                       contentPadding: EdgeInsets.zero,
                       title: Text("\$0 . 00", style: text42,),
-                      trailing: Icon(Icons.arrow_forward_ios),
                     ),
                     SizedBox(height: 20,),
-                    TextButton.icon(
-                      onPressed: ()=>Get.to(()=>AccountTopUpScreen()), 
-                      label: Text('Top Up', style: textBtn,),
-                      icon: Icon(Icons.add, color: Colors.white,), 
-                      style: TextButton.styleFrom(
-                        backgroundColor: Colors.black,
-                        padding: EdgeInsets.all(25)
-                      ),
-                    ),
+                    
                   ],
                 ),
               ),
               SizedBox(height: 30,),
-              // ListTile(
-              //   leading: Icon(Icons.card_giftcard),
-              //   title: Text("*****2125"),
-              //   trailing: Icon(Icons.arrow_forward_ios),
-              // ),
-              ListTile(
-                leading: Icon(Icons.add),
-                title: Text("Add payment method"),
+              Text("Enter Amount", style: text20,),
+              TextField(
+                autofocus: true,
+                keyboardType: TextInputType.number,
+                
               ),
+              SizedBox(height: 20,),
+              TextButton(
+                onPressed: ()=>Get.to(()=>TopUpPayPal()), 
+                child: Text(
+                  'Continue',
+                  style: titleTextWhite,
+                ),
+                style: ElevatedButton.styleFrom(
+                  minimumSize: Size.fromHeight(60),
+                  backgroundColor: Color(0xFF87CEEB),
+                ),
+              )
               
              ],
           ),

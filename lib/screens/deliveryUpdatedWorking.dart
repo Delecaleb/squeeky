@@ -68,16 +68,16 @@ class Delivery extends StatelessWidget {
           ),
           Row(
             children: [
-              HomeScreenActionBtnWidget(image: 'assets/house.png', title: 'Deep cleaning',),
-              HomeScreenActionBtnWidget(image: 'assets/car.png', title: 'Car Detailing',),
+              HomeScreenActionBtnWidget(image: 'assets/house.png', title: 'Deep cleaning', query: '',),
+              HomeScreenActionBtnWidget(image: 'assets/car.png', title: 'Car Detailing', query: '',),
             ],
           ),
           Row(
             children: [
-            HomeScreenActionBtnWidget(image: 'assets/wash.png', title: 'Pressure Washing',),
+            HomeScreenActionBtnWidget(image: 'assets/wash.png', title: 'Pressure Washing', query: '',),
             Expanded(
               child: InkWell(
-                  onTap: () => Get.to(() => ServicesScreen()),
+                  onTap: () => Get.to(() => ServicesScreen(query: '',)),
                   child: Text(
                     'Find Services',
                     style: text17B,

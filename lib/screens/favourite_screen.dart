@@ -42,7 +42,7 @@ class FavouriteScreen extends StatelessWidget {
               itemBuilder: (context, index) {
                 final favouriteList = favouritesController.favourites[index];
                 return FavouritesWidget(
-                          imageLink: 'https://learncrib.com.ng/squeeky/dashboard/businessfiles/${favouriteList.imagePath}',
+                          imageLink: 'https://squeeky.org/dashboard/businessfiles/${favouriteList.imagePath}',
                           title: favouriteList.businessName,
                           subSubTitle: '\$1.79 Delivery Fee',
                           subTitle:'20 mins' 

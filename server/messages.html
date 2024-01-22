@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Socket.IO Chat</title>
+</head>
+<body>
+    <h1>Socket.IO Chat</h1>
+    
+    <!-- Display area for messages -->
+    <ul id="messages"></ul>
+    
+    <!-- Form to send messages -->
+    <form id="messageForm">
+        <input id="messageInput" autocomplete="off" /><button>Send</button>
+    </form>
+
+    <!-- Include Socket.IO client library -->
+    <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
+    
+    <script>
+        var userId = "dele";
+        // Connect to the Socket.IO server
+        const socket = io('https://server.squeeky.org');
+
+        // Listen for 'message' events from the server
+        socket.on('message', (data) => {
+            appendMessage(data.sender + ': ' + data.text);
+        });
+
+        socket.on('connect', ()=>{
+            console.log("Connected");
+        });
+
+        socket.emit('join-user', userId);
+
+        // Handle the form submission to send messages
+        document.getElementById('messageForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const input = document.getElementById('messageInput');
+            const message = input.value.trim();
+
+            if (message !== '') {
+                // Send the message to the server
+                socket.emit('message', { text: message, receiver_id: 'dele2' });
+
+                // Display the message locally
+                appendMessage('You: ' + message);
+
+                // Clear the input field
+                input.value = '';
+            }
+        });
+
+        // Helper function to append messages to the display area
+        function appendMessage(message) {
+            const ul = document.getElementById('messages');
+            const li = document.createElement('li');
+            li.appendChild(document.createTextNode(message));
+            ul.appendChild(li);
+        }
+    </script>
+</body>
+</html>

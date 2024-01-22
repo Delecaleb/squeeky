@@ -199,7 +199,8 @@ class _NewMessageScreenState extends State<NewMessageScreen> {
   void connect(){
 
     _socket= IO.io(
-      'http://192.168.24.163:3000', 
+      // 'http://192.168.0.101:3000', 
+      'https://server.squeeky.org/',
       IO.OptionBuilder().setTransports(['websocket'])
       .setQuery({'userId':widget.userId})
       .disableAutoConnect()

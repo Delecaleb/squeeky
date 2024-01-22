@@ -52,7 +52,7 @@ class _RatingServicesScreenState extends State<RatingServicesScreen> {
           Container(
                     padding: EdgeInsets.symmetric(horizontal:20, vertical: 25),
                     decoration: BoxDecoration(
-                      image: DecorationImage(image: NetworkImage('https://learncrib.com.ng/squeeky/dashboard/businessfiles/${widget.imagePath}'),
+                      image: DecorationImage(image: NetworkImage('https://squeeky.org/dashboard/businessfiles/${widget.imagePath}'),
                       fit: BoxFit.cover
                       ),
                     ),

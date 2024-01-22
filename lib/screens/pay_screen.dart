@@ -13,7 +13,7 @@ class PaymentScreen extends StatelessWidget {
   ..setJavaScriptMode(JavaScriptMode.unrestricted)
   ..setBackgroundColor(const Color(0x00000000))
   ;
-  // ..loadRequest(Uri.parse('https://learncrib.com.ng/squeeky/api/paypal/pay2/?user_id=$jjs'));
+  // ..loadRequest(Uri.parse('https://squeeky.org/apipaypal/pay2/?user_id=$jjs'));
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +43,7 @@ class PaymentScreen extends StatelessWidget {
         return NavigationDecision.navigate;
       },
     ),
-  )..loadRequest(Uri.parse("https://learncrib.com.ng/squeeky/api/paypal/pay2/?user_id=${userId}")),
+  )..loadRequest(Uri.parse("https://squeeky.org/apipaypal/pay2/?user_id=${userId}")),
         
       ),
     );

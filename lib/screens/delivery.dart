@@ -83,7 +83,7 @@ class Delivery extends StatelessWidget {
                       color: Color(0xFFF7F4F8),
                       borderRadius: BorderRadius.circular(8)),
                   child: ListTile(
-                    onTap: () => Get.to(() => CustomScreen()),
+                    onTap: () => Get.to(() => ServicesScreen(query: 'deep cleaning',)),
                     trailing: Image.asset(
                       'assets/house.png',
                       fit: BoxFit.cover,
@@ -100,7 +100,7 @@ class Delivery extends StatelessWidget {
                       color: Color(0xFFF7F4F8),
                       borderRadius: BorderRadius.circular(8)),
                   child: ListTile(
-                    onTap: () => Get.to(() => ServicesScreen()),
+                    onTap: () => Get.to(() => ServicesScreen(query: 'Car Detailing',)),
                     trailing: Image.asset(
                       'assets/car.png',
                       fit: BoxFit.cover,
@@ -117,7 +117,7 @@ class Delivery extends StatelessWidget {
                       color: Color(0xFFF7F4F8),
                       borderRadius: BorderRadius.circular(8)),
                   child: ListTile(
-                    onTap: () => Get.to(() => ServicesScreen()),
+                    onTap: () => Get.to(() => ServicesScreen(query: 'Pressure Washing',)),
                     trailing: Image.asset(
                       'assets/wash.png',
                       fit: BoxFit.cover,
@@ -129,7 +129,7 @@ class Delivery extends StatelessWidget {
                     ),
                   )),
               ListTile(
-                onTap: () => Get.to(() => ServicesScreen()),
+                // onTap: () => Get.to(() => ServicesScreen()),
                 title: Text(
                   'Find Services',
                   style: text17B,
@@ -160,7 +160,7 @@ class Delivery extends StatelessWidget {
               itemBuilder: (context, index) {
                 final category = serviceController.businessCategories[index];
                 return BizContainerWidget(
-                          businessBanner: 'https://learncrib.com.ng/squeeky/dashboard/businessfiles/${category.imagePath}',
+                          businessBanner: 'https://squeeky.org/dashboard/businessfiles/${category.imagePath}',
                           businessName: category.business_name,
                           bussinessDesc: category.businessDesc,
                           businessRating: 4,

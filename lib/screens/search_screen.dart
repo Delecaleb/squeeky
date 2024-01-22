@@ -212,7 +212,7 @@ class SearchResult extends StatelessWidget {
                                  cartController.businessId = businessData.businessId;
                                  Get.to(()=>ScheduleBooking(businessDetails: businessData,));
                                  },
-                              businessBanner: 'https://learncrib.com.ng/squeeky/dashboard/businessfiles/${businessData.imagePath}', 
+                              businessBanner: 'https://squeeky.org/dashboard/businessfiles/${businessData.imagePath}', 
                               businessName: businessData.business_name, 
                               bussinessDesc: businessData.businessDesc, 
                               businessRating: 4.2

@@ -52,7 +52,7 @@ class CompletedOrders extends StatelessWidget {
                 
                 return ListTile(
                   onTap: () => Get.to(()=>OrderDetailsScreen(orderDetails: completedOrders,)),
-                  leading: Image.network("https://learncrib.com.ng/squeeky/dashboard/businessfiles/${completedOrders.imagePath}"),
+                  leading: Image.network("https://squeeky.org/dashboard/businessfiles/${completedOrders.imagePath}"),
                   title: Text(completedOrders.businessName),
                   subtitle: Text.rich( TextSpan(text: "${completedOrders.servicesOfferedList.length} item(s) \$${completedOrders.total} \n", 
                   children: [

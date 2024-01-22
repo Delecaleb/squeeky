@@ -8,7 +8,7 @@ class BusinessController extends GetxController {
   final apiHandler = ApiDataProvider();
   RxBool isloading = true.obs;
   var businessCategories = <BusinessModel>[].obs;
-  
+  var businessSearchResult = <BusinessModel>[].obs;
   @override
   void onInit() {
     super.onInit();
@@ -26,12 +26,24 @@ class BusinessController extends GetxController {
   // }
   BusinessModel? findBusinessById(String businessId) {
   try {
-    return businessCategories.firstWhere((business) => business.businessId == businessId);
-  } catch (e) {
-    print("Business with ID $businessId not found.");
-    return null;
+      return businessCategories.firstWhere((business) => business.businessId == businessId);
+    } catch (e) {
+      print("Business with ID $businessId not found.");
+      return null;
+    }
   }
-}
+
+
+  void findABusiness(searchQuery) async {
+    isloading(true);
+    final searchResult = await apiHandler.searchBusinessServices(searchQuery);
+    businessSearchResult.assignAll(searchResult);
+    isloading(false);
+  }
+
+
+ 
+
 
 }
 

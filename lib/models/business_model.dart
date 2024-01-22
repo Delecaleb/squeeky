@@ -9,6 +9,7 @@ class BusinessModel {
   final String businessCity;
   final String businessCountry;
   final String businessAddress;
+  
   BusinessModel({
     required this.id,
     required this.business_name,

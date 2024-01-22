@@ -1,180 +1,180 @@
 import 'package:flutter/material.dart';
 
-var btnBold =TextStyle(
+var btnBold =const TextStyle(
   fontSize:20,
 );
-var btnBoldLight =TextStyle(
+var btnBoldLight = const TextStyle(
   fontSize:20,
   color: Colors.white,
-  fontFamily: "Oswald"
+  fontFamily: "UberMove"
 );
-var titleText = TextStyle(
+var titleText = const TextStyle(
   fontSize: 18,
   fontWeight: FontWeight.w600,
-  fontFamily: "Oswald"
+  fontFamily: "UberMove"
 );
 
-var titleTextWhite = TextStyle(
+var titleTextWhite = const TextStyle(
   fontSize: 18,
   fontWeight: FontWeight.w600,
   color: Colors.white
 );
 
-var textBtn= TextStyle(
+var textBtn= const TextStyle(
   fontSize: 14,
   fontWeight: FontWeight.w400,
   color: Colors.white
 );
 
-var textInfo = TextStyle(
+var textInfo =const TextStyle(
   fontSize: 13,
   color: Colors.grey,
-  fontFamily: "Oswald"
+  fontFamily: "UberMove"
 );
 
-var textInfoLG = TextStyle(
+var textInfoLG = const TextStyle(
   fontSize: 18,
   color: Colors.grey,
   height: 1.7,
   fontWeight: FontWeight.w300,
-  fontFamily: "Oswald"
+  fontFamily: "UberMove"
 );
 
-var textInfoBold = TextStyle(
+var textInfoBold =const TextStyle(
   fontSize: 13,
   color: Colors.black,
   fontWeight: FontWeight.w700,
-  fontFamily: "Oswald"
+  fontFamily: "UberMove"
 );
 
-var termsTitle = TextStyle(
+var termsTitle =const TextStyle(
   fontSize: 25,
   color: Colors.black,
   fontWeight: FontWeight.w400,
-  fontFamily: "Khula"
+  fontFamily: "UberMove"
 );
 
-var text34 = TextStyle(
+var text34 =const TextStyle(
   fontSize: 30,
   color: Colors.black,
   fontWeight: FontWeight.w600,
-  fontFamily: "Khula"
+  fontFamily: "UberMove"
 );
 
-var text16 = TextStyle(
+var text16 =const TextStyle(
   fontSize: 16,
   color: Colors.black,
   fontWeight: FontWeight.w600,
-  fontFamily: "Oswald"
+  fontFamily: "UberMove"
 );
 
-var text15L = TextStyle(
+var text15L =const TextStyle(
   fontSize: 15,
   color: Colors.black,
   fontWeight: FontWeight.w400,
-  fontFamily: "Oswald"
+  fontFamily: "UberMove"
 );
 
-var text15B = TextStyle(
+var text15B =const TextStyle(
   fontSize: 15,
   color: Colors.black,
   fontWeight: FontWeight.w700,
-  fontFamily: "Oswald"
+  fontFamily: "UberMove"
 );
 
-var text17L = TextStyle(
+var text17L =const TextStyle(
   fontSize: 17,
   color: Colors.black,
   fontWeight: FontWeight.w400,
-  fontFamily: "Oswald"
+  fontFamily: "UberMove"
 );
 
-var text17B = TextStyle(
+var text17B =const TextStyle(
   fontSize: 17,
   color: Colors.black,
   fontWeight: FontWeight.w600,
-  fontFamily: "Khula"
+  fontFamily: "UberMove"
 );
 
-var text18 = TextStyle(
+var text18 =const TextStyle(
   fontSize: 18,
   color: Colors.black,
   fontWeight: FontWeight.w600,
-  fontFamily: "Khula"
+  fontFamily: "UberMove"
 );
 
-var text42 = TextStyle(
+var text42 =const TextStyle(
   fontSize: 42,
   color: Colors.black,
   fontWeight: FontWeight.w800,
-  fontFamily: "Khula"
+  fontFamily: "UberMove"
 );
 
-var text14= TextStyle(
+var text14= const TextStyle(
   fontSize: 14,
   fontWeight: FontWeight.w400,
   color: Colors.black,
-  fontFamily: "Oswald"
+  fontFamily: "UberMove"
 );
 
-var text14B= TextStyle(
+var text14B=const TextStyle(
   fontSize: 14,
   fontWeight: FontWeight.w700,
   color: Colors.black,
-  fontFamily: "Oswald"
+  fontFamily: "UberMove"
 );
 
-var text14XB= TextStyle(
+var text14XB=const TextStyle(
   fontSize: 14,
   fontWeight: FontWeight.w800,
   color: Colors.black,
-  fontFamily: "Oswald"
+  fontFamily: "UberMove"
 );
-var text12 = TextStyle(
+var text12 =const TextStyle(
   fontSize: 12,
   fontWeight: FontWeight.w400,
-  fontFamily: "Oswald"
+  fontFamily: "UberMove"
 );
-var text12T = TextStyle(
+var text12T =const TextStyle(
   fontSize: 12,
   fontWeight: FontWeight.w700,
   color: Color(0xFF717171),
-  fontFamily: "Oswald"
+  fontFamily: "UberMove"
 );
 
-var text12L = TextStyle(
+var text12L =const TextStyle(
   fontSize: 12,
   color: Color.fromARGB(255, 158, 158, 158),
-  fontFamily: "Oswald"
+  fontFamily: "UberMove"
 );
-var text13 = TextStyle(
+var text13 =const TextStyle(
   fontSize: 13,
   fontWeight: FontWeight.w600,
-  fontFamily: "Oswald"
+  fontFamily: "UberMove"
 );
-var text26 = TextStyle(
+var text26 =const TextStyle(
   fontSize: 26,
   fontWeight: FontWeight.w700,
-  fontFamily: "Khula"
+  fontFamily: "UberMove"
 );
 
-var text21 = TextStyle(
+var text21 =const TextStyle(
   fontSize: 21,
   fontWeight: FontWeight.w700,
-  fontFamily: "Khula"
+  fontFamily: "UberMove"
 );
 
-var text20 = TextStyle(
+var text20 =const TextStyle(
   fontSize: 20,
   fontWeight: FontWeight.w400,
-  fontFamily: "Khula"
+  fontFamily: "UberMove"
 );
-var text20B = TextStyle(
+var text20B =const TextStyle(
   fontSize: 20,
   fontWeight: FontWeight.w800,
-  fontFamily: "Khula"
+  fontFamily: "UberMove"
 );
-var textSec = TextStyle(
+var textSec =const TextStyle(
   color: Color(0xFF0F984A),
-  fontFamily: "Oswald"
+  fontFamily: "UberMove"
 );

@@ -109,8 +109,10 @@ class BizContainerWidget extends StatelessWidget {
                         height: Get.height * 0.2,
                         width: Get.width,
                         decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 188, 188, 188),
                           image: DecorationImage(image: NetworkImage(businessBanner),
-                          fit: BoxFit.cover
+                          fit: BoxFit.cover,
+                          
                           )
                         ),                      
                       ),
@@ -337,9 +339,9 @@ class _ShowMoreLessWidgetState extends State<ShowMoreLessWidget> {
 }
 
 class HomeScreenActionBtnWidget extends StatelessWidget {
-  String image, title;
+  String image, title, query; 
   
-  HomeScreenActionBtnWidget({ required this.image, required this.title, Key? key}) : super(key: key);
+  HomeScreenActionBtnWidget({ required this.image, required this.title, required this.query, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -349,7 +351,7 @@ class HomeScreenActionBtnWidget extends StatelessWidget {
                       color: Color(0xFFF7F4F8),
                       borderRadius: BorderRadius.circular(8)),
                   child: ListTile(
-                    onTap: () => Get.to(() => CustomScreen()),
+                    onTap: () => Get.to(() => CustomScreen(query: query,)),
                     trailing: Image.asset(
                       image,
                       fit: BoxFit.cover,

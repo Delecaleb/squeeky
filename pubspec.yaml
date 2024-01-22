@@ -55,6 +55,7 @@ dependencies:
   webview_flutter: ^4.4.2
   socket_io_client: ^2.0.3+1
   share_plus: ^7.2.1
+  flutter_paypal_native: ^2.1.0
   # flutter_paypal_native: ^2.1.0
 
 
@@ -97,22 +98,27 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: Oswald
-      fonts:
-        - asset: assets/fonts/Oswald-ExtraLight.ttf
-        - asset: assets/fonts/Oswald-Light.ttf
-        - asset: assets/fonts/Oswald-Regular.ttf
-        - asset: assets/fonts/Oswald-Medium.ttf
-        - asset: assets/fonts/Oswald-SemiBold.ttf
-        - asset: assets/fonts/Oswald-Bold.ttf
+    # - family: Oswald
+    #   fonts:
+    #     - asset: assets/fonts/Oswald-ExtraLight.ttf
+    #     - asset: assets/fonts/Oswald-Light.ttf
+    #     - asset: assets/fonts/Oswald-Regular.ttf
+    #     - asset: assets/fonts/Oswald-Medium.ttf
+    #     - asset: assets/fonts/Oswald-SemiBold.ttf
+    #     - asset: assets/fonts/Oswald-Bold.ttf
 
-    - family: Khula
+    # - family: Khula
+    #   fonts:
+    #     - asset: assets/fonts/Khula-Bold.ttf
+    #     - asset: assets/fonts/Khula-ExtraBold.ttf
+    #     - asset: assets/fonts/Khula-Light.ttf
+    #     - asset: assets/fonts/Khula-Regular.ttf
+    #     - asset: assets/fonts/Khula-SemiBold.ttf
+
+    - family: UberMove
       fonts:
-        - asset: assets/fonts/Khula-Bold.ttf
-        - asset: assets/fonts/Khula-ExtraBold.ttf
-        - asset: assets/fonts/Khula-Light.ttf
-        - asset: assets/fonts/Khula-Regular.ttf
-        - asset: assets/fonts/Khula-SemiBold.ttf
+        - asset: assets/fonts/UberMoveBold.otf
+        - asset: assets/fonts/UberMoveMedium.otf
         
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

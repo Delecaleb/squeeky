@@ -33,7 +33,7 @@ final scaffoldKey = GlobalKey<ScaffoldState>();
             Container(
               padding: const EdgeInsets.symmetric(horizontal:20, vertical: 25),
               decoration:  BoxDecoration(
-                image: DecorationImage(image: NetworkImage('https://learncrib.com.ng/squeeky/dashboard/businessfiles/${businessDetails.imagePath}'),
+                image: DecorationImage(image: NetworkImage('https://squeeky.org/dashboard/businessfiles/${businessDetails.imagePath}'),
                 fit: BoxFit.cover
                 ),
               ),
@@ -204,7 +204,7 @@ final scaffoldKey = GlobalKey<ScaffoldState>();
                                       ],
                                     ),
                                   ),
-                                  Image.network('https://learncrib.com.ng/squeeky/dashboard/businessfiles/${serviceData.imagePath}', 
+                                  Image.network('https://squeeky.org/dashboard/businessfiles/${serviceData.imagePath}', 
                                         width: Get.width *0.3,
                                         height: 100,
                                         fit: BoxFit.cover,
@@ -279,7 +279,7 @@ class _ContinueSchedulingState extends State<ContinueScheduling> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.network('https://learncrib.com.ng/squeeky/dashboard/businessfiles/${widget.serviceData.imagePath}', width: Get.width, fit: BoxFit.cover, height: Get.height*0.3,),
+            Image.network('https://squeeky.org/dashboard/businessfiles/${widget.serviceData.imagePath}', width: Get.width, fit: BoxFit.cover, height: Get.height*0.3,),
             Padding(
               padding: const EdgeInsets.symmetric(vertical:5, horizontal: 20),
               child: Text(widget.serviceData.serviceName, style:text20B),
@@ -456,7 +456,7 @@ class _ContinueSchedulingState extends State<ContinueScheduling> {
                                   onChanged: (value){
                                         setState(() {
                                           cartController.timeArrival =value!;
-                                          _timeOfArrival = value!;
+                                          _timeOfArrival = value;
                                         });
                                       }
                                   ),

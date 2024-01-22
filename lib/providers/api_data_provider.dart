@@ -15,11 +15,26 @@ import '../models/notification_model.dart';
 import '../models/orders_model.dart';
 
 class ApiDataProvider {
-  final String baseUrl = 'https://learncrib.com.ng/squeeky/api/squeeky.php'; // Replace with your API URL
+  final String baseUrl = 'https://squeeky.org/api/squeeky.php'; // Replace with your API URL
 
    Future<List<BusinessModel>> fetchBusinesses() async {
     var map = Map<String, dynamic> ();
     map['action'] = 'fetch_businesses';
+    http.Response response = await http.post(Uri.parse(baseUrl), body: map);
+    if(response.statusCode == 200){
+     List  data = json.decode(response.body);
+
+      return data.map((data)=>BusinessModel.fromJson(data)).toList();
+    }
+    else {
+     throw Exception('Failed to load service categories');
+    }
+  }
+
+  Future<List<BusinessModel>> searchBusinessServices(service) async {
+    var map = Map<String, dynamic> ();
+    map['action'] = 'fetch_businesses';
+    map['service'] = service;
     http.Response response = await http.post(Uri.parse(baseUrl), body: map);
     if(response.statusCode == 200){
      List  data = json.decode(response.body);

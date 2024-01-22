@@ -40,7 +40,7 @@ class Profile extends StatelessWidget {
                   borderRadius: BorderRadius.circular(50),
                   border: Border.all(),
                   ),
-                child: ClipOval(child: box.read('userPicture') !='' && box.read('userPicture') !=null ? CachedNetworkImage(imageUrl: "https://learncrib.com.ng/squeeky/api/usersPhoto/${box.read('userPicture')}",) : Image.asset('assets/carrier.png', fit: BoxFit.cover,))
+                child: ClipOval(child: box.read('userPicture') !='' && box.read('userPicture') !=null ? CachedNetworkImage(imageUrl: "https://squeeky.org/apiusersPhoto/${box.read('userPicture')}",) : Image.asset('assets/carrier.png', fit: BoxFit.cover,))
               ),
             )
           ],
@@ -125,7 +125,7 @@ class ViewProfile extends StatelessWidget {
               child: ClipOval(
                 child: box.read('userPicture') !='' && box.read('userPicture') !=null ? 
                 CachedNetworkImage(
-                  imageUrl: "https://learncrib.com.ng/squeeky/api/usersPhoto/${box.read('userPicture')}",
+                  imageUrl: "https://squeeky.org/apiusersPhoto/${box.read('userPicture')}",
                 ) 
                   : 
                 Image.asset('assets/carrier.png', fit: BoxFit.cover,)
@@ -274,7 +274,7 @@ class _EditProfileState extends State<EditProfile> {
                               : 
                               
                               Container(
-                                child: box.read('userPicture') !='' && box.read('userPicture') !=null ? CachedNetworkImage(imageUrl: "https://learncrib.com.ng/squeeky/api/usersPhoto/${box.read('userPicture')}",) : Image.asset('assets/carrier.png', fit: BoxFit.cover,)
+                                child: box.read('userPicture') !='' && box.read('userPicture') !=null ? CachedNetworkImage(imageUrl: "https://squeeky.org/apiusersPhoto/${box.read('userPicture')}",) : Image.asset('assets/carrier.png', fit: BoxFit.cover,)
                                 )
                                 
                               ),

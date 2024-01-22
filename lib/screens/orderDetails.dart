@@ -32,7 +32,7 @@ class OrderDetailsScreen extends StatelessWidget {
                   width: Get.width,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: NetworkImage('https://learncrib.com.ng/squeeky/dashboard/businessfiles/${orderDetails.imagePath}'),
+                      image: NetworkImage('https://squeeky.org/dashboard/businessfiles/${orderDetails.imagePath}'),
                       fit: BoxFit.cover
                       )
                   ),

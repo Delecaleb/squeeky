@@ -24,7 +24,7 @@ final scaffoldKey = GlobalKey<ScaffoldState>();
           Container(
             padding: EdgeInsets.symmetric(horizontal:20, vertical: 25),
             decoration:  BoxDecoration(
-              image: DecorationImage(image: NetworkImage('https://learncrib.com.ng/squeeky/dashboard/businessfiles/${business.imagePath}'),
+              image: DecorationImage(image: NetworkImage('https://squeeky.org/dashboard/businessfiles/${business.imagePath}'),
               fit: BoxFit.cover
               ),
             ),

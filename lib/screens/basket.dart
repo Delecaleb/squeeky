@@ -129,7 +129,7 @@ class _BasketState extends State<Basket> {
                                   contentPadding: EdgeInsets.zero,
                                   trailing: ClipRRect(
                                     borderRadius: BorderRadius.circular(10),
-                                    child: Image.network("https://learncrib.com.ng/squeeky/dashboard/businessfiles/${ordersData.imagePath}"),
+                                    child: Image.network("https://squeeky.org/dashboard/businessfiles/${ordersData.imagePath}"),
                                   ),
                                   title: Text(ordersData.serviceName),
                                   subtitle: Text("Choice of ${ordersData.extraCategory}: ${ordersData.extraValue} \$${ordersData.extraPrice}"),

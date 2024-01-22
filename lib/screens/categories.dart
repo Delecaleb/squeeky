@@ -4,7 +4,7 @@ import 'package:squeeky/screens/search.dart';
 import 'package:squeeky/style/textstyles.dart';
 
 class Categories extends StatelessWidget {
-  const Categories({super.key});
+  Categories({super.key});
 
   @override
   Widget build(BuildContext context) {
