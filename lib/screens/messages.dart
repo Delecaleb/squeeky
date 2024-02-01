@@ -93,9 +93,9 @@ class MessagesTab extends StatelessWidget {
                 title: Row(
                   children: [
                     ///for user name
-                    Text("${contacts.businessName}", style: text14B,),
+                    Text("${contacts.businessName}", style: text14L,),
                     /// for user country
-                    Text(" ${contacts.businessCity}",style: text14,),
+                    // Text(" ${contacts.businessCity}",style: text14,),
                   ],
                 ),
                 subtitle: Column(

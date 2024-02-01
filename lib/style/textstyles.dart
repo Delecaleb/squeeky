@@ -167,6 +167,12 @@ var text12L =const TextStyle(
   color: Color.fromARGB(255, 158, 158, 158),
   fontFamily: "UberMove"
 );
+var text14L =const TextStyle(
+  fontSize: 14,
+  color: Color.fromARGB(255, 158, 158, 158),
+  fontWeight: FontWeight.w400,
+  fontFamily: "UberMove"
+);
 var text13 =const TextStyle(
   fontSize: 13,
   fontWeight: FontWeight.w600,
