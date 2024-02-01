@@ -110,7 +110,10 @@ class BizContainerWidget extends StatelessWidget {
                         width: Get.width,
                         decoration: BoxDecoration(
                         color: Color.fromARGB(255, 188, 188, 188),
-                          image: DecorationImage(image: NetworkImage(businessBanner),
+                          image: DecorationImage(image: 
+                          NetworkImage(businessBanner,
+                          
+                          ),
                           fit: BoxFit.cover,
                           
                           )
@@ -466,5 +469,39 @@ class EmptyBasket extends StatelessWidget {
                 )
               ],
             );
+  }
+}
+
+class ComingSoonBoxes extends StatelessWidget {
+  Color colorCode;
+   ComingSoonBoxes({Key? key, required this.colorCode}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+                  decoration: BoxDecoration(
+                  color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(
+                      color: Color.fromARGB(255, 225, 224, 224)
+                    )
+                  ),
+                   child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: ListTile(
+                      contentPadding: EdgeInsets.zero,
+                      minVerticalPadding: 0,
+                      title:Container(
+                        color: colorCode,
+                      height: 100,
+                    ),
+                      subtitle: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Text('Coming Soon!', style: text17L, textAlign: TextAlign.center,),
+                      ),
+                    ),
+                  ),
+                 )
+            ;
   }
 }

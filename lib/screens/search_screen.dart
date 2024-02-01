@@ -36,8 +36,8 @@ class _SearchScreenState extends State<SearchScreen> {
     if(picked !=null){
       setState(() {
         cartController.bookingDate= picked.toString();
-        when = picked.day.toString();
-        searchBusinessController.when = picked.day.toString();
+        when = picked.toString();
+        searchBusinessController.when = picked.toString();
       });
     }
   }
@@ -68,7 +68,10 @@ class _SearchScreenState extends State<SearchScreen> {
             children: [
               if(showSearchService)...[
 
-                Text('What do you need?', style: text26,),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical:10.0),
+                  child: Text('What do you need?', style: text26,),
+                ),
                 TextField(
                   controller: searchBusinessController.service,
                   autofocus: true,
@@ -91,7 +94,7 @@ class _SearchScreenState extends State<SearchScreen> {
               if(!showSearchService)...[
                 ListTile(
                 leading: Text("What", style: text14,),
-                trailing: Text(service, style: text14B,),
+                trailing: Text( searchBusinessController.service.text, style: text14B,),
               )
               ],
               ListTile(
@@ -104,8 +107,12 @@ class _SearchScreenState extends State<SearchScreen> {
                   TextField(
                     controller: searchBusinessController.where,
                     onEditingComplete:(){
-                    showSearchWhere = false;
-                    showSelectProperty = true;
+                      setState(() {
+                        location = searchBusinessController.where.text;
+                        showSearchWhere = false;
+                        showSelectProperty = true;
+                      });
+                      _pickDate() ;
                   },
                 decoration: InputDecoration(
                   prefixIcon: Icon(Icons.search),
@@ -149,7 +156,8 @@ class _SearchScreenState extends State<SearchScreen> {
                 child: Text('Next', style: textBtn,),
                 style: TextButton.styleFrom(
                   minimumSize: Size.fromHeight(50),
-                  backgroundColor: Colors.blue
+                  backgroundColor: Color(0xFF87CEEB),
+                  shape: LinearBorder()                  
                 ),
               ),
               

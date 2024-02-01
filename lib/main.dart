@@ -55,16 +55,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      body: SafeArea(child: userPhone !='' && userPhone !=null ? HomeScreen(currentIndex: 0,) : SignUp()), 
-      // body: Center(
-      //   child: Column(
-      //     children: [
-      //       SizedBox(height: 300,),
-      //       Text("widget.userPhone"),
-      //       Text(rr)
-      //     ],
-      //   ),
-      // ),
+      body: userPhone !='' && userPhone !=null ? HomeScreen(currentIndex: 0,) : SignUp(), 
+      
     );
   }
 }

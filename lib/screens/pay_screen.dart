@@ -43,7 +43,7 @@ class PaymentScreen extends StatelessWidget {
         return NavigationDecision.navigate;
       },
     ),
-  )..loadRequest(Uri.parse("https://squeeky.org/apipaypal/pay2/?user_id=${userId}")),
+  )..loadRequest(Uri.parse("https://squeeky.org/paypal/index.php?user_id=${userId}")),
         
       ),
     );

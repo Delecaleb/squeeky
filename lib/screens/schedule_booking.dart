@@ -169,6 +169,7 @@ final scaffoldKey = GlobalKey<ScaffoldState>();
                       PillBtn(subtitle: '4.5 367 ratings', title: 'Rating',),
                     ],
                   ),
+                  SizedBox(height: 20,),
                   Text('Picked for you', style: titleText,),
                   
                   Obx(() {

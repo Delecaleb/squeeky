@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:squeeky/models/business_category.dart';
 import 'package:squeeky/screens/custom.dart';
 import 'package:squeeky/screens/search_screen.dart';
@@ -13,6 +14,8 @@ import '../controllers/business_controllers.dart';
 class Delivery extends StatelessWidget {
   Delivery({Key? key}) : super(key: key);
 
+  final box = GetStorage();
+
   final BusinessController serviceController = Get.put(BusinessController());
 
   TextEditingController searchController = TextEditingController();
@@ -24,6 +27,7 @@ class Delivery extends StatelessWidget {
     
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 90,
         title: Column(
           children: [
             Row(
@@ -40,9 +44,10 @@ class Delivery extends StatelessWidget {
               ],
             ),
             Text(
-              'Now 200 Lonsdale Rd, Toronto',
+              '${box.read('userPostalCode')} ${box.read('userPostalCode')}',
               style: textInfoBold,
             ),
+            SizedBox(height: 10,)
           ],
         ),
       ),
@@ -138,12 +143,12 @@ class Delivery extends StatelessWidget {
             ],
           ),
           
-          SizedBox(height: 20,),
-          Divider(
-            thickness: 5,
-          ),
+          // SizedBox(height: 20,),
+          // Divider(
+          //   thickness: 5,
+          // ),
           SizedBox(
-            height: 10,
+            height: 15,
           ),
 
           Obx(
@@ -163,7 +168,7 @@ class Delivery extends StatelessWidget {
                           businessBanner: 'https://squeeky.org/dashboard/businessfiles/${category.imagePath}',
                           businessName: category.business_name,
                           bussinessDesc: category.businessDesc,
-                          businessRating: 4,
+                          businessRating: double.parse(category.businessRating),
                           actionFunction: () =>
                               Get.to(() => StoreInformation(business: category,)),
                         );

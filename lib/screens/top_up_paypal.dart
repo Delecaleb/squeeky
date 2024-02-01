@@ -1,125 +1,125 @@
-import 'dart:math';
+// import 'dart:math';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_paypal_native/flutter_paypal_native.dart';
-import 'package:flutter_paypal_native/models/custom/currency_code.dart';
-import 'package:flutter_paypal_native/models/custom/environment.dart';
-import 'package:flutter_paypal_native/str_helper.dart';
-import 'package:flutter_paypal_native/models/custom/purchase_unit.dart';
-import 'package:flutter_paypal_native/models/custom/user_action.dart';
-import 'package:flutter_paypal_native/models/custom/order_callback.dart';
+// import 'package:flutter/material.dart';
+// import 'package:flutter_paypal_native/flutter_paypal_native.dart';
+// import 'package:flutter_paypal_native/models/custom/currency_code.dart';
+// import 'package:flutter_paypal_native/models/custom/environment.dart';
+// import 'package:flutter_paypal_native/str_helper.dart';
+// import 'package:flutter_paypal_native/models/custom/purchase_unit.dart';
+// import 'package:flutter_paypal_native/models/custom/user_action.dart';
+// import 'package:flutter_paypal_native/models/custom/order_callback.dart';
 
-class TopUpPayPal extends StatefulWidget {
-  const TopUpPayPal({Key? key}) : super(key: key);
+// class TopUpPayPal extends StatefulWidget {
+//   const TopUpPayPal({Key? key}) : super(key: key);
 
-  @override
-  State<TopUpPayPal> createState() => _TopUpPayPalState();
-}
+//   @override
+//   State<TopUpPayPal> createState() => _TopUpPayPalState();
+// }
 
-class _TopUpPayPalState extends State<TopUpPayPal> {
-  final _flutterPaypalNativePlugin = FlutterPaypalNative.instance;
-  // log queue
-  List<String> logQueue = [];
+// class _TopUpPayPalState extends State<TopUpPayPal> {
+//   final _flutterPaypalNativePlugin = FlutterPaypalNative.instance;
+//   // log queue
+//   List<String> logQueue = [];
 
-  @override
-  void initState() {
-    super.initState();
+//   @override
+//   void initState() {
+//     super.initState();
 
-    initPayPal();
-  }
+//     initPayPal();
+//   }
 
-  void initPayPal() async {
-    //set debugMode for error logging
-    FlutterPaypalNative.isDebugMode = true;
+//   void initPayPal() async {
+//     //set debugMode for error logging
+//     FlutterPaypalNative.isDebugMode = true;
 
-    //initiate payPal plugin
-    await _flutterPaypalNativePlugin.init(
-      //your app id !!! No Underscore!!! see readme.md for help
-      returnUrl: "com.example.squeeky://paypalpay",
-      //client id from developer dashboard
-      clientID: "AVgqkTZdG2VPO_miEGUMtB7dDqN-aVpHZ_EHkNCqgR-ai0iLEQSGLcJIDQq25Ga2tgqlRfChTV78O199",
-      //sandbox, staging, live etc
-      payPalEnvironment: FPayPalEnvironment.sandbox,
-      //what currency do you plan to use? default is US dollars
-      currencyCode: FPayPalCurrencyCode.cad,
-      //action paynow?
-      action: FPayPalUserAction.payNow,
-    );
+//     //initiate payPal plugin
+//     await _flutterPaypalNativePlugin.init(
+//       //your app id !!! No Underscore!!! see readme.md for help
+//       returnUrl: "com.example.squeeky://paypalpay",
+//       //client id from developer dashboard
+//       clientID: "AVgqkTZdG2VPO_miEGUMtB7dDqN-aVpHZ_EHkNCqgR-ai0iLEQSGLcJIDQq25Ga2tgqlRfChTV78O199",
+//       //sandbox, staging, live etc
+//       payPalEnvironment: FPayPalEnvironment.sandbox,
+//       //what currency do you plan to use? default is US dollars
+//       currencyCode: FPayPalCurrencyCode.cad,
+//       //action paynow?
+//       action: FPayPalUserAction.payNow,
+//     );
 
-    //call backs for payment
-    _flutterPaypalNativePlugin.setPayPalOrderCallback(
-      callback: FPayPalOrderCallback(
-        onCancel: () {
-          //user canceled the payment
-          showResult("cancel");
-        },
-        onSuccess: (data) {
-          //successfully paid
-          //remove all items from queue
-          _flutterPaypalNativePlugin.removeAllPurchaseItems();
-          String visitor = data.cart?.shippingAddress?.firstName ?? 'Visitor';
-          String address =
-              data.cart?.shippingAddress?.line1 ?? 'Unknown Address';
-          showResult(
-            "Order successful ${data.payerId ?? ""} - ${data.orderId ?? ""} - $visitor -$address",
-          );
-        },
-        onError: (data) {
-          //an error occured
-          showResult("error: ${data.reason}");
-        },
-        onShippingChange: (data) {
-          //the user updated the shipping address
-          showResult(
-            "shipping change: ${data.shippingChangeAddress?.adminArea1 ?? ""}",
-          );
-        },
-      ),
-    );
-  }
+//     //call backs for payment
+//     _flutterPaypalNativePlugin.setPayPalOrderCallback(
+//       callback: FPayPalOrderCallback(
+//         onCancel: () {
+//           //user canceled the payment
+//           showResult("cancel");
+//         },
+//         onSuccess: (data) {
+//           //successfully paid
+//           //remove all items from queue
+//           _flutterPaypalNativePlugin.removeAllPurchaseItems();
+//           String visitor = data.cart?.shippingAddress?.firstName ?? 'Visitor';
+//           String address =
+//               data.cart?.shippingAddress?.line1 ?? 'Unknown Address';
+//           showResult(
+//             "Order successful ${data.payerId ?? ""} - ${data.orderId ?? ""} - $visitor -$address",
+//           );
+//         },
+//         onError: (data) {
+//           //an error occured
+//           showResult("error: ${data.reason}");
+//         },
+//         onShippingChange: (data) {
+//           //the user updated the shipping address
+//           showResult(
+//             "shipping change: ${data.shippingChangeAddress?.adminArea1 ?? ""}",
+//           );
+//         },
+//       ),
+//     );
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Plugin example app'),
-        ),
-        body: Center(
-          child: Column(
-            children: [
-              for (String t in logQueue) Text(t),
-              ElevatedButton(
-                child: const Text("Do payment"),
-                onPressed: () {
-                  //add 1 item to cart. Max is 4!
-                  if (_flutterPaypalNativePlugin.canAddMorePurchaseUnit) {
-                    _flutterPaypalNativePlugin.addPurchaseUnit(
-                      FPayPalPurchaseUnit(
-                        // random prices
-                        amount: Random().nextDouble() * 100,
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       home: Scaffold(
+//         appBar: AppBar(
+//           title: const Text('Plugin example app'),
+//         ),
+//         body: Center(
+//           child: Column(
+//             children: [
+//               for (String t in logQueue) Text(t),
+//               ElevatedButton(
+//                 child: const Text("Do payment"),
+//                 onPressed: () {
+//                   //add 1 item to cart. Max is 4!
+//                   if (_flutterPaypalNativePlugin.canAddMorePurchaseUnit) {
+//                     _flutterPaypalNativePlugin.addPurchaseUnit(
+//                       FPayPalPurchaseUnit(
+//                         // random prices
+//                         amount: Random().nextDouble() * 100,
 
-                        ///please use your own algorithm for referenceId. Maybe ProductID?
-                        referenceId: FPayPalStrHelper.getRandomString(16),
-                      ),
-                    );
-                  }
-                  // initPayPal();
-                  _flutterPaypalNativePlugin.makeOrder(
-                    action: FPayPalUserAction.payNow,
-                  );
-                },
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+//                         ///please use your own algorithm for referenceId. Maybe ProductID?
+//                         referenceId: FPayPalStrHelper.getRandomString(16),
+//                       ),
+//                     );
+//                   }
+//                   // initPayPal();
+//                   _flutterPaypalNativePlugin.makeOrder(
+//                     action: FPayPalUserAction.payNow,
+//                   );
+//                 },
+//               ),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
 
-// all to log queue
-  showResult(String text) {
-    logQueue.add(text);
-    setState(() {});
-  }
-}
+// // all to log queue
+//   showResult(String text) {
+//     logQueue.add(text);
+//     setState(() {});
+//   }
+// }

@@ -14,6 +14,12 @@ var titleText = const TextStyle(
   fontFamily: "UberMove"
 );
 
+var text34B = const TextStyle(
+  fontSize: 34,
+  fontWeight: FontWeight.w800,
+  fontFamily: "UberMove"
+);
+
 var titleTextWhite = const TextStyle(
   fontSize: 18,
   fontWeight: FontWeight.w600,

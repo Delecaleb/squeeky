@@ -9,7 +9,8 @@ class BusinessModel {
   final String businessCity;
   final String businessCountry;
   final String businessAddress;
-  
+  String businessRating;
+  String businessRatingCount;
   BusinessModel({
     required this.id,
     required this.business_name,
@@ -21,11 +22,15 @@ class BusinessModel {
     required this.businessCity,
     required this.businessCountry,
     required this.businessPostCode,
+    required this.businessRating,
+    required this.businessRatingCount,
   });
 
   factory BusinessModel.fromJson(Map<String, dynamic> json) {
     return BusinessModel(
       id: json['business_id'],
+      businessRating: json['average_rating'],
+      businessRatingCount: json['rating_count'],
       business_name: json['business_name'].toString(),
       imagePath: json['cover_image'],
       businessEmail: json['business_email'],

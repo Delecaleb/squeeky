@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:squeeky/screens/top_up_paypal.dart';
+// import 'package:squeeky/screens/top_up_paypal.dart';
 import 'package:squeeky/style/textstyles.dart';
 
 class AccountTopUpScreen extends StatelessWidget {
@@ -50,7 +50,7 @@ class AccountTopUpScreen extends StatelessWidget {
               ),
               SizedBox(height: 20,),
               TextButton(
-                onPressed: ()=>Get.to(()=>TopUpPayPal()), 
+                onPressed: null,
                 child: Text(
                   'Continue',
                   style: titleTextWhite,
