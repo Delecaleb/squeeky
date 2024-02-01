@@ -28,27 +28,40 @@ class Delivery extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 90,
-        title: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+        title: Obx(() {
+            return Column(
               children: [
-                ElevatedButton(
-                  onPressed: () {},
-                  child: Text('Delivery'),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        serviceController.schedule(false);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: serviceController.schedule.value ? Colors.white : Colors.black ,
+                      ),
+                      child: Text('Delivery', style:  serviceController.schedule.value? text15B : text15white,),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        serviceController.schedule(true);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: serviceController.schedule.value ? Colors.black : Colors.white,
+                      ),
+                      child: Text('Schedule', style: serviceController.schedule.value? text15white : text15B,),
+                    )
+                  ],
                 ),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: Text('Schedule'),
-                )
+                Text(
+                  '${box.read('userPostalCode')} ${box.read('userPostalCode')}',
+                  style: textInfoBold,
+                ),
+                SizedBox(height: 10,)
               ],
-            ),
-            Text(
-              '${box.read('userPostalCode')} ${box.read('userPostalCode')}',
-              style: textInfoBold,
-            ),
-            SizedBox(height: 10,)
-          ],
+            );
+          }
         ),
       ),
       body: SingleChildScrollView(

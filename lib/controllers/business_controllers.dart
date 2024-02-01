@@ -6,6 +6,7 @@ import '../models/business_model.dart';
 
 class BusinessController extends GetxController {
   final apiHandler = ApiDataProvider();
+  RxBool schedule = false.obs; 
   RxBool isloading = true.obs;
   var businessCategories = <BusinessModel>[].obs;
   var businessSearchResult = <BusinessModel>[].obs;

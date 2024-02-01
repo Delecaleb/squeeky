@@ -29,7 +29,7 @@ class _InboxMessagesScreenState extends State<InboxMessagesScreen> with SingleTi
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Inbox"),
+        title: Text("Inbox", style:text30),
         bottom: TabBar(
           padding: EdgeInsets.zero,
           controller: tabController, // Use the TabController here
@@ -64,20 +64,21 @@ class MessagesTab extends StatelessWidget {
       child: Obx(() {
           if(messageContacts.isLoading.value){
             return ShimmerLoader();
-          }else
-          return messageContacts.contactsList.isEmpty ? 
+          }else {
+            return messageContacts.contactsList.isEmpty ? 
           Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               SizedBox(height: Get.height *0.2,),
-              Image.asset("assets/msg.png", width: Get.width *0.5,),
-              Text("No Messages available yet")
+              // Image.asset("assets/msg.png", width: Get.width *0.5,),
+              Text("You have no unread messages", style: text18,),
+              Text("When you contact a host or send a reservation request, you’ll see your messages here", style: text16)
             ],
           )
           : 
           ListView.builder(
             shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             itemCount: messageContacts.contactsList.length,
             itemBuilder: (context, index){
               
@@ -86,7 +87,8 @@ class MessagesTab extends StatelessWidget {
               return  ListTile(
                 onTap: () => Get.to(()=>NewMessageScreen(businessId: contacts.businessId, userId: messageContacts.userId,)),
                 leading: CircleAvatar(
-                  backgroundColor: Color(0xFFD9D9D9),
+                  backgroundImage: contacts.businessLogo !='' &&  contacts.businessLogo.isNotEmpty ? NetworkImage('https://squeeky.org/dashboard/businessfiles/${contacts.businessLogo}') : null,
+                  backgroundColor: const Color(0xFFD9D9D9),
                 ),
                 title: Row(
                   children: [
@@ -108,6 +110,7 @@ class MessagesTab extends StatelessWidget {
             }
           
           );
+          }
         }
       )
       

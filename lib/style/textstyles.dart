@@ -61,6 +61,13 @@ var termsTitle =const TextStyle(
 );
 
 var text34 =const TextStyle(
+  fontSize: 34,
+  color: Colors.black,
+  fontWeight: FontWeight.w600,
+  fontFamily: "UberMove"
+);
+
+var text30 =const TextStyle(
   fontSize: 30,
   color: Colors.black,
   fontWeight: FontWeight.w600,
@@ -78,6 +85,13 @@ var text15L =const TextStyle(
   fontSize: 15,
   color: Colors.black,
   fontWeight: FontWeight.w400,
+  fontFamily: "UberMove"
+);
+
+var text15white =const TextStyle(
+  fontSize: 15,
+  color: Colors.white,
+  fontWeight: FontWeight.w600,
   fontFamily: "UberMove"
 );
 
