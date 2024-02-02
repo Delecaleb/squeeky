@@ -45,6 +45,10 @@ class _BasketState extends State<Basket> {
         key: scaffoldKey,
         appBar: AppBar(
           title: const Text('Order List'),
+
+          actions: [
+            Text('Pendings')
+          ],
         ),
         body: Column(
           children: [

@@ -11,7 +11,7 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-   MyApp({super.key});
+  MyApp({super.key});
 
   // This widget is the root of your application.
   @override
@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
       home: MyHomePage(),
     );
   }
+  
 }
 
 class MyHomePage extends StatefulWidget {
