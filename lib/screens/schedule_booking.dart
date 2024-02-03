@@ -345,6 +345,7 @@ class _ContinueSchedulingState extends State<ContinueScheduling> {
                     return RadioListTile(
                   contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 15),
                   title: Text(extraDetails.extraName),
+                  
                   value: extraDetails.extraName, 
                   groupValue: _materialType, 
                   onChanged: (value){
@@ -354,7 +355,8 @@ class _ContinueSchedulingState extends State<ContinueScheduling> {
                       cartController.extraPrice = extraDetails.extraPrice;
                       cartController.extraValue = extraDetails.extraName;
                     });
-                  }
+                  },
+                  secondary: Text("\$${extraDetails.extraPrice}",)
                 );
                   }             
                 ),

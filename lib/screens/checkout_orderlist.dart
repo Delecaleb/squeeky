@@ -36,8 +36,7 @@ class _OrderListScreenState extends State<OrderListScreen> {
   
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
+    return Scaffold(
         key: scaffoldKey,
         appBar: AppBar(
           title: const Text('Order List'),
@@ -303,11 +302,13 @@ class _OrderListScreenState extends State<OrderListScreen> {
               style: TextButton.styleFrom(
                 minimumSize: const Size.fromHeight(60),
                 backgroundColor: const Color(0xFF87CEEB),
+                shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.zero
+                ),
               ),
             )
           ],
         ),
-      ),
     );
   }
 }

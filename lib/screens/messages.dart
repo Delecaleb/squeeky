@@ -100,7 +100,7 @@ class MessagesTab extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text("New date and time request", style: text14B,),
-                    Text("${contacts.serviceStatus} Feb 13 - 14, 2023"),
+                    Text("${contacts.serviceStatus} "),
                   ],
                 )
               );

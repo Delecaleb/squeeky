@@ -262,7 +262,7 @@ class SearchResult extends StatelessWidget {
           );
         }
         else {
-          var totalItem = businessResult.searchResult.length+1;
+          var totalItem = businessResult.searchResult.length;
           return ListView.builder(
             padding: EdgeInsets.symmetric(horizontal: 20),
             physics: NeverScrollableScrollPhysics(),

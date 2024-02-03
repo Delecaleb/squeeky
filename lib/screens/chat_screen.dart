@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:intl/intl.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import '../controllers/send_messages_controller.dart';
 
@@ -146,16 +146,15 @@ class _NewMessageScreenState extends State<NewMessageScreen> {
   itemBuilder: (context, index) {
     final message = messages[index];
     final isCurrentUser = message['sender_id'] == widget.userId; // Adjust this condition based on your user ID
-
+    DateTime rawDate = DateTime.parse(message['time_sent'].toString());
+    var formattedDate = DateFormat("d mmm").format(rawDate);
     return
     
      ListTile(
       
-      title: Text(message['message_content'].toString()),
-      // subtitle: Text(message['time_sent'].toString()),
-      leading: CircleAvatar(),
-      trailing: isCurrentUser ? null : Icon(Icons.reply), // Show reply icon for received messages
-      tileColor: isCurrentUser ? const Color.fromARGB(255, 206, 239, 250) : Colors.white, // Highlight current user's messages
+      title: Text(message['time_sent'].toString()),
+      subtitle: Text(message['message_content'].toString()),
+      leading: CircleAvatar(), // Show reply icon for received messages
       contentPadding: EdgeInsets.all(8.0),
     );
   },
