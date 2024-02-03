@@ -101,14 +101,14 @@ final scaffoldKey = GlobalKey<ScaffoldState>();
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(businessDetails.business_name, style: titleText,),
+                  Text(businessDetails.business_name, style: text34B,),
       
                   ListTile(
                     contentPadding: EdgeInsets.zero,
                       onTap: (){
                       scaffoldKey.currentState!.showBottomSheet((builder){
                             return Container(
-                              height:  Get.height * 0.98,
+                              height:  Get.height * 0.58,
                               width: Get.width,
                               color: Colors.white,
                               child: SingleChildScrollView(
@@ -120,7 +120,7 @@ final scaffoldKey = GlobalKey<ScaffoldState>();
                                      IconButton(onPressed: (){
                                        Navigator.pop(context);
                                      }, icon: Icon(Icons.cancel)),
-                                     Text(businessDetails.business_name, style: titleText,),
+                                    //  Text(businessDetails.business_name, style: text34B,),
                                      SizedBox(height: 10,),
                                      Text(businessDetails.businessDesc,
                                      maxLines: 1,
@@ -147,18 +147,20 @@ final scaffoldKey = GlobalKey<ScaffoldState>();
                         }
                       );
                     },
-                    title: Text(businessDetails.businessDesc, 
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
+                    title: RichText(
+                      text: TextSpan(
+                        children: [
+                          WidgetSpan(child: Icon(Icons.star, color: Color(0xFF87CEEB),)),
+                          TextSpan(
+                              text: "${businessDetails.businessRating} (${businessDetails.businessRatingCount} ratings) ${businessDetails.businessDesc} ",
+                              style: text15B
+                          )
+                        ],
+                         
+                       
+                      ),
                     ),
-                    subtitle: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("Open until 11:00 PM"),
-                        Text("Tap for hours, info and more")
-                      ],
-                    ),
+                    subtitle: Text("Tap for hours, info and more"),
                     trailing: Icon(Icons.chevron_right_outlined),
                   ),
                   Row(
@@ -170,7 +172,7 @@ final scaffoldKey = GlobalKey<ScaffoldState>();
                     ],
                   ),
                   SizedBox(height: 20,),
-                  Text('Picked for you', style: titleText,),
+                  Text('Picked for you', style: text26,),
                   
                   Obx(() {
                     if( servicesOffered.serviceLoading.value){
@@ -184,35 +186,50 @@ final scaffoldKey = GlobalKey<ScaffoldState>();
                         itemCount: servicesOffered.services.length,
                         itemBuilder: (BuildContext context, index){
                           final serviceData = servicesOffered.services[index];
-                          return InkWell(
-                              onTap: ()async{
-                                cartController.serviceName = serviceData.serviceName;
-                                cartController.serviceId = serviceData.serviceId;
-                                cartController.servicePrice = serviceData.servicePrice;
-                                Get.to(()=>ContinueScheduling(serviceExtras: serviceData.extras, serviceData: serviceData,));
-                              },
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Container(
-                                    width: Get.width *0.45,
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(serviceData.serviceName, style: textInfoBold,),
-                                        Text("\$ ${serviceData.servicePrice}"),
-                                        Container(child: Text('water fed pole, purified RO water, No, home/gutter damage guaranteed, expireinced technicians '))
-                                      ],
+                          return Container(
+                            margin: EdgeInsets.only(bottom: 20),
+                            child: InkWell(
+                                onTap: ()async{
+                                  cartController.serviceName = serviceData.serviceName;
+                                  cartController.serviceId = serviceData.serviceId;
+                                  cartController.servicePrice = serviceData.servicePrice;
+                                  Get.to(()=>ContinueScheduling(serviceExtras: serviceData.extras, serviceData: serviceData,));
+                                },
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      width: Get.width *0.45,
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(serviceData.serviceName, style: text17B,),
+                                          Text("\$ ${serviceData.servicePrice}", style: text15L,),
+                                          Container(child: Text(''))
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                  Image.network('https://squeeky.org/dashboard/businessfiles/${serviceData.imagePath}', 
-                                        width: Get.width *0.3,
-                                        height: 100,
-                                        fit: BoxFit.cover,
-                                        )
-                                ],
-                              )
-                              );
+                                    Image.network('https://squeeky.org/dashboard/businessfiles/${serviceData.imagePath}', 
+                                          loadingBuilder: (context, child, loadingProgress) {
+                                              if(loadingProgress == null){
+                                                return child;
+                                              }else{
+                                                return Container(
+                                                      width: Get.width *0.3,
+                                                      child: LinearProgressIndicator(
+                                                        value: loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!,
+                                                      )
+                                                );
+                                              }
+                                            },
+                                          width: Get.width *0.3,
+                                          height: 100,
+                                          fit: BoxFit.cover,
+                                          )
+                                  ],
+                                )
+                                ),
+                          );
                         }
                         );
                     }
@@ -283,11 +300,11 @@ class _ContinueSchedulingState extends State<ContinueScheduling> {
             Image.network('https://squeeky.org/dashboard/businessfiles/${widget.serviceData.imagePath}', width: Get.width, fit: BoxFit.cover, height: Get.height*0.3,),
             Padding(
               padding: const EdgeInsets.symmetric(vertical:5, horizontal: 20),
-              child: Text(widget.serviceData.serviceName, style:text20B),
+              child: Text(widget.serviceData.serviceName, style:text26),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal:20),
-              child: Text("\$ ${widget.serviceData.servicePrice}", style:text17B),
+              child: Text("\$ ${widget.serviceData.servicePrice}", style:text20B),
             ),
             SizedBox(height:10),
             Padding(
@@ -301,47 +318,21 @@ class _ContinueSchedulingState extends State<ContinueScheduling> {
               padding: const EdgeInsets.symmetric(horizontal:20),
               child: Row(
                 children: [
-                  Expanded(child: Text("Choose ${widget.serviceData.extraCategory}", style: text18,)),
+                  Expanded(child: Text("Choose ${widget.serviceData.extraCategory}", style: text21,)),
                   
                   Container(
-                    child: Text('Required'),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Color(0XFFEFECF0)
+                      ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Text('Required', style: text15L,),
+                    ),
                   )
                 ],
               ),
             ),
-            // RadioListTile(
-            //   contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 15),
-            //   title: Text('0-300'),
-            //   value: '0-300', 
-            //   groupValue: _propertySize, 
-            //   onChanged: (btnValue){
-            //     setState(() {
-            //       _propertySize = btnValue!;
-            //     });
-            //   }
-            // ),
-            // RadioListTile(
-            //   contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 15),
-            //   title: Text('300-500'),
-            //   value: '300-500', 
-            //   groupValue: _propertySize, 
-            //   onChanged: (btnValue){
-            //     setState(() {
-            //       _propertySize = btnValue!;
-            //     });
-            //   }
-            // ),
-            // RadioListTile(
-            //   contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 15),
-            //   title: Text('500-750'),
-            //   value: '500-750', 
-            //   groupValue: _propertySize, 
-            //   onChanged: (btnValue){
-            //     setState(() {
-            //       _propertySize = btnValue!;
-            //     });
-            //   }
-            // ),
             
             // / choosing size ends
              ListView.builder(

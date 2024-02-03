@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:squeeky/screens/schedule_booking.dart';
 import 'package:squeeky/style/textstyles.dart';
-
+import 'package:intl/intl.dart';
 import '../controllers/cart_contrroller.dart';
 import '../controllers/search_business_controller.dart';
 import '../widgets.dart';
@@ -14,6 +15,7 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
+  final box = GetStorage();
   bool showSearchService = true;
   bool showSearchWhere = false;
   bool showSearchWhen = false;
@@ -36,8 +38,11 @@ class _SearchScreenState extends State<SearchScreen> {
     if(picked !=null){
       setState(() {
         cartController.bookingDate= picked.toString();
-        when = picked.toString();
+        DateTime rawDate = DateTime.parse(picked.toString());
+    
+       var fmDate = DateFormat('d MMM').format(rawDate);
         searchBusinessController.when = picked.toString();
+        when = fmDate;
       });
     }
   }
@@ -46,26 +51,56 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const PreferredSize(
-        preferredSize: Size.fromHeight(70),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ElevatedButton(
-                onPressed: null, 
-                child: Text('Delivery'),
-              ),
-              ElevatedButton(
-                onPressed: null, 
-                child: Text('Schedule'),
-              )
-            ],
-        )),
+      appBar:  AppBar(
+        toolbarHeight: 90,
+        title: Obx(() {
+            return Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        searchBusinessController.schedule(false);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: searchBusinessController.schedule.value ? Colors.white : Colors.black ,
+                      ),
+                      child: Text('Delivery', style:  searchBusinessController.schedule.value? text15B : text15white,),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        searchBusinessController.schedule(true);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: searchBusinessController.schedule.value ? Colors.black : Colors.white,
+                      ),
+                      child: Text('Schedule', style: searchBusinessController.schedule.value? text15white : text15B,),
+                    )
+                  ],
+                ),
+                
+              ],
+            );
+          }
+        ),
+      ),
+      
+      
         body: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Container(
+                width: Get.width,
+                child: Text(
+                    '${box.read('userPostalCode')} ${box.read('userPostalCode')}',
+                    style: textInfoBold, textAlign: TextAlign.center,
+                  ),
+              ),
+                // SizedBox(height: 10,),
+
               if(showSearchService)...[
 
                 Padding(
@@ -178,77 +213,107 @@ class SearchResult extends StatelessWidget {
   CartController cartController = Get.put(CartController());
   @override
   Widget build(BuildContext context) {
-    return  SafeArea(
-      child: Scaffold(
-        appBar: PreferredSize(
-          child: TextField(
-                 decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.search),
-                  suffixIcon: Icon(Icons.edit_attributes_outlined)
-                 ), 
-                ), 
-          preferredSize: Size.fromHeight(60)
+    DateTime inputDate = DateTime.parse(businessResult.when);
+    
+    var formattedDate = DateFormat('d MMM').format(inputDate);
+    return  Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: Container(
+          decoration: BoxDecoration(
+            color: Color(0xFFF2F2F2), 
+            borderRadius: BorderRadius.circular(50),
           ),
-        body: 
-      DraggableScrollableSheet(
-          minChildSize: 0.8,
-          maxChildSize: 1,
-          initialChildSize: 0.95,
-          builder: (BuildContext context, ScrollController scrollController) {
-            return SingleChildScrollView(
-              // height: MediaQuery.of(context).size.height * 0.9,
-              // width: MediaQuery.of(context).size.width,
-              // color: Colors.white,
-              child: Stack(
-                children: [
-                  Obx(
-                () {
-          if (businessResult.searchResult.isEmpty) {
-            return Center(
-              child: ShimmerLoader(),
-            );
-          } else {
-            return ListView.builder(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-              itemCount: businessResult.searchResult.length,
-              itemBuilder: (context, index) {
-                final businessData = businessResult.searchResult[index];
-                return BizContainerWidget(
-                              actionFunction: ()async{
-                                 cartController.businessId = businessData.businessId;
-                                 Get.to(()=>ScheduleBooking(businessDetails: businessData,));
-                                 },
-                              businessBanner: 'https://squeeky.org/dashboard/businessfiles/${businessData.imagePath}', 
-                              businessName: businessData.business_name, 
-                              bussinessDesc: businessData.businessDesc, 
-                              businessRating: 4.2
-                            );
-              },
-            );
-          }
-                },
-              ),                  
-                  IgnorePointer(
-                    child:
-                    Container(
-                      color: Colors.white,
-                      child: Divider(
-                        indent: Get.width *0.42,
-                        endIndent: Get.width *0.42,
-                        thickness: 4,
-                      ),
-                    ) 
-                    
-                  ),
-                ],
-              ),
-            );
-          },
+          child: ListTile(
+            onTap: ()=>Get.off(()=>SearchScreen()),
+            title: Text(businessResult.service.text, style: text14B,),
+            subtitle: Text("${formattedDate}. ${businessResult.where.text}", style: text12L,),
+            leading: Icon(Icons.search),
+            trailing: Icon(Icons.edit_attributes_outlined),
+            ),
+        ), 
         ),
-      
+      body: 
+    DraggableScrollableSheet(
+        minChildSize: 0.8,
+        maxChildSize: 1,
+        initialChildSize: 0.95,
+        builder: (BuildContext context, ScrollController scrollController) {
+          return SingleChildScrollView(
+            // height: MediaQuery.of(context).size.height * 0.9,
+            // width: MediaQuery.of(context).size.width,
+            // color: Colors.white,
+            child: Stack(
+              children: [
+                Obx(
+              () {
+        if (businessResult.isloading.value) {
+          return Center(
+            child: ShimmerLoader(),
+          );
+        }else if(businessResult.searchResult.length==0){
+          return Container(
+            height: Get.height,
+            width: Get.width,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical:50.0, horizontal: 20),
+              child: Text('0 results for “${businessResult.service.text}”', style: text17LA,),
+            ),
+          );
+        }
+        else {
+          var totalItem = businessResult.searchResult.length+1;
+          return ListView.builder(
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            physics: NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+            itemCount: businessResult.searchResult.length+1,
+            itemBuilder: (context, index) {
+              if(index==0){
+                return Container(
+                  width: Get.width,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical:20.0),
+                    child: Text('${totalItem} results for “${businessResult.service.text}”', style: text17LA,),
+                  ),
+                );
+              }else{
+
+              final businessData = businessResult.searchResult[index-1];
+              return BizContainerWidget(
+                            actionFunction: ()async{
+                               cartController.businessId = businessData.businessId;
+                               Get.to(()=>ScheduleBooking(businessDetails: businessData,));
+                               },
+                            businessBanner: 'https://squeeky.org/dashboard/businessfiles/${businessData.imagePath}', 
+                            businessName: businessData.business_name, 
+                            bussinessDesc: businessData.businessDesc, 
+                            businessRating: double.parse(businessData.businessRating),
+                          );
+                }
+                  },
+                );
+              }
+              },
+            ),                  
+                IgnorePointer(
+                  child:
+                  Container(
+                    color: Colors.white,
+                    child: Divider(
+                      indent: Get.width *0.42,
+                      endIndent: Get.width *0.42,
+                      thickness: 4,
+                    ),
+                  ) 
+                  
+                ),
+              ],
+            ),
+          );
+        },
       ),
+    
     );
   }
 }

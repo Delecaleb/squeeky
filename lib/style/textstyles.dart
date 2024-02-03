@@ -83,7 +83,7 @@ var text16 =const TextStyle(
 
 var text15L =const TextStyle(
   fontSize: 15,
-  color: Colors.black,
+  color: Color(0xFF434044),
   fontWeight: FontWeight.w400,
   fontFamily: "UberMove"
 );
@@ -108,6 +108,15 @@ var text17L =const TextStyle(
   fontWeight: FontWeight.w400,
   fontFamily: "UberMove"
 );
+
+var text17LA =const TextStyle(
+  fontSize: 17,
+  color: Color(0xFF434044),
+  fontWeight: FontWeight.w600,
+  fontFamily: "UberMove"
+);
+
+
 
 var text17B =const TextStyle(
   fontSize: 17,

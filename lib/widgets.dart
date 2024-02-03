@@ -129,8 +129,8 @@ class BizContainerWidget extends StatelessWidget {
                   ListTile(
                     
                     contentPadding: EdgeInsets.zero,
-                    title: Text(businessName),
-                    subtitle: Text(bussinessDesc,
+                    title: Text(businessName, style: text17B,),
+                    subtitle: Text(bussinessDesc, style: text15L,
                       maxLines: 1,  
                       overflow: TextOverflow.ellipsis,
                     ),
