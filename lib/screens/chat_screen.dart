@@ -190,6 +190,7 @@ class _NewMessageScreenState extends State<NewMessageScreen> {
                         child: TextField(
                           controller: messageController,
                           decoration: InputDecoration(
+                            border: InputBorder.none,
                             hintText: 'Type a message...',
                           ),
                         ),
