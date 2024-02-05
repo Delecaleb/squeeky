@@ -123,7 +123,11 @@ class _NewMessageScreenState extends State<NewMessageScreen> {
             children: [
               ListTile(
                 contentPadding: EdgeInsets.zero,
-                leading: CircleAvatar(),
+                leading: CircleAvatar(
+                  radius: 25.0,
+                  backgroundImage: widget.imageUrl !='' &&  widget.imageUrl.isNotEmpty ? NetworkImage('https://squeeky.org/dashboard/businessfiles/${widget.imageUrl}') : null,
+                  backgroundColor: const Color(0xFFD9D9D9),
+                ),
                 title: Text(widget.businessName),
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -150,7 +154,7 @@ class _NewMessageScreenState extends State<NewMessageScreen> {
     DateTime rawDate = DateTime.parse(message['created_at'].toString());
     var formattedDate = DateFormat("d, MMM").format(rawDate);
     return
-    isCurrentUser ?
+    !isCurrentUser ?
      ListTile(
       
       title:  Text("${widget.businessName} ${formattedDate }", style: text12L,),
@@ -167,7 +171,11 @@ class _NewMessageScreenState extends State<NewMessageScreen> {
       
       title:  Text("Me ${formattedDate }", style: text12L, textAlign: TextAlign.right,),
       subtitle: Text(message['message_content'].toString(), textAlign: TextAlign.right),
-      trailing: CircleAvatar(), 
+      trailing: CircleAvatar(
+                  radius: 25.0,
+                  backgroundImage:sendMessagesController.userDp !='' && sendMessagesController.userDp.isNotEmpty ? NetworkImage('https://squeeky.org/api/usersPhoto/${sendMessagesController.userDp}') : null,
+                  backgroundColor: const Color(0xFFD9D9D9),
+                ), 
       contentPadding: EdgeInsets.zero,
     );
   },
