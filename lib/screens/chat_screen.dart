@@ -48,7 +48,7 @@ class _NewMessageScreenState extends State<NewMessageScreen> {
     }
   }
 
-  String connectionStatus ='connecting';
+  String connectionStatus ='';
 
   @override
   void connect(){
