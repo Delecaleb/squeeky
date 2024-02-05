@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:squeeky/style/textstyles.dart';
 import '../controllers/send_messages_controller.dart';
@@ -32,7 +33,7 @@ class _NewMessageScreenState extends State<NewMessageScreen> {
       'sender_id': widget.userId, // Replace with the actual sender ID
       'receiver_id': widget.businessId, // Replace with the actual receiver ID
       'message_content': messageText,
-      'time_sent': DateTime.now().toIso8601String(), // Add timestamp
+      'created_at': DateTime.now().toIso8601String(), // Add timestamp
     };
       _socket.emit('message', {messageData});
 
@@ -41,7 +42,7 @@ class _NewMessageScreenState extends State<NewMessageScreen> {
         'receiver_id': widget.businessId,
         'sender_id': widget.userId,
         'message_content':messageText,
-        'time_sent': DateTime.now().toIso8601String(),
+        'created_at': DateTime.now().toIso8601String(),
       });
       });
       messageController.clear();
@@ -79,7 +80,7 @@ class _NewMessageScreenState extends State<NewMessageScreen> {
         'receiver_id': data['receiver_id'],
         'sender_id': data['sender_id'],
         'message_content': data['message'],
-        'time_sent': data['time_sent'],
+        'created_at': data['created_at'],
       });
       });
     });
@@ -136,7 +137,7 @@ class _NewMessageScreenState extends State<NewMessageScreen> {
                     Row(
                       children: [
                         TextButton.icon(onPressed: null, icon: Icon(Icons.door_front_door_outlined), label: Text("Business"),),
-                        TextButton.icon(onPressed: null, icon: Icon(Icons.share), label: Text("Share"),),
+                        TextButton.icon(onPressed: ()=>Share.share('Use ${widget.businessName} for your outstanding services. Download squeeky to join now', subject:"Use ${widget.businessName} Service on Squeeky"), icon: Icon(Icons.share), label: Text("Share"),),
                       ],
                     )
                   ],
