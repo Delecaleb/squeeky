@@ -56,51 +56,7 @@ class _OrderListScreenState extends State<OrderListScreen> {
                       var ordersData = cartController.ordersList[index]; 
                       int servicePrice = ordersData.servicePrice;
                       subtotal += servicePrice; 
-                      return Dismissible(
-                        key: Key(ordersData.hashCode.toString()),
-                        direction: DismissDirection.endToStart,
-                        background: Container(
-                          color: Colors.red[900],
-                          alignment: Alignment.centerRight,
-                          padding: EdgeInsets.symmetric(horizontal: 20),
-                          child: Icon(Icons.delete, color: Colors.white),
-                        ),
-                        onDismissed: (direction) {
-                        
-                      },
-                      
-                      confirmDismiss: (direction) async {
-                          if (direction == DismissDirection.startToEnd) {
-                            // Show a confirmation dialog
-                            return await showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title: Text('Delete Item'),
-                                  content: Text('Are you sure you want to delete this item?'),
-                                  actions: <Widget>[
-                                    TextButton(
-                                      onPressed: () {
-                                        // Dismiss the dialog and confirm deletion
-                                        Navigator.of(context).pop(true);
-                                      },
-                                      child: Text('Yes'),
-                                    ),
-                                    TextButton(
-                                      onPressed: () {
-                                        // Dismiss the dialog and cancel deletion
-                                        Navigator.of(context).pop(false);
-                                      },
-                                      child: Text('No'),
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                          }
-                          return false;
-                          },
-                        child: Card(
+                      return Card(
                           elevation: 0,
                           child: Padding(
                             padding: const EdgeInsets.all(10.0),
@@ -110,7 +66,21 @@ class _OrderListScreenState extends State<OrderListScreen> {
                                   contentPadding: EdgeInsets.zero,
                                   trailing: ClipRRect(
                                     borderRadius: BorderRadius.circular(10),
-                                    child: Image.network("https://squeeky.org/dashboard/businessfiles/${ordersData.imagePath}"),
+                                    child: Image.network(
+                                      "https://squeeky.org/dashboard/businessfiles/${ordersData.imagePath}",
+                                      loadingBuilder: (context, child, loadingProgress) {
+                                              if(loadingProgress == null){
+                                                return child;
+                                              }else{
+                                                return Container(
+                                                      width: Get.width *0.3,
+                                                      // child: LinearProgressIndicator(
+                                                      //   value: loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!,
+                                                      // )
+                                                );
+                                              }
+                                            },
+                                    ),
                                   ),
                                   title: Text(ordersData.serviceName),
                                   subtitle: Text("Choice of ${ordersData.extraCategory}: ${ordersData.extraValue} \$${ordersData.extraPrice}"),
@@ -230,7 +200,6 @@ class _OrderListScreenState extends State<OrderListScreen> {
                               ],
                             ),
                           ),
-                        ),
                       );
                     },
                   );
@@ -267,7 +236,7 @@ class _OrderListScreenState extends State<OrderListScreen> {
                                   Text("Enter code"),
                                 ],
                               ),
-                               Expanded(
+                              const Expanded(
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
@@ -296,14 +265,17 @@ class _OrderListScreenState extends State<OrderListScreen> {
               leading: Text("Subtotal", style: text21,),
               trailing: Text("\$${calculateSubtotal()}", style: text21,),
             ),
-            TextButton(
-              onPressed: ()=>Get.to(()=>CheckOutScreen(services: cartController.ordersList, subtotal: calculateSubtotal(), )),
-              child: Text('Go to checkout', style: btnBoldLight,),
-              style: TextButton.styleFrom(
-                minimumSize: const Size.fromHeight(60),
-                backgroundColor: const Color(0xFF87CEEB),
-                shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.zero
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+              child: TextButton(
+                onPressed: ()=>Get.to(()=>CheckOutScreen(services: cartController.ordersList, subtotal: calculateSubtotal(), )),
+                child: Text('Go to checkout', style: btnBoldLight,),
+                style: TextButton.styleFrom(
+                  minimumSize: const Size.fromHeight(60),
+                  backgroundColor: const Color(0xFF87CEEB),
+                  shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.zero
+                  ),
                 ),
               ),
             )

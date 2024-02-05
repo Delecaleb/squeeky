@@ -6,6 +6,7 @@ import 'package:squeeky/screens/chat_screen.dart';
 import 'package:squeeky/style/textstyles.dart';
 import 'package:squeeky/widgets.dart';
 import '../models/notification_model.dart';
+import 'package:intl/intl.dart';
 
 class InboxMessagesScreen extends StatefulWidget {
   InboxMessagesScreen({Key? key}) : super(key: key);
@@ -81,25 +82,28 @@ class MessagesTab extends StatelessWidget {
             itemBuilder: (context, index){
               
               var contacts = messageContacts.contactsList[index];
-      
+              DateTime rawDate =DateTime.parse(contacts.dateBooked.toString());
+              var formattedDate  = DateFormat('d, MMM').format(rawDate);
               return  ListTile(
-                onTap: () => Get.to(()=>NewMessageScreen(businessId: contacts.businessId, userId: messageContacts.userId,)),
+                contentPadding: EdgeInsets.zero,
+
+                onTap: () => Get.to(()=>NewMessageScreen(businessId: contacts.businessId, userId: messageContacts.userId, imageUrl: contacts.businessLogo.toString(), businessName: contacts.businessName, booked: formattedDate.toString(),)),
                 leading: CircleAvatar(
+                  radius: 30.0,
                   backgroundImage: contacts.businessLogo !='' &&  contacts.businessLogo.isNotEmpty ? NetworkImage('https://squeeky.org/dashboard/businessfiles/${contacts.businessLogo}') : null,
                   backgroundColor: const Color(0xFFD9D9D9),
                 ),
                 title: Row(
                   children: [
                      ///for user name
-                    Text("${contacts.businessName}", style: text14L,),
+                    Text("${contacts.businessName}", style: text14B,),
                     /// for user country
-                    // Text(" ${contacts.businessCity}",style: text14,),
                   ],
                 ),
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("New date and time request", style: text14B,),
+                    Text(formattedDate, style: text14,),
                     Text("${contacts.serviceStatus} "),
                   ],
                 )
@@ -384,7 +388,7 @@ class NotificationDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Squeeky Notifications"),
+        title: const Text("Notifications"),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(

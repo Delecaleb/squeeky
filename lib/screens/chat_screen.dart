@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
+import 'package:squeeky/style/textstyles.dart';
 import '../controllers/send_messages_controller.dart';
 
 
 class NewMessageScreen extends StatefulWidget {
   
-  String userId, businessId;
+  String userId, businessId, businessName, imageUrl, booked;
   
-  NewMessageScreen({Key? key, required this.businessId, required this.userId}) : super(key: key);
+  NewMessageScreen({Key? key, required this.booked, required this.imageUrl, required this.businessId, required this.businessName, required this.userId}) : super(key: key);
 
   @override
   State<NewMessageScreen> createState() => _NewMessageScreenState();
@@ -108,7 +109,7 @@ class _NewMessageScreenState extends State<NewMessageScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Mark"),
+        title: Text(widget.businessName),
         actions: [
           Text(connectionStatus)
         ],
@@ -123,11 +124,11 @@ class _NewMessageScreenState extends State<NewMessageScreen> {
               ListTile(
                 contentPadding: EdgeInsets.zero,
                 leading: CircleAvatar(),
-                title: Text("Power washing biz"),
+                title: Text(widget.businessName),
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Booked. 19 Jan"),
+                    Text("Booked. ${widget.booked}"),
                     Row(
                       children: [
                         TextButton.icon(onPressed: null, icon: Icon(Icons.door_front_door_outlined), label: Text("Business"),),
@@ -145,17 +146,29 @@ class _NewMessageScreenState extends State<NewMessageScreen> {
   itemCount: messages.length,
   itemBuilder: (context, index) {
     final message = messages[index];
-    final isCurrentUser = message['sender_id'] == widget.userId; // Adjust this condition based on your user ID
-    DateTime rawDate = DateTime.parse(message['time_sent'].toString());
-    var formattedDate = DateFormat("d mmm").format(rawDate);
+    final isCurrentUser = message['sender_id'] == widget.userId; 
+    DateTime rawDate = DateTime.parse(message['created_at'].toString());
+    var formattedDate = DateFormat("d, MMM").format(rawDate);
     return
-    
+    isCurrentUser ?
      ListTile(
       
-      title: Text(message['time_sent'].toString()),
+      title:  Text("${widget.businessName} ${formattedDate }", style: text12L,),
       subtitle: Text(message['message_content'].toString()),
-      leading: CircleAvatar(), // Show reply icon for received messages
-      contentPadding: EdgeInsets.all(8.0),
+       leading: CircleAvatar(
+                  radius: 25.0,
+                  backgroundImage: widget.imageUrl !='' &&  widget.imageUrl.isNotEmpty ? NetworkImage('https://squeeky.org/dashboard/businessfiles/${widget.imageUrl}') : null,
+                  backgroundColor: const Color(0xFFD9D9D9),
+                ), 
+      contentPadding: EdgeInsets.zero,
+    )
+    :
+    ListTile(
+      
+      title:  Text("Me ${formattedDate }", style: text12L, textAlign: TextAlign.right,),
+      subtitle: Text(message['message_content'].toString(), textAlign: TextAlign.right),
+      trailing: CircleAvatar(), 
+      contentPadding: EdgeInsets.zero,
     );
   },
 )
@@ -163,8 +176,9 @@ class _NewMessageScreenState extends State<NewMessageScreen> {
                 ),
               Container(
                 decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 206, 239, 250),
-                  borderRadius: BorderRadius.circular(8)
+                  color: Colors.white,
+                  border: Border.all(),
+                  borderRadius: BorderRadius.circular(50)
                 ),
                 child: 
                 

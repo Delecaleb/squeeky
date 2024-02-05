@@ -18,7 +18,7 @@ class PaymentScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("SqueekyClean"),
+        title: Text("Continue Payment"),
       ),
       body: WebViewWidget(
         controller: controller..setNavigationDelegate(

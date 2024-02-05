@@ -291,6 +291,7 @@ class _ContinueSchedulingState extends State<ContinueScheduling> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey2,
+      appBar: AppBar(),
       body: SingleChildScrollView(
         physics: ScrollPhysics(),
         child: Column(
@@ -361,51 +362,6 @@ class _ContinueSchedulingState extends State<ContinueScheduling> {
                   }             
                 ),
             /// choosing materials
-            // Row(
-            //   children: [
-            //     Expanded(child: Text("Choose the Type of Deck")),
-      
-            //     Container(
-            //       child: Text('Required'),
-            //     )
-            //   ],
-            // ),
-            
-            // RadioListTile(
-            //   contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 15),
-            //   title: Text('Aluminium'),
-            //   value: 'Aluminium', 
-            //   groupValue: _materialType, 
-            //   onChanged: (value){
-            //     setState(() {
-            //       _materialType = value !;
-            //     });
-            //   }
-            // ),
-            // RadioListTile(
-            //   contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 15),
-            //   title:Text('Wood'),
-            //   value: 'Wood', 
-            //   groupValue: _materialType, 
-            //   onChanged: (value){
-            //     setState(() {
-            //       _materialType = value !;
-            //     });
-            //   }
-            // ),
-            // RadioListTile(
-            //   contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 15),
-            //   title: Text('Composite'),
-            //   value: 'Composite', 
-            //   groupValue: _materialType, 
-            //   onChanged: (value){
-            //     setState(() {
-            //       _materialType = value !;
-            //     });
-            //   }
-            // ),
-            
-            /// choosing material ends 
             
             /// choosing timeframe
             Padding(

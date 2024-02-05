@@ -310,15 +310,18 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
               ),
             ),
           ),
-          TextButton(
-            onPressed: ()=>Get.to(()=>PaymentScreen(userId: userId, businessData: businessData, businessName: widget.businessName, serviceFee: '${serviceCharge}', subtotal: '${widget.subtotal}', total: '${widget.subtotal + serviceCharge}',)),
-            child: Text('Next \$ ${widget.subtotal + serviceCharge}', style: titleText,),
-            style: TextButton.styleFrom(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.zero
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal:20.0, vertical: 10),
+            child: TextButton(
+              onPressed: ()=>Get.to(()=>PaymentScreen(userId: userId, businessData: businessData, businessName: widget.businessName, serviceFee: '${serviceCharge}', subtotal: '${widget.subtotal}', total: '${widget.subtotal + serviceCharge}',)),
+              child: Text('Next \$ ${widget.subtotal + serviceCharge}', style: titleText,),
+              style: TextButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.zero
+                ),
+                minimumSize: const Size.fromHeight(60),
+                backgroundColor: const Color(0xFF87CEEB),
               ),
-              minimumSize: const Size.fromHeight(60),
-              backgroundColor: const Color(0xFF87CEEB),
             ),
           )
         ],

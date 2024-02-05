@@ -112,7 +112,6 @@ class BizContainerWidget extends StatelessWidget {
                         color: Color.fromARGB(255, 188, 188, 188),
                           image: DecorationImage(image: 
                           NetworkImage(businessBanner,
-                          
                           ),
                           fit: BoxFit.cover,
                           
