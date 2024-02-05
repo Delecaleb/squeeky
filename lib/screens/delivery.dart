@@ -104,7 +104,7 @@ class Delivery extends StatelessWidget {
                   child: ListTile(
                     onTap: () => Get.to(() => ServicesScreen(query: 'deep cleaning',)),
                     trailing: Image.asset(
-                      'assets/house.png',
+                      'assets/tool.jpg',
                       fit: BoxFit.cover,
                       width: (Get.width * 0.2) / 3,
                     ),
@@ -147,13 +147,24 @@ class Delivery extends StatelessWidget {
                       style: text17B,
                     ),
                   )),
-              ListTile(
-                // onTap: () => Get.to(() => ServicesScreen()),
-                title: Text(
-                  'Find Services',
-                  style: text17B,
-                ),
-              )
+              Container(
+                  // padding: EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                      color: Color(0xFFF7F4F8),
+                      borderRadius: BorderRadius.circular(8)),
+                  child: ListTile(
+                    // onTap: () => Get.to(() => ServicesScreen(query: 'Pressure Washing',)),
+                    trailing: Image.asset(
+                      'assets/wash.png',
+                      fit: BoxFit.cover,
+                      width: (Get.width * 0.2) / 3,
+                    ),
+                    title: Text(
+                      'Find Services',
+                      style: text17B,
+                    ),
+                  )),
+              
             ],
           ),
           
