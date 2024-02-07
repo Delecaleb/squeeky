@@ -5,14 +5,13 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:squeeky/models/services_model.dart';
-
-import '../models/business_category.dart';
 import '../models/business_model.dart';
 import '../models/paid_order_model.dart';
 import '../models/contact_model.dart';
 import '../models/favourites_model.dart';
 import '../models/notification_model.dart';
 import '../models/orders_model.dart';
+import '../models/pending_order_model.dart';
 
 class ApiDataProvider {
   final String baseUrl = 'https://squeeky.org/api/squeeky.php'; // Replace with your API URL
@@ -376,6 +375,29 @@ class ApiDataProvider {
       throw Exception("Error Occured");
     }
   }
+
+  Future <List<PendingOrdersModel>>fetchPendingOrders(String userId)async{
+    var map = Map<String, dynamic>();
+
+    map['action'] = "fetch_pending_orders";
+    map['userId'] = userId;
+
+    http.Response response = await http.post(Uri.parse(baseUrl), body: map );
+    if(response.statusCode == 200){
+      final decodedResponse = json.decode(response.body);
+
+      if(decodedResponse['status']=='empty'){
+        return List<PendingOrdersModel>.empty();
+      }else{
+        final List responseData = decodedResponse['data'];
+        return responseData.map((mapData) => PendingOrdersModel.fromJson(mapData)).toList();
+      }
+    }else{
+      throw Exception("Error Occured");
+    }
+  }
+
+
 
   Future rateService(String businessId, String userId, List<String> serviceId, List<String> orderId, rating, review)async{
       var map = Map<String, dynamic>();

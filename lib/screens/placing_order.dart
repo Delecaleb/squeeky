@@ -32,7 +32,7 @@ class _PlacingOrderSreenState extends State<PlacingOrderSreen> {
     return Scaffold(
       appBar: AppBar(
         // remove the back botton from appbar
-        leading: Text(''),
+        automaticallyImplyLeading: false,
       ),
       body: Column(
         children: [
@@ -54,27 +54,49 @@ class _PlacingOrderSreenState extends State<PlacingOrderSreen> {
                   leading: Icon(Icons.done, size: 16),
                   title: Text('Home'),
                 ),
+                // ListTile(
+                //   leading: Icon(Icons.done, size: 16,),
+                //   title: Text('Standard delivery:'),
+                //   subtitle: Text('10:30AM - Jan 22. 2023'),
+                // ),
                 ListTile(
                   leading: Icon(Icons.done, size: 16,),
-                  title: Text('Standard delivery:'),
-                  subtitle: Text('10:30AM - Jan 22. 2023'),
+                  title: Text('Your order, {}'),
                 ),
-                ListTile(
-                  leading: Icon(Icons.done, size: 16,),
-                  title: Text('Your order, Dolly'),
+                // Text('1 Deck Cleaning'),
+                // Text('10 Window Cleaning.')
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: widget.paidOrders[0]['services'].length,
+                  itemBuilder: (context, index){
+                    var services =widget.paidOrders[0]['services'][index];
+                    return ListTile(
+                          leading: Container(
+                            height: 26,
+                            width: 26,
+                            // padding: EdgeInsets.symmetric(horizontal: 5),
+                            child: Text('${index+1}', textAlign: TextAlign.center, style: text17L,),
+                            decoration: BoxDecoration(
+                              border: Border.all()
+                              ),
+                          ),
+                          title: Text(services['service_name'], style:text17L),
+                          trailing: Text('\$ ${services['price']}', style: text17L,),
+                        );
+                  }
+                
                 ),
-                Text('1 Deck Cleaning'),
-                Text('10 Window Cleaning.')
               ],
             )
             ),
-            ElevatedButton(
-              onPressed: ()=>Get.to(()=>OrderDeclined()), 
-              child: Text('Undo {Note: i felt this button is not neccessary}'),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xFFEFECF0)
-              ),
-            )
+            // ElevatedButton(
+            //   onPressed: ()=>Get.to(()=>OrderDeclined()), 
+            //   child: Text('Undo {Note: i felt this button is not neccessary}'),
+            //   style: ElevatedButton.styleFrom(
+            //     backgroundColor: Color(0xFFEFECF0)
+            //   ),
+            // )
         ],
       ),
     );

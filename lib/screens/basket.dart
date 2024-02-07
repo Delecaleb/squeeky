@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:squeeky/controllers/cart_contrroller.dart';
 import 'package:squeeky/screens/checkout.dart';
+import 'package:squeeky/screens/pending_order.dart';
 import 'package:squeeky/widgets.dart';
 
 import '../controllers/business_controllers.dart';
@@ -48,7 +49,11 @@ class _BasketState extends State<Basket> {
           title: const Text('Order List'),
 
           actions: [
-            Text('Pendings')
+            ElevatedButton.icon(
+              onPressed: ()=>Get.to(()=>PendingOrdersList()),
+              icon: Icon(Icons.pending_actions),
+              label: Text('Pending Orders', style: text15B,)
+              )
           ],
         ),
         body: Column(

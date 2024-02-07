@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:squeeky/screens/checkout.dart';
 import 'package:squeeky/style/textstyles.dart';
 
@@ -249,7 +250,7 @@ class _OrderListScreenState extends State<OrderListScreen> {
                                 )
                                 ),
                               
-                              ElevatedButton(onPressed: (){}, child: Text('Invite a friend')),
+                              ElevatedButton(onPressed: ()=>Share.share('Get Squeeky', subject:'Join squeeky'), child: Text('Invite a friend')),
                               SizedBox(height: Get.height *0.15,)
                             ],
                           ),

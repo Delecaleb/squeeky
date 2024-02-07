@@ -37,7 +37,7 @@ class PaidOrders extends StatelessWidget {
                   SizedBox(height: 20,),
                   Image.asset('assets/tool.jpg'),
                   SizedBox(height: 20,),
-                  Text('No completed orders yet')
+                  Text('No orders yet')
                 ],
               ),
             )
