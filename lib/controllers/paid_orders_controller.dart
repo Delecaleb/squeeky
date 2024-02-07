@@ -1,16 +1,16 @@
 import 'package:get/get.dart';
 import 'package:squeeky/providers/api_data_provider.dart';
 
-import '../models/completed_order_model.dart';
+import '../models/paid_order_model.dart';
 import '../storage/app_getx_storage.dart';
 
-class CompletedOrdersController extends GetxController{
-  var completedOrders = <CompletedOrderModel>[].obs;
+class PaidOrdersController extends GetxController{
+  var paidOrders = <PaidOrderModel>[].obs;
   final StorageService storage = StorageService();
   late String userId;
   RxBool isloading = false.obs;
 
-  CompletedOrdersController(){
+  PaidOrdersController(){
     userId = storage.getString('userPhone');
   }
   final apiDataProvider = ApiDataProvider();
@@ -23,9 +23,9 @@ class CompletedOrdersController extends GetxController{
 
   getCompletedOrders() async {
     isloading(true);
-    var response = await apiDataProvider.fetchCompletedOrders(userId);
+    var response = await apiDataProvider.fetchCompletedOrders(userId); 
 
-    completedOrders.assignAll(response);
+    paidOrders.assignAll(response);
 
     isloading(false);
   }

@@ -213,3 +213,9 @@ var textSec =const TextStyle(
   color: Color(0xFF0F984A),
   fontFamily: "UberMove"
 );
+
+var text46 =const TextStyle(
+  fontSize: 46,
+  fontWeight: FontWeight.w700,
+  fontFamily: "UberMove"
+);

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:squeeky/controllers/completed_orders_controller.dart';
+import 'package:squeeky/controllers/paid_orders_controller.dart';
 import 'package:squeeky/screens/orderDetails.dart';
 
-class CompletedOrders extends StatelessWidget {
+class PaidOrders extends StatelessWidget {
   
-  CompletedOrders({Key? key}) : super(key: key);
+  PaidOrders({Key? key}) : super(key: key);
   
-  CompletedOrdersController completedOrdersController = Get.put(CompletedOrdersController());
+  PaidOrdersController paidOrdersController = Get.put(PaidOrdersController());
   
   @override
   Widget build(BuildContext context) {
@@ -20,14 +20,14 @@ class CompletedOrders extends StatelessWidget {
         child:         
         Obx((){
 
-            if(completedOrdersController.isloading.value){
+            if(paidOrdersController.isloading.value){
                 return Container(
                   height: Get.height,
                   width: Get.width,
                   child: Center(child: Text('Loading...'))
                   );            
             }else{
-            return completedOrdersController.completedOrders.isEmpty ? 
+            return paidOrdersController.paidOrders.isEmpty ? 
             Container(
               height: Get.height,
               width: Get.width,
@@ -46,19 +46,19 @@ class CompletedOrders extends StatelessWidget {
             ListView.builder(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
-              itemCount: completedOrdersController.completedOrders.length,
+              itemCount: paidOrdersController.paidOrders.length,
               itemBuilder: (context, index){
-                var completedOrders =  completedOrdersController.completedOrders[index];
+                var eachPaidOrder =  paidOrdersController.paidOrders[index];
                 
                 return ListTile(
-                  onTap: () => Get.to(()=>OrderDetailsScreen(orderDetails: completedOrders,)),
-                  leading: Image.network("https://squeeky.org/dashboard/businessfiles/${completedOrders.imagePath}"),
-                  title: Text(completedOrders.businessName),
-                  subtitle: Text.rich( TextSpan(text: "${completedOrders.servicesOfferedList.length} item(s) \$${completedOrders.total} \n", 
+                  onTap: () => Get.to(()=>OrderDetailsScreen(orderDetails: eachPaidOrder,)),
+                  leading: Image.network("https://squeeky.org/dashboard/businessfiles/${eachPaidOrder.imagePath}"),
+                  title: Text(eachPaidOrder.businessName),
+                  subtitle: Text.rich( TextSpan(text: "${eachPaidOrder.servicesOfferedList.length} item(s) \$${eachPaidOrder.total} \n", 
                   children: [
                     TextSpan(
-                      text: completedOrders.dateCompleted, style: TextStyle(
-                        color:  completedOrders.dateCompleted.toLowerCase() =='pending' ? Color.fromARGB(255, 195, 134, 130) : Colors.green,
+                      text: eachPaidOrder.dateCompleted, style: TextStyle(
+                        color:  eachPaidOrder.serviceStatus.toLowerCase() !='completed' ? Color.fromARGB(255, 195, 134, 130) : Colors.green,
                       )
                     )
                   ]

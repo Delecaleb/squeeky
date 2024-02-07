@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:squeeky/models/completed_order_model.dart';
+import 'package:squeeky/models/paid_order_model.dart';
 import 'package:squeeky/screens/basket.dart';
 import 'package:squeeky/screens/placing_order.dart';
 import 'package:webview_flutter/webview_flutter.dart';

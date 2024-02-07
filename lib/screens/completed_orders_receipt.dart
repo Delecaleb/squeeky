@@ -5,11 +5,11 @@ import 'package:get/get.dart';
 import 'package:squeeky/screens/home.dart';
 import 'package:squeeky/style/textstyles.dart';
 
-import '../models/completed_order_model.dart';
+import '../models/paid_order_model.dart';
 
 
 class ReceiptScreen extends StatelessWidget {
-  CompletedOrderModel completedOrder;
+  PaidOrderModel completedOrder;
   ReceiptScreen({Key? key, required this.completedOrder}) : super(key: key);
   
   @override

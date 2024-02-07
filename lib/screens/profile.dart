@@ -7,7 +7,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:squeeky/completed_orders_list.dart';
+import 'package:squeeky/user_paid_orders_list.dart';
 import 'package:squeeky/controllers/update_profile_controller.dart';
 import 'package:squeeky/screens/account_wallet.dart';
 import 'package:squeeky/screens/favourite_screen.dart';
@@ -55,7 +55,7 @@ class Profile extends StatelessWidget {
               children: [
                 ActionIconWidget(assetImage: 'favorite.png', action: (){Get.to(()=>FavouriteScreen());}, title: 'Favourites'),
                 ActionIconWidget(assetImage: 'wallet.png', action: ()=>Get.to(()=>AccountWallet()), title: 'Wallet'),
-                ActionIconWidget(assetImage: 'orders.png', action: ()=>Get.to(()=>CompletedOrders()), title: 'Orders'),
+                ActionIconWidget(assetImage: 'orders.png', action: ()=>Get.to(()=>PaidOrders()), title: 'Orders'),
                 SizedBox(height: 20,),
                 
               ],
@@ -109,7 +109,7 @@ class ViewProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
+      appBar: AppBar(),
       body: SingleChildScrollView(
         child: Column(
           children: [

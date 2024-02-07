@@ -4,11 +4,11 @@ import 'package:squeeky/screens/completed_orders_receipt.dart';
 import 'package:squeeky/screens/ratingservices.dart';
 import 'package:squeeky/style/textstyles.dart';
 
-import '../models/completed_order_model.dart';
+import '../models/paid_order_model.dart';
 
 class OrderDetailsScreen extends StatelessWidget {
   
-  CompletedOrderModel orderDetails;
+  PaidOrderModel orderDetails;
   
   OrderDetailsScreen({super.key, required this.orderDetails});
 
@@ -18,7 +18,7 @@ class OrderDetailsScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Order #${orderDetails.servicesOfferedList[0].paymentId}'),
 
-        actions: [Text('Help')],
+        // actions: [Text('Help')],
       ),
 
       body: SingleChildScrollView(
@@ -44,8 +44,8 @@ class OrderDetailsScreen extends StatelessWidget {
                    subtitle: Text.rich(
                            TextSpan(
                            children: [
-                            if(orderDetails.dateCompleted.toLowerCase() =='pending')...[
-                              TextSpan(text: "Order ${orderDetails.dateCompleted}", style: TextStyle(color:  Color.fromARGB(255, 195, 134, 130))),
+                            if(orderDetails.serviceStatus.toLowerCase() !='completed')...[
+                              TextSpan(text: "Order ${orderDetails.serviceStatus}", style: TextStyle(color:  Color.fromARGB(255, 195, 134, 130))),
                             ]else...[
                                  TextSpan(text: "Order Completed  ", style: TextStyle(color: Color(0xFF0F984A))),  TextSpan(text: '${orderDetails.dateCompleted}')
                             ],
@@ -59,7 +59,7 @@ class OrderDetailsScreen extends StatelessWidget {
                    trailing: ElevatedButton(
 
                     /// if order is pending no rating allow
-                    onPressed: orderDetails.dateCompleted.toLowerCase() =='pending' ? null : (){
+                    onPressed: orderDetails.serviceStatus.toLowerCase() !='completed' ? null : (){
                     final orderIds = orderDetails.servicesOfferedList.map((service) => service.orderId).toList();
                     final serviceIds = orderDetails.servicesOfferedList.map((e) => e.serviceId).toList();
                       Get.to(()=>RatingServicesScreen(

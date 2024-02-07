@@ -8,7 +8,7 @@ import 'package:squeeky/models/services_model.dart';
 
 import '../models/business_category.dart';
 import '../models/business_model.dart';
-import '../models/completed_order_model.dart';
+import '../models/paid_order_model.dart';
 import '../models/contact_model.dart';
 import '../models/favourites_model.dart';
 import '../models/notification_model.dart';
@@ -335,7 +335,7 @@ class ApiDataProvider {
     }
   }
 
-  Future <List<CompletedOrderModel>>fetchCompletedOrders(String userId)async{
+  Future <List<PaidOrderModel>>fetchCompletedOrders(String userId)async{
     var map = Map<String, dynamic>();
 
     map['action'] = "fetch_completed_orders";
@@ -346,10 +346,10 @@ class ApiDataProvider {
       final decodedResponse = json.decode(response.body);
 
       if(decodedResponse['status']=='empty'){
-        return List<CompletedOrderModel>.empty();
+        return List<PaidOrderModel>.empty();
       }else{
         final List responseData = decodedResponse['data'];
-        return responseData.map((mapData) => CompletedOrderModel.fromJson(mapData)).toList();
+        return responseData.map((mapData) => PaidOrderModel.fromJson(mapData)).toList();
       }
     }else{
       throw Exception("Error Occured");
