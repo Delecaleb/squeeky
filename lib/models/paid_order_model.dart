@@ -11,7 +11,7 @@ class PaidOrderModel{
 
     List<CompletedServiceModel> services = serviceMap.map((e) => CompletedServiceModel.fromJson(e)).toList();
 
-    return PaidOrderModel(businessLogo: mapData['business_logo'], serviceStatus: mapData['service_status'].toString(),businessId:mapData['business_id'], subTotal:mapData['sub_total'] ,businessName: mapData['business_name'], imagePath: mapData['cover_image'], total: mapData['total'], servicesOfferedList: services, dateCompleted:mapData['date_completed'], serviceCharge:mapData['service_fee'].toString());
+    return PaidOrderModel(businessLogo: mapData['business_logo'].toString(), serviceStatus: mapData['service_status'].toString(),businessId:mapData['business_id'], subTotal:mapData['sub_total'] ,businessName: mapData['business_name'], imagePath: mapData['cover_image'], total: mapData['total'], servicesOfferedList: services, dateCompleted:mapData['date_completed'], serviceCharge:mapData['service_fee'].toString());
   }
 
 }
