@@ -24,16 +24,31 @@ class PendingOrdersList extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 30),
         child: Column(
           children: [
-            // SizedBox(height: 30,),
-            // Image.asset('assets/Subtract.png', width: Get.width * 0.2),
-
-            // Text("No pending orders yet", style: titleText,),
-            // SizedBox(height: 10,),
-            // Text("When you place your first order, it will appear here" , style: textInfoLG, textAlign: TextAlign.center,),
-            // SizedBox(height: 10,),
-            
+                
             Obx(() {
-                return ListView.builder(
+               if(pendingOrderController.isloading.value){
+                return Container(
+                  height: Get.height,
+                  width: Get.width,
+                  child: Center(child: Text('Loading...'))
+                  );            
+            }else{
+            return pendingOrderController.pendingOrders.isEmpty ? 
+            Container(
+              height: Get.height,
+              width: Get.width,
+              child: Column(
+                // mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(height: 20,),
+                  Image.asset('assets/tool.jpg'),
+                  SizedBox(height: 20,),
+                  Text('No orders yet')
+                ],
+              ),
+            )
+            :
+            ListView.builder(
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
                   itemCount: pendingOrderController.pendingOrders.length,
@@ -55,6 +70,7 @@ class PendingOrdersList extends StatelessWidget {
                       );
                   }          
                 );
+            }
               }
             ),
           ],
