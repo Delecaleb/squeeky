@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:squeeky/style/textstyles.dart';
 import 'package:squeeky/widgets.dart';
-
 import '../controllers/fetch_favourites_controller.dart';
 
 class FavouriteScreen extends StatelessWidget {
@@ -38,15 +37,31 @@ class FavouriteScreen extends StatelessWidget {
             return ListView.builder(
               physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-              itemCount: favouritesController.favourites.length,
+              itemCount: favouritesController.favourites.length+1,
               itemBuilder: (context, index) {
-                final favouriteList = favouritesController.favourites[index];
-                return FavouritesWidget(
-                          imageLink: 'https://squeeky.org/dashboard/businessfiles/${favouriteList.imagePath}',
-                          title: favouriteList.businessName,
-                          subSubTitle: '\$1.79 Delivery Fee',
-                          subTitle:'20 mins' 
-                        );
+                if(index==0){
+                    return Container(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical:15.0),
+                        child: Text('Recently added', style: text21,),
+                      ),
+                    );
+                }else{
+
+                final favouriteList = favouritesController.favourites[index-1];
+                return InkWell(
+                  onTap: ()async{
+                     favouritesController.getBusinessDetails(favouriteList.businessId);
+                     
+                  },
+                  child: FavouritesWidget(
+                            imageLink: 'https://squeeky.org/dashboard/businessfiles/${favouriteList.imagePath}',
+                            title: favouriteList.businessName,
+                            subSubTitle: '\$1.79 Delivery Fee',
+                            subTitle:'20 mins' 
+                          ),
+                );
+              }
               },
             );
           }

@@ -21,7 +21,7 @@ class _ServicesScreenState extends State<ServicesScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    businessController.findABusiness(widget.query);
+    businessController.fetchBusinessBaseOnInput(widget.query);
   }
   
   @override

@@ -23,7 +23,7 @@ class _CustomScreenState extends State<CustomScreen> {
   @override
   void initState() {
     super.initState();
-    businessController.findABusiness(widget.query);
+    businessController.fetchBusinessBaseOnInput(widget.query);
     // Add a listener to the scroll controller to detect scrolling
     _scrollController.addListener(() {
       if (_scrollController.position.pixels > 0) {

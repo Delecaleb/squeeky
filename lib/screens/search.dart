@@ -8,37 +8,30 @@ import 'package:squeeky/widgets.dart';
 class Search extends StatelessWidget {
   Search({super.key});
   BusinessController businessController = Get.put(BusinessController());
-  TextEditingController serchController = TextEditingController();
+  TextEditingController searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(70),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(50),
-              color: Color(0xFFEFECF0)
-            ),
-            child: AppBar(
-              backgroundColor: Colors.transparent,
-          title: TextField(
-            onEditingComplete: ()=> businessController.findABusiness(serchController.text),
-            autocorrect: true,
-            autofocus: true,
-            decoration: InputDecoration(
-              contentPadding: EdgeInsets.only(bottom: 18),
-              border: InputBorder.none,
-              labelText: 'car washing, home cleaning, etc.',
-              floatingLabelBehavior: FloatingLabelBehavior.never,
-              
-            ),
-          ),
-              ),
-          ),
-        ),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+      title: TextField(
+      controller: searchController,
+      onEditingComplete: (){
+         if(searchController.text.isNotEmpty){
+          businessController.fetchBusinessBaseOnInput(searchController.text);
+         }
+        },
+      autocorrect: true,
+      autofocus: true,
+      decoration: InputDecoration(
+        contentPadding: EdgeInsets.only(bottom: 18),
+        border: InputBorder.none,
+        labelText: 'car washing, home cleaning, etc.',
+        floatingLabelBehavior: FloatingLabelBehavior.never,
+        
       ),
+      ),
+        ),
       body: SingleChildScrollView(
         physics: ScrollPhysics(),
         padding: EdgeInsets.symmetric(horizontal: 20,),
@@ -65,8 +58,8 @@ class Search extends StatelessWidget {
                       actionFunction: () => Get.to(()=>StoreInformation(business: businessData,)),
                       businessBanner: "https://squeeky.org/dashboard/businessfiles/${businessData.imagePath}", 
                       businessName: businessData.business_name, 
-                      bussinessDesc: "\$2.49 Delivery Fee 25-45 min", 
-                      businessRating: 4.2
+                      bussinessDesc: "${businessData.businessDesc}", 
+                      businessRating: double.parse(businessData.businessRating)
                     );
                     // SizedBox(height: 20,),
                   },

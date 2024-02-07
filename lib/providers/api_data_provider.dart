@@ -31,15 +31,36 @@ class ApiDataProvider {
     }
   }
 
-  Future<List<BusinessModel>> searchBusinessServices(service) async {
+  Future<List<BusinessModel>> getBusinessesById(businessId) async {
     var map = Map<String, dynamic> ();
-    map['action'] = 'fetch_businesses';
-    map['service'] = service;
+    map['action'] = 'get_businesses_by_id';
+    map['business_id'] = businessId;
+    
     http.Response response = await http.post(Uri.parse(baseUrl), body: map);
     if(response.statusCode == 200){
      List  data = json.decode(response.body);
 
       return data.map((data)=>BusinessModel.fromJson(data)).toList();
+    }
+    else {
+     throw Exception('Failed to load service categories');
+    }
+  }
+
+  Future<List<BusinessModel>> searchBusinessServices(service) async {
+    var map = Map<String, dynamic> ();
+    map['action'] = 'fetch_businesses_service';
+    map['service'] = service;
+    print(map);
+    http.Response response = await http.post(Uri.parse(baseUrl), body: map);
+    if(response.statusCode == 200){
+     final  data = json.decode(response.body);
+      if(data['status']=='empty'){
+           return List<BusinessModel>.empty();
+      }else{
+        List  responseData= data['data'];
+        return responseData.map((data)=>BusinessModel.fromJson(data)).toList();
+      }
     }
     else {
      throw Exception('Failed to load service categories');

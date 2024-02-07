@@ -9,6 +9,7 @@ class BusinessController extends GetxController {
   RxBool schedule = false.obs; 
   RxBool isloading = true.obs;
   var businessCategories = <BusinessModel>[].obs;
+  
   var businessSearchResult = <BusinessModel>[].obs;
   @override
   void onInit() {
@@ -35,7 +36,7 @@ class BusinessController extends GetxController {
   }
 
 
-  void findABusiness(searchQuery) async {
+  void fetchBusinessBaseOnInput(searchQuery) async {
     isloading(true);
     final searchResult = await apiHandler.searchBusinessServices(searchQuery);
     businessSearchResult.assignAll(searchResult);
