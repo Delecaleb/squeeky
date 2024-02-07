@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:squeeky/controllers/cart_contrroller.dart';
 import 'package:squeeky/screens/checkout.dart';
 import 'package:squeeky/widgets.dart';
@@ -306,7 +307,7 @@ class _BasketState extends State<Basket> {
                                     )
                                     ),
                                   
-                                  ElevatedButton(onPressed: (){}, child: Text('Invite a friend')),
+                                  ElevatedButton(onPressed: ()=>Share.share('Join Squeeky today', subject:'Join Squeeky today'), child: Text('Invite a friend')),
                                   SizedBox(height: Get.height *0.15,)
                                 ],
                               ),
