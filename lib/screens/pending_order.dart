@@ -24,20 +24,14 @@ class PendingOrdersList extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 30),
         child: Column(
           children: [
-            SizedBox(height: 30,),
-            Image.asset('assets/Subtract.png', width: Get.width * 0.2),
+            // SizedBox(height: 30,),
+            // Image.asset('assets/Subtract.png', width: Get.width * 0.2),
 
-            Text("No orders yet", style: titleText,),
-            SizedBox(height: 10,),
-            Text("When you place your first order, it will appear here" , style: textInfoLG, textAlign: TextAlign.center,),
-            SizedBox(height: 10,),
-            ElevatedButton(
-              onPressed: (){}, 
-              child: Text('Fine Service', style: textBtn,),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xFF87CEEB)
-              ),
-            ),
+            // Text("No pending orders yet", style: titleText,),
+            // SizedBox(height: 10,),
+            // Text("When you place your first order, it will appear here" , style: textInfoLG, textAlign: TextAlign.center,),
+            // SizedBox(height: 10,),
+            
             Obx(() {
                 return ListView.builder(
                   shrinkWrap: true,
@@ -55,7 +49,7 @@ class PendingOrdersList extends StatelessWidget {
                         subtitle: Column(
                           children: [
                             Text("${pendingOrders.servicesOfferedList.length}"),
-                            
+
                           ],
                         ),
                       );
