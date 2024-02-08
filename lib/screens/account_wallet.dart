@@ -54,10 +54,10 @@ class AccountWallet extends StatelessWidget {
               //   title: Text("*****2125"),
               //   trailing: Icon(Icons.arrow_forward_ios),
               // ),
-              ListTile(
-                leading: Icon(Icons.add),
-                title: Text("Add payment method"),
-              ),
+              // ListTile(
+              //   leading: Icon(Icons.add),
+              //   title: Text("Add payment method"),
+              // ),
               
              ],
           ),

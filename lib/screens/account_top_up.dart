@@ -49,11 +49,10 @@ class AccountTopUpScreen extends StatelessWidget {
                 
               ),
               SizedBox(height: 20,),
-              TextButton(
-                onPressed: null,
+              ElevatedButton(
+                onPressed: (){},
                 child: Text(
                   'Continue',
-                  style: titleTextWhite,
                 ),
                 style: ElevatedButton.styleFrom(
                   minimumSize: Size.fromHeight(60),

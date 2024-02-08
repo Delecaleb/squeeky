@@ -54,10 +54,11 @@ class PendingOrdersList extends StatelessWidget {
                   itemCount: pendingOrderController.pendingOrders.length,
                   itemBuilder:   (BuildContext, index){
                       var pendingOrders = pendingOrderController.pendingOrders[index];
+                      print(pendingOrders.businessLogo);
                       return ListTile(
                         leading: CircleAvatar(
                                 radius: 30.0,
-                                backgroundImage: pendingOrders.businessLogo !='' &&  pendingOrders.businessLogo !=''.isNotEmpty ? NetworkImage('https://squeeky.org/dashboard/businessfiles/${pendingOrders.businessLogo}') : null,
+                                // backgroundImage: pendingOrders.businessLogo !='' &&  pendingOrders.businessLogo.isNotEmpty  &&  pendingOrders.businessLogo != null ? NetworkImage('https://squeeky.org/dashboard/businessfiles/${pendingOrders.businessLogo}') : null,
                                 backgroundColor: const Color(0xFFD9D9D9),
                               ),
                         title: Text(pendingOrders.businessName, style: text17B,),

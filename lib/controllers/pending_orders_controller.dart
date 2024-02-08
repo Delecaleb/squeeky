@@ -24,7 +24,7 @@ class PendingOrdersController extends GetxController{
   getPendingOrders() async {
     isloading(true);
     var response = await apiDataProvider.fetchCompletedOrders(userId); 
-
+print(response);
     pendingOrders.assignAll(response);
 
     isloading(false);
