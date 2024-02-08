@@ -11,7 +11,7 @@ import '../models/contact_model.dart';
 import '../models/favourites_model.dart';
 import '../models/notification_model.dart';
 import '../models/orders_model.dart';
-import '../models/pending_order_model.dart';
+import '../models/pending_order_services_model.dart';
 
 class ApiDataProvider {
   final String baseUrl = 'https://squeeky.org/api/squeeky.php'; // Replace with your API URL
@@ -376,7 +376,7 @@ class ApiDataProvider {
     }
   }
 
-  Future <List<PendingOrdersModel>>fetchPendingOrders(String userId)async{
+  Future <List<PendingServiceModel>>fetchPendingOrders(String userId)async{
     var map = Map<String, dynamic>();
 
     map['action'] = "fetch_pending_orders";
@@ -387,10 +387,10 @@ class ApiDataProvider {
       final decodedResponse = json.decode(response.body);
 
       if(decodedResponse['status']=='empty'){
-        return List<PendingOrdersModel>.empty();
+        return List<PendingServiceModel>.empty();
       }else{
         final List responseData = decodedResponse['data'];
-        return responseData.map((mapData) => PendingOrdersModel.fromJson(mapData)).toList();
+        return responseData.map((mapData) => PendingServiceModel.fromJson(mapData)).toList();
       }
     }else{
       throw Exception("Error Occured");
