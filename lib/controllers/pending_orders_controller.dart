@@ -8,7 +8,7 @@ class PendingOrdersController extends GetxController{
   final StorageService storage = StorageService();
   late String userId;
   RxBool isloading = false.obs;
-
+  
   PendingOrdersController(){
     userId = storage.getString('userPhone');
   }
@@ -23,10 +23,13 @@ class PendingOrdersController extends GetxController{
   getPendingOrders() async {
     isloading(true);
     var response = await apiDataProvider.fetchPendingOrders(userId); 
-print(response);
     pendingOrders.assignAll(response);
 
     isloading(false);
   }
 
+  cancelOrder(serviceid)async{
+    var result = await apiDataProvider.cancelOrder(serviceid, userId);
+    return result;
+  }
 }

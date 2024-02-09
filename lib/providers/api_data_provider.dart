@@ -50,7 +50,7 @@ class ApiDataProvider {
     var map = Map<String, dynamic> ();
     map['action'] = 'fetch_businesses_service';
     map['service'] = service;
-    print(map);
+
     http.Response response = await http.post(Uri.parse(baseUrl), body: map);
     if(response.statusCode == 200){
      final  data = json.decode(response.body);
@@ -75,6 +75,7 @@ class ApiDataProvider {
     http.Response response = await http.post(Uri.parse(baseUrl), body: map);
     if(response.statusCode == 200){
      final  data = json.decode(response.body);
+     
       if(data['status']=='empty'){
            return List<BusinessModel>.empty();
       }else{
@@ -296,7 +297,7 @@ class ApiDataProvider {
     if(response.statusCode == 200){
       
       final decodedResponse = json.decode(response.body);
-      print(decodedResponse);
+    
       return decodedResponse;
       
     }else{
@@ -355,6 +356,24 @@ class ApiDataProvider {
     }
   }
 
+  Future cancelOrder(serviceid, userid)async{
+    var map = Map<String, dynamic>();
+
+    map['action'] = "cancel_order";
+    map['serviceid'] = serviceid;
+    map['userid'] = userid;
+    http.Response response = await http.post(Uri.parse(baseUrl), body: map );
+    if(response.statusCode == 200){
+      
+      final decodedResponse = json.decode(response.body);
+  
+      return decodedResponse;
+      
+    }else{
+      throw Exception("Error Occured");
+    }
+  }
+
   Future <List<PaidOrderModel>>fetchCompletedOrders(String userId)async{
     var map = Map<String, dynamic>();
 
@@ -381,7 +400,7 @@ class ApiDataProvider {
 
     map['action'] = "fetch_pending_orders";
     map['userId'] = userId;
-
+   
     http.Response response = await http.post(Uri.parse(baseUrl), body: map );
     if(response.statusCode == 200){
       final decodedResponse = json.decode(response.body);
@@ -449,7 +468,7 @@ class ApiDataProvider {
         return List<ContactModel>.empty();
       }else{
         final List responseData = decodedResponse['data'];
-        // print(responseData);
+
         return  responseData.map((mapData) => ContactModel.fromJson(mapData)).toList();
       }
     }else{
@@ -471,7 +490,7 @@ Future<List<Map<String, dynamic>>> getMessages(userId, businessId) async {
   if (response.statusCode == 200) {
     final decodedResponse = json.decode(response.body);
     final responseData = decodedResponse['data'];
-    print(responseData);
+
     return List<Map<String, dynamic>>.from(responseData);
   } else {
     throw Exception("Error Occurred");

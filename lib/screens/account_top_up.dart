@@ -57,6 +57,9 @@ class AccountTopUpScreen extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   minimumSize: Size.fromHeight(60),
                   backgroundColor: Color(0xFF87CEEB),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.zero
+                  )
                 ),
               )
               
