@@ -32,7 +32,7 @@ class _PendingOrdersListState extends State<PendingOrdersList> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Recently added', style: text21,),    
+            Text('Pending Jobs', style: text34B,),    
             Obx(() {
                if(pendingOrderController.isloading.value){
                 return Container(
@@ -130,10 +130,10 @@ class _PendingOrdersListState extends State<PendingOrdersList> {
                           ),
 
                           Divider(
-          color: const Color.fromARGB(255, 200, 200, 200), // Adjust the color as needed
-          height: 2.5, // Adjust the height as needed
-          thickness: 0.5, // Adjust the thickness as needed
-        ),
+                                color: const Color.fromARGB(255, 200, 200, 200), // Adjust the color as needed
+                                height: 2.5, // Adjust the height as needed
+                                thickness: 0.5, // Adjust the thickness as needed
+                              ),
                         ],
                       );
                   }          

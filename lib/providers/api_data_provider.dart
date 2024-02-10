@@ -172,7 +172,19 @@ class ApiDataProvider {
       throw Exception("Error Occured");
     }
   }
-
+  Future topUpAccount(String user_phone, amount)async{
+      var map = Map<String, dynamic>();
+      map['action']= 'top_up_account';
+      map['amount'] = amount;
+      map['user_id'] = user_phone;
+      http.Response response = await http.post(Uri.parse(baseUrl), body: map);
+      if(response.statusCode == 200){
+      final responseData = json.decode(response.body);  
+      return responseData;
+    }else{
+      throw Exception("Error Occured");
+    }
+  }
   Future addToCart(businessId,serviceId,serviceName, extraCategory, extraPrice,extraValue,timeArrival,bookingDate,servicePrice, user_phone)async{
       var map = Map<String, dynamic>();
       map['action']= 'add_to_cart';

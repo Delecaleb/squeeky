@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:squeeky/screens/top_up_screen.dart';
 // import 'package:squeeky/screens/top_up_paypal.dart';
 import 'package:squeeky/style/textstyles.dart';
 
-class AccountTopUpScreen extends StatelessWidget {
-  const AccountTopUpScreen({super.key});
+import '../controllers/top_up_controller.dart';
 
+class AccountTopUpScreen extends StatelessWidget {
+  AccountTopUpScreen({super.key});
+  TopUpController topUpController  = Get.put(TopUpController());
+  TextEditingController amountController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,11 +50,11 @@ class AccountTopUpScreen extends StatelessWidget {
               TextField(
                 autofocus: true,
                 keyboardType: TextInputType.number,
-                
+                controller: amountController,
               ),
               SizedBox(height: 20,),
               ElevatedButton(
-                onPressed: (){},
+                onPressed: ()=>Get.to(()=>TopUpScreen(userId: topUpController.userId, amount: amountController.text)),
                 child: Text(
                   'Continue',
                 ),
