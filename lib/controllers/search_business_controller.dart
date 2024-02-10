@@ -4,7 +4,7 @@ import 'package:squeeky/models/business_model.dart';
 import 'package:squeeky/providers/api_data_provider.dart';
 
 class SearchBusinessController extends GetxController{
-  RxBool schedule = false.obs; 
+  RxBool schedule = true.obs; 
   var searchResult = <BusinessModel>[].obs;
   final apiHandler = ApiDataProvider();
   RxBool isloading = false.obs;
