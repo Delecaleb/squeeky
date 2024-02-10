@@ -103,8 +103,11 @@ class MessagesTab extends StatelessWidget {
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(formattedDate, style: text14,),
-                    Text("${contacts.serviceStatus} "),
+                    Text(contacts.lastMessage, style: text14, maxLines: 2, overflow: TextOverflow.ellipsis ,),
+                    contacts.serviceStatus =='pending' ? Text("Job ${contacts.serviceStatus} ", style: text12L )
+                    :
+                    Text('Booked - ${formattedDate}', style: text12L,)
+                    ,
                   ],
                 )
               );

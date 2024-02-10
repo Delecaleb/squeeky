@@ -200,8 +200,10 @@ class _NewMessageScreenState extends State<NewMessageScreen> {
                           controller: messageController,
                           decoration: InputDecoration(
                             border: InputBorder.none,
-                            hintText: 'Type a message...',
+                            hintText: 'Write a message...',
                           ),
+                          keyboardType: TextInputType.multiline,
+                          maxLines: null,
                         ),
                       ),
                       IconButton(
