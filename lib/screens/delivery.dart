@@ -104,7 +104,7 @@ class Delivery extends StatelessWidget {
                   child: ListTile(
                     onTap: () => Get.to(() => ServicesScreen(query: 'deep cleaning',)),
                     trailing: Image.asset(
-                      'assets/tool.jpg',
+                      'assets/mop.png',
                       fit: BoxFit.cover,
                       width: (Get.width * 0.2) / 3,
                     ),
@@ -155,7 +155,7 @@ class Delivery extends StatelessWidget {
                   child: ListTile(
                     // onTap: () => Get.to(() => ServicesScreen(query: 'Pressure Washing',)),
                     trailing: Image.asset(
-                      'assets/wash.png',
+                      'assets/search.png',
                       fit: BoxFit.cover,
                       width: (Get.width * 0.2) / 3,
                     ),
