@@ -69,14 +69,7 @@ class _PendingOrdersListState extends State<PendingOrdersList> {
                         children: [
                           ListTile(
                             contentPadding: EdgeInsets.zero,
-
-                            leading: CircleAvatar(
-                                    radius: 30.0,
-                                    backgroundImage: pendingOrders.serviceImage !='' &&  pendingOrders.serviceImage.isNotEmpty  &&  pendingOrders.serviceImage != null ? NetworkImage('https://squeeky.org/dashboard/businessfiles/${pendingOrders.serviceImage}') : null,
-                                    backgroundColor: const Color(0xFFD9D9D9),
-                                  ),
-                            trailing: IconButton(
-                                onPressed: ()async{
+                            onLongPress: ()async{
                                   var confirmed = await showDialog(
                                                         context: context,
                                                         builder: (context) {
@@ -114,15 +107,19 @@ class _PendingOrdersListState extends State<PendingOrdersList> {
                                       
                                     }
                                 },
-                                icon: Icon(Icons.cancel),
-                                // label: Text('Cancel', style: text14,)
+                            leading: CircleAvatar(
+                                    radius: 30.0,
+                                    backgroundImage: pendingOrders.serviceImage !='' &&  pendingOrders.serviceImage.isNotEmpty  &&  pendingOrders.serviceImage != null ? NetworkImage('https://squeeky.org/dashboard/businessfiles/${pendingOrders.serviceImage}') : null,
+                                    backgroundColor: const Color(0xFFD9D9D9),
                                   ),
+                            
                             title: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(pendingOrders.businessName, style: text17B,),
                                   Text("${pendingOrders.serviceName} (${pendingOrders.status})", style: text15L,),
                                   Text("\$${pendingOrders.serviceTotal}", style: text15L,),
+                                  Text("${pendingOrders.location}", style: text15L,),
                                 ],
                             ),
                             subtitle: Text(formatedDate),

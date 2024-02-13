@@ -52,6 +52,7 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar:  AppBar(
+        automaticallyImplyLeading: false,
         toolbarHeight: 90,
         title: Obx(() {
             return Column(

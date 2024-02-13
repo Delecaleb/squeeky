@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:squeeky/screens/search.dart';
+import 'package:squeeky/screens/services.dart';
 import 'package:squeeky/style/textstyles.dart';
 import 'package:squeeky/widgets.dart';
 
@@ -24,7 +25,7 @@ class Categories extends StatelessWidget {
               child: ListTile(
                 onTap: ()=>Get.to(()=>Search()),
                 leading: Icon(Icons.search_sharp),
-                title: Text("Food, groceries, drinks, etc."),
+                title: Text("Car Detailing, Pressure Washing, etc."),
               ),
             ),
             SizedBox(height: 20,),
@@ -50,17 +51,19 @@ class Categories extends StatelessWidget {
                   ),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
-                    child: Column(
-                      children: [
-                        Image.asset(
-                            'assets/Rec113.png',
-                            fit: BoxFit.cover,
-                            height: 100,
-                          ),
-                          SizedBox(height: 10,),
-                         Text('Power Washing', style: text17L,),
-                         SizedBox(height: 10,),
-                      ],
+                    child: ListTile(
+                      onTap: () => Get.to(() => ServicesScreen(query: 'Power Washing',)),
+                      contentPadding: EdgeInsets.zero,
+                      minVerticalPadding: 0,
+                      title:Image.asset(
+                      'assets/Rec113.png',
+                      fit: BoxFit.cover,
+                      height: 100,
+                    ),
+                      subtitle: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Text('Power Washing', style: text17L, textAlign: TextAlign.center,),
+                      ),
                     ),
                   ),
                 ),
@@ -74,17 +77,19 @@ class Categories extends StatelessWidget {
                   ),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
-                    child: Column(
-                      children: [
-                        Image.asset(
-                            'assets/Rec114.png',
-                            fit: BoxFit.cover,
-                            height: 100,
-                          ),
-                          SizedBox(height: 10,),
-                         Text('Car Detailing', style: text17L,),
-                         SizedBox(height: 10,),
-                      ],
+                    child: ListTile(
+                      onTap: () => Get.to(() => ServicesScreen(query: 'Car Detailing',)),
+                      contentPadding: EdgeInsets.zero,
+                      minVerticalPadding: 0,
+                      title:Image.asset(
+                      'assets/Rec114.png',
+                      fit: BoxFit.cover,
+                      height: 100,
+                    ),
+                      subtitle: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Text('Car Detailing', style: text17L, textAlign: TextAlign.center,),
+                      ),
                     ),
                   ),
                 ),
@@ -99,6 +104,7 @@ class Categories extends StatelessWidget {
                    child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
                     child: ListTile(
+                      onTap: () => Get.to(() => ServicesScreen(query: 'deep cleaning',)),
                       contentPadding: EdgeInsets.zero,
                       minVerticalPadding: 0,
                       title:Image.asset(

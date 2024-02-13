@@ -105,6 +105,7 @@ final scaffoldKey = GlobalKey<ScaffoldState>();
       
                   ListTile(
                     contentPadding: EdgeInsets.zero,
+                    minVerticalPadding: 0.0,
                       onTap: (){
                       scaffoldKey.currentState!.showBottomSheet((builder){
                             return Container(
@@ -163,17 +164,10 @@ final scaffoldKey = GlobalKey<ScaffoldState>();
                     subtitle: Text("Tap for hours, info and more"),
                     trailing: Icon(Icons.chevron_right_outlined),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      PillBtn(subtitle: '25-45 min \$2.49', title: 'Arriving',),
-                      SizedBox(width: 10,),
-                      PillBtn(subtitle: '4.5 367 ratings', title: 'Rating',),
-                    ],
-                  ),
-                  SizedBox(height: 20,),
-                  Text('Picked for you', style: text26,),
                   
+                  SizedBox(height: 10,),
+                  Text('Picked for you', style: text26,),
+                  SizedBox(height: 15,),
                   Obx(() {
                     if( servicesOffered.serviceLoading.value){
                       return  ShimmerLoader();
@@ -181,6 +175,7 @@ final scaffoldKey = GlobalKey<ScaffoldState>();
                       return Text('No data found');
                     }else{
                       return  ListView.builder(
+                        padding: EdgeInsets.zero,
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
                         itemCount: servicesOffered.services.length,

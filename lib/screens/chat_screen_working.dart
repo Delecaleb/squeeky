@@ -146,78 +146,43 @@ class _NewMessageScreenState extends State<NewMessageScreen> {
               Divider(),
               SizedBox(height: 15,),
               Expanded(
-  child: ListView.builder(
-    itemCount: messages.length,
-    itemBuilder: (context, index) {
-      final message = messages[index];
-      final isCurrentUser = message['sender_id'] == widget.userId;
-      DateTime rawDate = DateTime.parse(message['created_at'].toString());
-      var formattedDate = DateFormat("MMM d, yyyy").format(rawDate);
-      var chatTime = DateFormat("h:mm a").format(rawDate);
-      var previousMessageDate = index > 0 ? DateTime.parse(messages[index - 1]['created_at'].toString()) : DateTime.now().subtract(Duration(days: 1));
-      var isSameDate = rawDate.year == previousMessageDate.year && rawDate.month == previousMessageDate.month && rawDate.day == previousMessageDate.day;
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          if (!isSameDate)
-            Container(
-              width: Get.width,
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-              child: Text(
-                formattedDate,
-                style: text12,
-                textAlign:TextAlign.center
-              ),
-            ),
-          // ListTile(
-          //   title: isCurrentUser ? Text("Me") : Text(widget.businessName),
-          //   subtitle: Text(message['message_content'].toString()),
-          //   trailing: isCurrentUser
-          //       ? CircleAvatar(
-          //           radius: 25.0,
-          //           backgroundImage: sendMessagesController.userDp != '' && sendMessagesController.userDp.isNotEmpty
-          //               ? NetworkImage('https://squeeky.org/api/usersPhoto/${sendMessagesController.userDp}')
-          //               : null,
-          //           backgroundColor: const Color(0xFFD9D9D9),
-          //         )
-          //       : CircleAvatar(
-          //           radius: 25.0,
-          //           backgroundImage: widget.imageUrl != '' && widget.imageUrl.isNotEmpty
-          //               ? NetworkImage('https://squeeky.org/dashboard/businessfiles/${widget.imageUrl}')
-          //               : null,
-          //           backgroundColor: const Color(0xFFD9D9D9),
-          //         ),
-          // ),
-          !isCurrentUser ?
-              ListTile(
-                
-                title:  Text("${widget.businessName} ${chatTime}", style: text12L,),
-                subtitle: Text(message['message_content'].toString()),
-                leading: CircleAvatar(
-                            radius: 25.0,
-                            backgroundImage: widget.imageUrl !='' &&  widget.imageUrl.isNotEmpty ? NetworkImage('https://squeeky.org/dashboard/businessfiles/${widget.imageUrl}') : null,
-                            backgroundColor: const Color(0xFFD9D9D9),
-                          ), 
-                contentPadding: EdgeInsets.zero,
-              )
-              :
-              ListTile(
-                
-                title:  Text("Me ${chatTime }", style: text12L, textAlign: TextAlign.right,),
-                subtitle: Text(message['message_content'].toString(), textAlign: TextAlign.right),
-                trailing: CircleAvatar(
-                            radius: 25.0,
-                            backgroundImage:sendMessagesController.userDp !='' && sendMessagesController.userDp.isNotEmpty ? NetworkImage('https://squeeky.org/api/usersPhoto/${sendMessagesController.userDp}') : null,
-                            backgroundColor: const Color(0xFFD9D9D9),
-                          ), 
-                contentPadding: EdgeInsets.zero,
-              )
-        ],
-      );
-    },
-  ),
-),
 
+                child: ListView.builder(
+  itemCount: messages.length,
+  itemBuilder: (context, index) {
+    final message = messages[index];
+    final isCurrentUser = message['sender_id'] == widget.userId; 
+    DateTime rawDate = DateTime.parse(message['created_at'].toString());
+    var formattedDate = DateFormat("d, MMM").format(rawDate);
+    return
+    !isCurrentUser ?
+     ListTile(
+      
+      title:  Text("${widget.businessName} ${formattedDate }", style: text12L,),
+      subtitle: Text(message['message_content'].toString()),
+       leading: CircleAvatar(
+                  radius: 25.0,
+                  backgroundImage: widget.imageUrl !='' &&  widget.imageUrl.isNotEmpty ? NetworkImage('https://squeeky.org/dashboard/businessfiles/${widget.imageUrl}') : null,
+                  backgroundColor: const Color(0xFFD9D9D9),
+                ), 
+      contentPadding: EdgeInsets.zero,
+    )
+    :
+    ListTile(
+      
+      title:  Text("Me ${formattedDate }", style: text12L, textAlign: TextAlign.right,),
+      subtitle: Text(message['message_content'].toString(), textAlign: TextAlign.right),
+      trailing: CircleAvatar(
+                  radius: 25.0,
+                  backgroundImage:sendMessagesController.userDp !='' && sendMessagesController.userDp.isNotEmpty ? NetworkImage('https://squeeky.org/api/usersPhoto/${sendMessagesController.userDp}') : null,
+                  backgroundColor: const Color(0xFFD9D9D9),
+                ), 
+      contentPadding: EdgeInsets.zero,
+    );
+  },
+)
+
+                ),
               Container(
                 decoration: BoxDecoration(
                   color: Colors.white,

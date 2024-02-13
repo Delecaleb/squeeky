@@ -1,17 +1,19 @@
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:squeeky/controllers/search_business_controller.dart';
 import 'package:squeeky/providers/api_data_provider.dart';
 
 import '../models/orders_model.dart';
 
 class CartController extends GetxController{
+  late SearchBusinessController searchBusinessController ;
   var ordersList = <OrdersModel>[].obs;
   RxBool isLoading = false.obs;
   RxBool loadingQty = false.obs;
   RxBool loadingQtyRm = false.obs;
   RxBool removeItemLoading = false.obs;
-
+  late String where;
   final apiHandler = ApiDataProvider();
   final box = GetStorage();
   var serviceId =''.obs(); 
@@ -27,6 +29,8 @@ class CartController extends GetxController{
   
   CartController(){
     userId = box.read('userPhone');
+    searchBusinessController = Get.put(SearchBusinessController());
+    where = searchBusinessController.where.text;
   }
 
   
@@ -44,7 +48,7 @@ class CartController extends GetxController{
   }
 
   void addToCart(user_id)async{
-    final responseData =  await apiHandler.addToCart(businessId,serviceId,serviceName, extraCategory, extraPrice, extraValue, timeArrival, bookingDate, servicePrice, user_id);
+    final responseData =  await apiHandler.addToCart(businessId,serviceId,serviceName, extraCategory, extraPrice, extraValue, timeArrival, bookingDate, servicePrice, user_id, where);
   }
 
   void incrementQuantity(serviceid) async {

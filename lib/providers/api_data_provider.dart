@@ -185,7 +185,7 @@ class ApiDataProvider {
       throw Exception("Error Occured");
     }
   }
-  Future addToCart(businessId,serviceId,serviceName, extraCategory, extraPrice,extraValue,timeArrival,bookingDate,servicePrice, user_phone)async{
+  Future addToCart(businessId,serviceId,serviceName, extraCategory, extraPrice,extraValue,timeArrival,bookingDate,servicePrice, user_phone, serviceLocation)async{
       var map = Map<String, dynamic>();
       map['action']= 'add_to_cart';
       map['serviceId'] = serviceId;
@@ -197,7 +197,8 @@ class ApiDataProvider {
       map['userId'] = user_phone;
       map['servicePrice'] = servicePrice;
       map['serviceName'] = serviceName;
-      map['businessId'] = businessId; 
+      map['businessId'] = businessId;
+      map['location']= serviceLocation; 
 
       http.Response response = await http.post(Uri.parse(baseUrl), body: map);
       if(response.statusCode == 200){

@@ -66,44 +66,52 @@ class _ServicesScreenState extends State<ServicesScreen> {
                             Text('Power Washing', style: text13,)
                           ],
                         ),
-                  SizedBox(width: 20,),
-                  Column(
-                    children: [
-                      Image.asset('assets/deal.png',width: 40),
-                      SizedBox(height: 5,),
-                      Text('Deal', style: text13,)
-                    ],
-                  ),
-                  SizedBox(width: 20,),
-                  Column(
-                    children: [
-                      Image.asset('assets/rewards.png',width: 40),
-                      SizedBox(height: 5,),
-                      Text('Rewards', style: text13,)
-                    ],
-                  ),
+                  // SizedBox(width: 20,),
+                  // Column(
+                  //   children: [
+                  //     Image.asset('assets/deal.png',width: 40),
+                  //     SizedBox(height: 5,),
+                  //     Text('Deal', style: text13,)
+                  //   ],
+                  // ),
+                  // SizedBox(width: 20,),
+                  // Column(
+                  //   children: [
+                  //     Image.asset('assets/rewards.png',width: 40),
+                  //     SizedBox(height: 5,),
+                  //     Text('Rewards', style: text13,)
+                  //   ],
+                  // ),
                   
-                  SizedBox(width: 20,),
-                  Column(
-                    children: [
-                      Image.asset('assets/plumb.png',width: 40),
-                      SizedBox(height: 5,),
-                      Text('Plumbing', style: text13,)
-                    ],
-                  ),
-                  SizedBox(width: 20,),
-                  Column(
-                    children: [
-                      Image.asset('assets/lawn.png',width: 40),
-                      SizedBox(height: 5,),
-                      Text('Lawn Care', style: text13,)
-                    ],
-                  ),
+                  // SizedBox(width: 20,),
+                  // Column(
+                  //   children: [
+                  //     Image.asset('assets/plumb.png',width: 40),
+                  //     SizedBox(height: 5,),
+                  //     Text('Plumbing', style: text13,)
+                  //   ],
+                  // ),
+                  // SizedBox(width: 20,),
+                  // Column(
+                  //   children: [
+                  //     Image.asset('assets/lawn.png',width: 40),
+                  //     SizedBox(height: 5,),
+                  //     Text('Lawn Care', style: text13,)
+                  //   ],
+                  // ),
                 ],
               ),
             ),  
             
             Obx(() {
+              if(businessController.isloading.value){
+                return ShimmerLoader();
+              }else{
+                if(businessController.businessSearchResult.isEmpty){
+                  return Container(
+                    child: Text('No service Available'),
+                  );
+                }else
               return ListView.builder(
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
@@ -121,6 +129,7 @@ class _ServicesScreenState extends State<ServicesScreen> {
                   },
                 
               );
+            }
             }
           ),
                       

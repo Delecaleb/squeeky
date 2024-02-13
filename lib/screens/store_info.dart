@@ -103,11 +103,12 @@ final scaffoldKey = GlobalKey<ScaffoldState>();
                   Text(business.business_name, style: text34B,),
       
                   ListTile(
+                    minVerticalPadding: 0.0,
                     contentPadding: EdgeInsets.zero,
                       onTap: (){
                       scaffoldKey.currentState!.showBottomSheet((builder){
                             return Container(
-                              height:  Get.height * 0.90,
+                              height:  Get.height * 0.60,
                               width: Get.width,
                               color: Colors.white,
                               child: SingleChildScrollView(
@@ -119,7 +120,6 @@ final scaffoldKey = GlobalKey<ScaffoldState>();
                                      IconButton(onPressed: (){
                                        Navigator.pop(context);
                                      }, icon: Icon(Icons.cancel)),
-                                     Text(business.business_name, style: titleText,),
                                      SizedBox(height: 10,),
                                      Text(business.businessDesc,),
                                      SizedBox(height: 10,),
@@ -158,16 +158,15 @@ final scaffoldKey = GlobalKey<ScaffoldState>();
                     ),
                     trailing: Icon(Icons.chevron_right_outlined),
                   ),
-                  SizedBox(height: 20,),
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        PillBtn(subtitle: '25-45 min \$2.49', title: 'Arriving',),
-                        SizedBox(width: 10,),
-                        PillBtn(subtitle: '${business.businessRating} . ${business.businessRatingCount} ratings', title: 'Rating',),
-                      ],
-                    ),
-                    SizedBox(height: 20,),
+                  // Row(
+                  //     mainAxisAlignment: MainAxisAlignment.center,
+                  //     children: [
+                  //       PillBtn(subtitle: '25-45 min \$2.49', title: 'Arriving',),
+                  //       SizedBox(width: 10,),
+                  //       PillBtn(subtitle: '${business.businessRating} . ${business.businessRatingCount} ratings', title: 'Rating',),
+                  //     ],
+                  //   ),
+                    SizedBox(height: 10,),
                     Text('Picked for you', style: text26,),
                   Obx(() {
                       if (serviceController.serviceLoading.value) {
@@ -179,6 +178,7 @@ final scaffoldKey = GlobalKey<ScaffoldState>();
                               )
                             : ListView.builder(
                                 shrinkWrap: true,
+                                padding: EdgeInsets.zero,
                                 physics: NeverScrollableScrollPhysics(),
                                 itemCount: serviceController.services.length,
                                 itemBuilder: (context, index) {
@@ -195,7 +195,7 @@ final scaffoldKey = GlobalKey<ScaffoldState>();
                                         child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            Text(serviceData.serviceName, style: text17B,),
+                                            Text(serviceData.serviceName, style: text18,),
                                             Text("\$ ${serviceData.servicePrice}"),
                                             Container(child: Text('water fed pole, purified RO water, No, home/gutter damage guaranteed, expireinced technicians '))
                                           ],
