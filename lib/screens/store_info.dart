@@ -117,9 +117,13 @@ final scaffoldKey = GlobalKey<ScaffoldState>();
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                    children: [
-                                     IconButton(onPressed: (){
+                                     IconButton(
+                                      alignment: AlignmentDirectional.centerStart,
+                                      padding: EdgeInsets.zero,
+                                      onPressed: (){
                                        Navigator.pop(context);
-                                     }, icon: Icon(Icons.cancel)),
+                                     }, icon: Icon(Icons.cancel_presentation)
+                                     ),
                                      SizedBox(height: 10,),
                                      Text(business.businessDesc,),
                                      SizedBox(height: 10,),

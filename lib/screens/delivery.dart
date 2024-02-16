@@ -44,9 +44,7 @@ class Delivery extends StatelessWidget {
                       child: Text('Delivery', style:  serviceController.schedule.value? text15B : text15white,),
                     ),
                     ElevatedButton(
-                      onPressed: () {
-                        serviceController.schedule(true);
-                      },
+                      onPressed:() => Get.to(() => SearchScreen()),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: serviceController.schedule.value ? Colors.black : Colors.white,
                       ),

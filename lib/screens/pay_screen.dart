@@ -18,7 +18,8 @@ class PaymentScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Continue Payment"),
+        automaticallyImplyLeading: false,
+        title: Text("Payment Checkout", textAlign: TextAlign.center,),
       ),
       body: WebViewWidget(
         controller: controller..setNavigationDelegate(
@@ -32,7 +33,7 @@ class PaymentScreen extends StatelessWidget {
       onNavigationRequest: (NavigationRequest request)async {
         Uri responseUri = Uri.parse(request.url);
 
-        if (request.url.startsWith('http://success-squeek-flutter')) {
+        if (request.url.startsWith('https://squeeky.org/squeekPay/success-squeek-flutter')) {
           // String? amount = await responseUri.queryParameters['amount'];
           Get.to(()=>PlacingOrderSreen(paidOrders: businessData, businessName: businessName, serviceFee: serviceFee, subtotal: subtotal, total: total,));
           return NavigationDecision.prevent;
@@ -43,7 +44,7 @@ class PaymentScreen extends StatelessWidget {
         return NavigationDecision.navigate;
       },
     ),
-  )..loadRequest(Uri.parse("https://squeeky.org/paypal/index.php?user_id=${userId}")),
+  )..loadRequest(Uri.parse("https://squeeky.org/squeekPay/index.php?user_id=${userId}")),
         
       ),
     );

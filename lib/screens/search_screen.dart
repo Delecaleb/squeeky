@@ -61,9 +61,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ElevatedButton(
-                      onPressed: () {
-                        searchBusinessController.schedule(false);
-                      },
+                      onPressed: ()=>Get.back(),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: searchBusinessController.schedule.value ? Colors.white : Colors.black ,
                       ),

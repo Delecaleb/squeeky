@@ -203,7 +203,7 @@ class _NewMessageScreenState extends State<NewMessageScreen> {
               :
               ListTile(
                 
-                title:  Text("Me ${chatTime }", style: text12L, textAlign: TextAlign.right,),
+                title:  Text(" ${chatTime }", style: text12L, textAlign: TextAlign.right,),
                 subtitle: Text(message['message_content'].toString(), textAlign: TextAlign.right),
                 trailing: CircleAvatar(
                             radius: 25.0,
@@ -261,7 +261,8 @@ class _NewMessageScreenState extends State<NewMessageScreen> {
                 //     IconButton(onPressed: null, icon: Icon(Icons.send))
                 //   ],
                 // ),
-              )
+              ),
+              SizedBox(height: 20,)
             ],
           ),
         ),
