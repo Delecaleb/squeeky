@@ -9,9 +9,9 @@ import '../controllers/send_messages_controller.dart';
 
 class NewMessageScreen extends StatefulWidget {
   
-  String userId, businessId, businessName, imageUrl, booked;
+  String userId, businessId, businessName, serviceOffered, imageUrl, booked;
   
-  NewMessageScreen({Key? key, required this.booked, required this.imageUrl, required this.businessId, required this.businessName, required this.userId}) : super(key: key);
+  NewMessageScreen({Key? key, required this.serviceOffered, required this.booked, required this.imageUrl, required this.businessId, required this.businessName, required this.userId}) : super(key: key);
 
   @override
   State<NewMessageScreen> createState() => _NewMessageScreenState();
@@ -137,7 +137,7 @@ class _NewMessageScreenState extends State<NewMessageScreen> {
                     Row(
                       children: [
                         TextButton.icon(onPressed: null, icon: Icon(Icons.door_front_door_outlined), label: Text("Business"),),
-                        TextButton.icon(onPressed: ()=>Share.share('Use ${widget.businessName} for your outstanding services. Download squeeky to join now', subject:"Use ${widget.businessName} Service on Squeeky"), icon: Icon(Icons.share), label: Text("Share"),),
+                        TextButton.icon(onPressed: ()=>Share.share("Hey there! I just discovered this amazing business on Squeeky that offers ${widget.serviceOffered}. I've had a fantastic experience, and I thought you might find it useful too. Check it out on Squeeky!", subject:"Use ${widget.businessName} Service on Squeeky"), icon: Icon(Icons.share), label: Text("Share"),),
                       ],
                     )
                   ],

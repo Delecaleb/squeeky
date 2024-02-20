@@ -85,7 +85,7 @@ class Profile extends StatelessWidget {
             // ),
             SizedBox(height: 20,),
             ListTile(
-              onTap: () => Share.share('Im inviting you to sign up on squeeky. Squeeky helps you to access cleaning businesses at the tip', subject: 'Squeeky Clean'),
+              onTap: () => Share.share('Im inviting you to sign up on squeeky. Squeeky helps you to access cleaning businesses at the tip of your fingers', subject: 'Squeeky Clean'),
               leading: Icon(Icons.cases),
               title: Text('Invite friends'),
               subtitle:Text('Get \$10 off your order'),

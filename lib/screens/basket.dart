@@ -312,7 +312,7 @@ class _BasketState extends State<Basket> {
                                     )
                                     ),
                                   
-                                  ElevatedButton(onPressed: ()=>Share.share('Join Squeeky today', subject:'Join Squeeky today'), child: Text('Invite a friend')),
+                                  ElevatedButton(onPressed: ()=>Share.share("Hey there! I just discovered this amazing business on Squeeky that offers ${cartController.serviceName}. I've had a fantastic experience, and I thought you might find it useful too. Check it out on Squeeky!", subject:'Join Squeeky'), child: Text('Invite a friend')),
                                   SizedBox(height: Get.height *0.15,)
                                 ],
                               ),

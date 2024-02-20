@@ -87,7 +87,7 @@ class MessagesTab extends StatelessWidget {
               return  ListTile(
                 contentPadding: EdgeInsets.zero,
 
-                onTap: () => Get.to(()=>NewMessageScreen(businessId: contacts.businessId, userId: messageContacts.userId, imageUrl: contacts.businessLogo.toString(), businessName: contacts.businessName, booked: formattedDate.toString(),)),
+                onTap: () => Get.to(()=>NewMessageScreen( serviceOffered: contacts.businessName,businessId: contacts.businessId, userId: messageContacts.userId, imageUrl: contacts.businessLogo.toString(), businessName: contacts.businessName, booked: formattedDate.toString(),)),
                 leading: CircleAvatar(
                   radius: 30.0,
                   backgroundImage: contacts.businessLogo !='' &&  contacts.businessLogo.isNotEmpty ? NetworkImage('https://squeeky.org/dashboard/businessfiles/${contacts.businessLogo}') : null,

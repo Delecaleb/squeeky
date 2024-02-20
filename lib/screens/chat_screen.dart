@@ -5,13 +5,14 @@ import 'package:share_plus/share_plus.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:squeeky/style/textstyles.dart';
 import '../controllers/send_messages_controller.dart';
+import '../widgets.dart';
 
 
 class NewMessageScreen extends StatefulWidget {
   
-  String userId, businessId, businessName, imageUrl, booked;
+  String userId, businessId, businessName, imageUrl, booked, serviceOffered;
   
-  NewMessageScreen({Key? key, required this.booked, required this.imageUrl, required this.businessId, required this.businessName, required this.userId}) : super(key: key);
+  NewMessageScreen({Key? key, required this.serviceOffered, required this.booked, required this.imageUrl, required this.businessId, required this.businessName, required this.userId}) : super(key: key);
 
   @override
   State<NewMessageScreen> createState() => _NewMessageScreenState();
@@ -137,7 +138,7 @@ class _NewMessageScreenState extends State<NewMessageScreen> {
                     Row(
                       children: [
                         TextButton.icon(onPressed: null, icon: Icon(Icons.door_front_door_outlined), label: Text("Business"),),
-                        TextButton.icon(onPressed: ()=>Share.share('Use ${widget.businessName} for your outstanding services. Download squeeky to join now', subject:"Use ${widget.businessName} Service on Squeeky"), icon: Icon(Icons.share), label: Text("Share"),),
+                        TextButton.icon(onPressed: ()=>Share.share("Hey there! I just discovered this amazing business on Squeeky that offers ${widget.serviceOffered}. I've had a fantastic experience, and I thought you might find it useful too. Check it out on Squeeky!", subject:"Use ${widget.businessName} Service on Squeeky"), icon: Icon(Icons.share), label: Text("Share"),),
                       ],
                     )
                   ],
@@ -189,29 +190,31 @@ class _NewMessageScreenState extends State<NewMessageScreen> {
           //         ),
           // ),
           !isCurrentUser ?
-              ListTile(
+              ReplyMessage(message: message['message_content'].toString(), time: chatTime,)
+              // ListTile(
                 
-                title:  Text("${widget.businessName} ${chatTime}", style: text12L,),
-                subtitle: Text(message['message_content'].toString()),
-                leading: CircleAvatar(
-                            radius: 25.0,
-                            backgroundImage: widget.imageUrl !='' &&  widget.imageUrl.isNotEmpty ? NetworkImage('https://squeeky.org/dashboard/businessfiles/${widget.imageUrl}') : null,
-                            backgroundColor: const Color(0xFFD9D9D9),
-                          ), 
-                contentPadding: EdgeInsets.zero,
-              )
+              //   title:  Text("${widget.businessName} ${chatTime}", style: text12L,),
+              //   subtitle: Text(message['message_content'].toString()),
+              //   leading: CircleAvatar(
+              //               radius: 25.0,
+              //               backgroundImage: widget.imageUrl !='' &&  widget.imageUrl.isNotEmpty ? NetworkImage('https://squeeky.org/dashboard/businessfiles/${widget.imageUrl}') : null,
+              //               backgroundColor: const Color(0xFFD9D9D9),
+              //             ), 
+              //   contentPadding: EdgeInsets.zero,
+              // )
               :
-              ListTile(
+              OwnMessage(message: message['message_content'].toString(), time: chatTime,)
+              // ListTile(
                 
-                title:  Text(" ${chatTime }", style: text12L, textAlign: TextAlign.right,),
-                subtitle: Text(message['message_content'].toString(), textAlign: TextAlign.right),
-                trailing: CircleAvatar(
-                            radius: 25.0,
-                            backgroundImage:sendMessagesController.userDp !='' && sendMessagesController.userDp.isNotEmpty ? NetworkImage('https://squeeky.org/api/usersPhoto/${sendMessagesController.userDp}') : null,
-                            backgroundColor: const Color(0xFFD9D9D9),
-                          ), 
-                contentPadding: EdgeInsets.zero,
-              )
+              //   title:  Text(" ${chatTime }", style: text12L, textAlign: TextAlign.right,),
+              //   subtitle: Text(message['message_content'].toString(), textAlign: TextAlign.right),
+              //   trailing: CircleAvatar(
+              //               radius: 25.0,
+              //               backgroundImage:sendMessagesController.userDp !='' && sendMessagesController.userDp.isNotEmpty ? NetworkImage('https://squeeky.org/api/usersPhoto/${sendMessagesController.userDp}') : null,
+              //               backgroundColor: const Color(0xFFD9D9D9),
+              //             ), 
+              //   contentPadding: EdgeInsets.zero,
+              // )
         ],
       );
     },

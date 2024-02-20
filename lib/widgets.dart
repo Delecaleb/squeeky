@@ -504,3 +504,85 @@ class ComingSoonBoxes extends StatelessWidget {
             ;
   }
 }
+
+
+class OwnMessage extends StatelessWidget {
+  OwnMessage({ required this.message, required this.time, Key? key}) : super(key: key);
+  String message, time;
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.centerRight,
+      child: ConstrainedBox(
+        constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width-50),
+        child: Card(
+          elevation: 3,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          // color: Color(0xffdcf8c6),
+          child: Stack(children: [
+            Padding(
+              padding: const EdgeInsets.only(
+                top: 4,
+                bottom: 20,
+                right: 10,
+                left: 10
+              ),
+              child: Text(message, style: TextStyle(fontSize: 16),),
+            ),
+            Positioned(
+              bottom: 3,
+              right: 5,
+              child: Row(
+                children: [
+                  Text(time, style: TextStyle(color: Colors.grey, fontSize: 13),),
+                  Icon(Icons.done_all, size: 13,),
+                ],
+              ),
+              )
+          ]),
+        )
+        ),
+    );
+  }
+}
+
+class ReplyMessage extends StatelessWidget {
+  ReplyMessage({ required this.message, required this.time, Key? key}) : super(key: key);
+  String message, time; 
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: ConstrainedBox(
+        constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width-50),
+        child: Card(
+          elevation: 3,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          color: Color(0xff89ceeb),
+          child: Stack(children: [
+            Padding(
+              padding: const EdgeInsets.only(
+                top: 4,
+                bottom: 20,
+                right: 10,
+                left: 10
+              ),
+              child: Text(message, style: TextStyle(fontSize: 16),),
+            ),
+            Positioned(
+              bottom: 3,
+              right: 5,
+              child: Row(
+                children: [
+                  Text(time, style: TextStyle(color: Colors.white, fontSize: 13),),
+                  Icon(Icons.done_all, size: 13,),
+                ],
+              ),
+              )
+          ]),
+        )
+        ),
+    );
+  }
+}
