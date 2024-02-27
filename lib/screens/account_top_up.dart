@@ -7,9 +7,13 @@ import 'package:squeeky/style/textstyles.dart';
 import '../controllers/top_up_controller.dart';
 
 class AccountTopUpScreen extends StatelessWidget {
-  AccountTopUpScreen({super.key});
+  double total;
+  AccountTopUpScreen({super.key, required this.total});
+
   TopUpController topUpController  = Get.put(TopUpController());
+  
   TextEditingController amountController = TextEditingController();
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +42,7 @@ class AccountTopUpScreen extends StatelessWidget {
                     SizedBox(height: 10,),
                     ListTile(
                       contentPadding: EdgeInsets.zero,
-                      title: Text("\$0 . 00", style: text42,),
+                      title: Text("\$${total}", style: text42,),
                     ),
                     SizedBox(height: 20,),
                     

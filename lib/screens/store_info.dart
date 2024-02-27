@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:squeeky/models/business_model.dart';
+import 'package:squeeky/screens/schedule_booking.dart';
 import 'package:squeeky/style/textstyles.dart';
 import 'package:squeeky/widgets.dart';
 
@@ -190,7 +191,7 @@ final scaffoldKey = GlobalKey<ScaffoldState>();
                              return Padding(
                                padding: const EdgeInsets.symmetric(vertical:8),
                                child: InkWell(
-                                  onTap: null,
+                                  onTap: ()=>Get.to(()=>ScheduleBooking(businessDetails: business,)),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
