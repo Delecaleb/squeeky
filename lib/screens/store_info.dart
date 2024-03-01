@@ -13,6 +13,9 @@ class StoreInformation extends StatelessWidget {
   StoreInformation({ required this.business, super.key});
   ServicesController serviceController = Get.put(ServicesController());
   FavouriteController favouriteController = FavouriteController();
+
+  TextEditingController searchListController = TextEditingController();
+  
 final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
@@ -41,51 +44,62 @@ final scaffoldKey = GlobalKey<ScaffoldState>();
                       onPressed: ()=>Navigator.pop(context), 
                       icon: Icon(Icons.cancel_rounded),)),
                     
-                    Row(
-                      children: [
-                        CircleAvatar(child: IconButton( onPressed: (){}, icon: Icon(Icons.search),)),
-                        SizedBox(width: 10,),
-                        CircleAvatar(
-                          child: IconButton( 
-                            onPressed: (){
-                              showModalBottomSheet(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.zero
-                                ),
-                                context: context, 
-                                builder: (builder){
-                                  return Column(
-                                    children: [
-                                      ListTile(
-                                        leading: Icon(Icons.search),
-                                        title: Text('Search this store'),
-                                      ),
-                                      ListTile(
-                                        onTap: () {
-                                          favouriteController.addFavourite(business.businessId);
-                                          
-                                        },
-                                        leading: Icon(Icons.favorite_outline),
-                                        title: Text('Add to favourite'),
-                                      ),
-                                      ListTile(
-                                        leading: Icon(Icons.ios_share_rounded),
-                                        title: Text('Share'),
-                                      ),
-                                      ListTile(
-                                        leading: Icon(Icons.info_rounded),
-                                        title: Text('Store info'),
-                                        subtitle: Text('Address, ratings and more'),
-                                      ),
-                                    ],
+                    Obx(() {
+                        return Row(
+                          children: [
+                            CircleAvatar(child: IconButton( onPressed: (){}, icon: Icon(Icons.search),)),
+                            if(serviceController.showSearchField.value)...[
+                              Expanded(
+                                child: TextField(
+                                  controller: searchListController,
+                                  onChanged: (value)=>serviceController.runfilter(value),
+                                )
+                              )
+                            ],
+                            SizedBox(width: 10,),
+                            CircleAvatar(
+                              child: IconButton( 
+                                onPressed: (){
+                                  showModalBottomSheet(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.zero
+                                    ),
+                                    context: context, 
+                                    builder: (builder){
+                                      return Column(
+                                        children: [
+                                          ListTile(
+                                            leading: Icon(Icons.search),
+                                            title: Text('Search this store'),
+                                          ),
+                                          ListTile(
+                                            onTap: () {
+                                              favouriteController.addFavourite(business.businessId);
+                                              
+                                            },
+                                            leading: Icon(Icons.favorite_outline),
+                                            title: Text('Add to favourite'),
+                                          ),
+                                          ListTile(
+                                            leading: Icon(Icons.ios_share_rounded),
+                                            title: Text('Share'),
+                                          ),
+                                          ListTile(
+                                            leading: Icon(Icons.info_rounded),
+                                            title: Text('Store info'),
+                                            subtitle: Text('Address, ratings and more'),
+                                          ),
+                                        ],
+                                      );
+                                    }
                                   );
-                                }
-                              );
-                            }, 
-                            icon: Icon(Icons.more_horiz_sharp),
-                            )
-                          ),
-                      ],
+                                }, 
+                                icon: Icon(Icons.more_horiz_sharp),
+                                )
+                              ),
+                          ],
+                        );
+                      }
                     ),
                   ],
                 ),
@@ -163,14 +177,7 @@ final scaffoldKey = GlobalKey<ScaffoldState>();
                     ),
                     trailing: Icon(Icons.chevron_right_outlined),
                   ),
-                  // Row(
-                  //     mainAxisAlignment: MainAxisAlignment.center,
-                  //     children: [
-                  //       PillBtn(subtitle: '25-45 min \$2.49', title: 'Arriving',),
-                  //       SizedBox(width: 10,),
-                  //       PillBtn(subtitle: '${business.businessRating} . ${business.businessRatingCount} ratings', title: 'Rating',),
-                  //     ],
-                  //   ),
+                  
                     SizedBox(height: 10,),
                     Text('Picked for you', style: text26,),
                   Obx(() {

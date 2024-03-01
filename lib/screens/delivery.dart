@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:squeeky/models/business_category.dart';
-import 'package:squeeky/screens/custom.dart';
 import 'package:squeeky/screens/search_screen.dart';
 import 'package:squeeky/screens/services.dart';
 import 'package:squeeky/screens/store_info.dart';
