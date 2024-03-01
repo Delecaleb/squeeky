@@ -35,7 +35,7 @@ class TopUpScreen extends StatelessWidget {
 
         if (request.url.startsWith('http://success-squeek-flutter')) {
           // String? amount = await responseUri.queryParameters['amount'];
-          Get.to(()=>AccountWallet());
+          Get.to(()=>AccountWallet(userId: userId,));
           return NavigationDecision.prevent;
         }else if(request.url.startsWith('http://error-squeek-pay')){
 
@@ -44,7 +44,7 @@ class TopUpScreen extends StatelessWidget {
         return NavigationDecision.navigate;
       },
     ),
-  )..loadRequest(Uri.parse("https://squeeky.org/paypal/topup.php?user_id=${userId}&amount=${amount}")),
+  )..loadRequest(Uri.parse("https://squeeky.org/squeekPay/topup_index.php?user_id=${userId}&amount=${amount}")),
         
       ),
     );

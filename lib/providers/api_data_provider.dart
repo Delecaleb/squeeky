@@ -528,5 +528,21 @@ Future<List<Map<String, dynamic>>> getMessages(userId, businessId) async {
     }
   }
 
+  Future getAccountBallance(userId) async {
+    var map = Map<String, dynamic>();
+
+    map['action'] = 'get_account_balance';
+    map['user_id'] = userId;
+
+    http.Response response = await http.post(Uri.parse(baseUrl), body: map);
+    
+    if(response.statusCode == 200){
+      final decodedResponse = json.decode(response.body);
+        return  decodedResponse; 
+    }else{
+      throw Exception("Error Occured");
+    }
+  }
+
 
 }
