@@ -1,4 +1,6 @@
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:get/get.dart';
 import 'package:squeeky/controllers/create_account_controller.dart';
@@ -7,8 +9,8 @@ import 'package:squeeky/style/textstyles.dart';
 import 'package:squeeky/widgets.dart';
 
 class CreateAccount extends StatefulWidget {
-   String phoneNumber;
-   CreateAccount({required this.phoneNumber, super.key});
+   String emailAddress; int otp; 
+   CreateAccount({required this.emailAddress, required this.otp, super.key});
 
   @override
   State<CreateAccount> createState() => _CreateAccountState();
@@ -16,6 +18,9 @@ class CreateAccount extends StatefulWidget {
 
 class _CreateAccountState extends State<CreateAccount> {
   var createAccount = Get.put(CreateAccountController());
+   var countryCode = 'Canada';
+  var countryCallCode = "+1";
+  String errorMsg ='';
   int currentIndex = 0;
   int totalIndex = 4;
   void gotoNext(){
@@ -50,8 +55,9 @@ class _CreateAccountState extends State<CreateAccount> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Enter the 4-digit code sent to you at ${widget.phoneNumber} ', style: titleText,),
+                        Text('Enter the 4-digit code sent to you at ${widget.emailAddress} ', style: titleText,),
                         SizedBox(height: 30,),
+
                         OtpTextField(
                           mainAxisAlignment: MainAxisAlignment.start,
                           focusedBorderColor: Colors.black,
@@ -63,13 +69,22 @@ class _CreateAccountState extends State<CreateAccount> {
                           numberOfFields: 4,
                           showFieldAsBox: true, 
                           onSubmit: (String verificationCode){
-                            gotoNext();
+                            if(widget.otp.toString()==verificationCode){
+                                gotoNext();  
+                            }else{
+                                setState(() {
+                                  errorMsg ='Invalid OTP';
+                                });
+                            }
+                            
                           }               
                         ),
+                        Text(errorMsg, style: TextStyle(color: Colors.red),),
                         SizedBox(height: 20,),
                         Container(
                           padding: EdgeInsets.all(10),
-                          child: Text('I haven’t received a code (0:05)', style: isActive ? textInfoBold : textInfo,),
+                          // child: Text('I haven’t received a code (0:05)', style: isActive ? textInfoBold : textInfo,),
+                          child: Text('You might need to check your email spam folder', style: isActive ? textInfoBold : textInfo,),
                           decoration: BoxDecoration(
                             color: const Color.fromARGB(255, 233, 233, 233),
                             borderRadius: BorderRadius.circular(20)
@@ -81,14 +96,58 @@ class _CreateAccountState extends State<CreateAccount> {
                 ]
                 else if(currentIndex==1)...[
                   
+                  // Column(
+                  //   crossAxisAlignment: CrossAxisAlignment.start,
+                  //   children: [
+                  //     Text('What is your email address', style: titleText,),
+                  //     SizedBox(height: 35,),
+                  //     InputWidget(label: 'name@example.com', input_controller: createAccount.emailController, inputIcon: Icon(Icons.mail_outline), obscureText:false)
+                  //   ],
+                  // ),
+
                   Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('What is your email address', style: titleText,),
-                      SizedBox(height: 35,),
-                      InputWidget(label: 'name@example.com', input_controller: createAccount.emailController, inputIcon: Icon(Icons.mail_outline), obscureText:false)
+                      Text('Enter your mobile number', style: text20,),
+                      ListTile(
+                      contentPadding: EdgeInsets.zero,                  
+                      leading: CountryCodePicker(
+                              initialSelection: countryCode,
+                              showDropDownButton: true,
+                              padding: EdgeInsets.all(2),
+                              hideMainText: true,
+                              showFlag: true,
+                              onChanged: (value) {
+                                setState(() {
+                                 countryCallCode = value.toString();
+                                });
+                              },
+                            ),
+                      title: TextField(
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly,
+                              ],
+                              controller: createAccount.phoneNumberController,
+                              keyboardType: TextInputType.phone,
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                focusColor: Color(0xFFEFECF0),
+                                fillColor: Color(0xFFEFECF0),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.black,)
+                                ),
+                                filled: true,
+                                prefixIcon: Padding(
+                                  padding: const EdgeInsets.only(top:10.0, left: 5),
+                                  child: Text(countryCallCode, style: text14,),
+                                ),
+                              ),
+                            ),
+                                      ),
                     ],
                   ),
+                
+
+
                 ]
                 else if(currentIndex==2)...[
                     Column(

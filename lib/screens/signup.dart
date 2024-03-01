@@ -1,11 +1,15 @@
+import 'dart:math';
+
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:squeeky/controllers/create_account_controller.dart';
+import 'package:squeeky/controllers/otp_sender_controller.dart';
 import 'package:squeeky/screens/create_account.dart';
 import 'package:squeeky/screens/login.dart';
 import 'package:squeeky/style/textstyles.dart';
+import 'package:squeeky/widgets.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -18,6 +22,7 @@ class _SignUpState extends State<SignUp> {
   var countryCode = 'Canada';
   var countryCallCode = "+1";
   var createAccount = Get.put(CreateAccountController());
+  var otpController = Get.put(OTPcontroller());
   @override
   Widget build(BuildContext context) {
     return   Scaffold(
@@ -29,49 +34,19 @@ class _SignUpState extends State<SignUp> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Enter your mobile number', style: text20,),
                 SizedBox(height: 15,),
-                ListTile(
-                  contentPadding: EdgeInsets.zero,                  
-                  leading: CountryCodePicker(
-                          initialSelection: countryCode,
-                          showDropDownButton: true,
-                          padding: EdgeInsets.all(2),
-                          hideMainText: true,
-                          showFlag: true,
-                          onChanged: (value) {
-                            setState(() {
-                             countryCallCode = value.toString();
-                            });
-                          },
-                        ),
-                  title: TextField(
-                          inputFormatters: [
-                            FilteringTextInputFormatter.digitsOnly,
-                          ],
-                          controller: createAccount.phoneNumberController,
-                          keyboardType: TextInputType.phone,
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            focusColor: Color(0xFFEFECF0),
-                            fillColor: Color(0xFFEFECF0),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.black,)
-                            ),
-                            filled: true,
-                            prefixIcon: Padding(
-                              padding: const EdgeInsets.only(top:10.0, left: 5),
-                              child: Text(countryCallCode, style: text14,),
-                            ),
-                          ),
-                        ),
-                ),
-                // Container(
-                //   width: Get.width,
-                //   child: Row(
-                //     children: [
-                //       Container(
-                //         child: CountryCodePicker(
+                Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('What is your email address', style: titleText,),
+                      SizedBox(height: 35,),
+                      InputWidget(label: 'name@example.com', input_controller: createAccount.emailController, inputIcon: Icon(Icons.mail_outline), obscureText:false)
+                    ],
+                  ),
+
+                // ListTile(
+                //   contentPadding: EdgeInsets.zero,                  
+                //   leading: CountryCodePicker(
                 //           initialSelection: countryCode,
                 //           showDropDownButton: true,
                 //           padding: EdgeInsets.all(2),
@@ -83,10 +58,7 @@ class _SignUpState extends State<SignUp> {
                 //             });
                 //           },
                 //         ),
-                //       ),
-                
-                //       Expanded(
-                //         child: TextField(
+                //   title: TextField(
                 //           inputFormatters: [
                 //             FilteringTextInputFormatter.digitsOnly,
                 //           ],
@@ -106,21 +78,19 @@ class _SignUpState extends State<SignUp> {
                 //             ),
                 //           ),
                 //         ),
-                //       ),
-                //     ],
-                //   ),
-                // ), 
+                // ),
                 
                 SizedBox(height: 15,),
+                
                 TextButton(
-                  onPressed: (){
-                    if(createAccount.phoneNumberController.text==''){
-                        Get.snackbar('Mobile number is compulsory','');
+                  onPressed: ()async{
+                    if(createAccount.emailController.text==''){
+                        Get.snackbar('Email Address is Compulsory','');
                     }else{
-                        setState(() {
-                          createAccount.phoneNumberWithCcode.value = countryCallCode+ createAccount.phoneNumberController.text;
-                        });
-                        Get.to(()=>CreateAccount(phoneNumber: countryCallCode+ createAccount.phoneNumberController.text,));
+                        Random random = Random();
+                        int otp = random.nextInt(9999 - 1000) + 1000;
+                        otpController.generateOtp(createAccount.emailController.text, otp);
+                        Get.to(()=>CreateAccount(emailAddress: createAccount.emailController.text, otp:otp,));
                     }
                   },
                   child: Text('Continue', style: titleTextWhite,),
