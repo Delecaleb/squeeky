@@ -33,7 +33,7 @@ class PaymentScreen extends StatelessWidget {
       onNavigationRequest: (NavigationRequest request)async {
         Uri responseUri = Uri.parse(request.url);
 
-        if (request.url.startsWith('https://squeeky.org/squeekPay/success-squeek-flutter')) {
+        if (request.url.startsWith('success-squeek-flutter')) {
           // String? amount = await responseUri.queryParameters['amount'];
           Get.to(()=>PlacingOrderSreen(paidOrders: businessData, businessName: businessName, serviceFee: serviceFee, subtotal: subtotal, total: total,));
           return NavigationDecision.prevent;
