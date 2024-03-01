@@ -44,7 +44,7 @@ class PaymentScreen extends StatelessWidget {
         return NavigationDecision.navigate;
       },
     ),
-  )..loadRequest(Uri.parse("https://squeeky.org/squeekPay/topup_index.php?user_id=${userId}")),
+  )..loadRequest(Uri.parse("https://squeeky.org/squeekPay/index.php?user_id=${userId}")),
         
       ),
     );
