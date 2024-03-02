@@ -329,13 +329,13 @@ class _EditProfileState extends State<EditProfile> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(box.read('userPhone'), style: titleText,),
-                    Text('Verified'),
+                    Text('Unverified'),
                   ],
                 ),
                 trailing: Icon(Icons.arrow_forward_ios ,  size: 17, color: Colors.grey,),
               ),
               ListTile(
-                onTap: ()=>Get.to(()=>EditProfileScreen(item: 'Email address', itemValue: box.read('userEmail'))),
+                // onTap: ()=>Get.to(()=>EditProfileScreen(item: 'Email address', itemValue: box.read('userEmail'))),
                 contentPadding: EdgeInsets.zero,
                 title: Text('Email Address'),
                 subtitle: Row(
@@ -344,7 +344,7 @@ class _EditProfileState extends State<EditProfile> {
                   children: [
                     Expanded(child: Text(box.read('userEmail'), style: titleText,)),
                     SizedBox(width: 15,),
-                    Text('unverified'),
+                    Text('verified'),
                   ],
                 ),
                 trailing: Icon(Icons.arrow_forward_ios,  size: 17, color: Colors.grey,),
