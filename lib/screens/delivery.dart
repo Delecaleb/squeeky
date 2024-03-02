@@ -51,7 +51,7 @@ class Delivery extends StatelessWidget {
                   ],
                 ),
                 Text(
-                  '${box.read('userPostalCode')} ${box.read('userPostalCode')}',
+                  '${box.read('userPostalCode')} ${box.read('userAddress')}',
                   style: textInfoBold,
                 ),
                 SizedBox(height: 10,)

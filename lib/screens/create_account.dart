@@ -18,8 +18,6 @@ class CreateAccount extends StatefulWidget {
 
 class _CreateAccountState extends State<CreateAccount> {
   var createAccount = Get.put(CreateAccountController());
-   var countryCode = 'Canada';
-  
   String errorMsg ='';
   int currentIndex = 0;
   int totalIndex = 4;
@@ -112,7 +110,7 @@ class _CreateAccountState extends State<CreateAccount> {
                       ListTile(
                       contentPadding: EdgeInsets.zero,                  
                       leading: CountryCodePicker(
-                              initialSelection: countryCode,
+                              initialSelection:createAccount.countryCode,
                               showDropDownButton: true,
                               padding: EdgeInsets.all(2),
                               hideMainText: true,

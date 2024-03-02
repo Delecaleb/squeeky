@@ -36,8 +36,8 @@ class PaymentMethod extends StatelessWidget {
             ),
             ListTile(
               contentPadding: EdgeInsets.zero,
-              leading: Icon(Icons.credit_card),
-              title: Text('Credit or debit card'),
+              // leading: Icon(Icons.credit_card),
+              title: Text('Continue'),
               trailing: Icon(Icons.arrow_forward_ios_rounded, size: 15,),
               // onTap: () => Get.to(()=>CreditCard()),
               onTap: () => Get.to(()=>Address()),

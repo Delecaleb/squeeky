@@ -134,6 +134,7 @@ class ApiDataProvider {
   }
 
   Future CreateAccount(firstName,lastName,emailAddress,password,contact,address,postalCode,buildingName, houseNumber, street, instruction, label, deliveryOption) async{
+    try{
     var map = Map<String, dynamic> ();
     map['action'] = 'register_user';
     map["firstName"] =  firstName;
@@ -156,6 +157,9 @@ class ApiDataProvider {
         return responseData;
     }else{
         throw Exception('Failed to create user');
+    }
+    }catch(e){
+      return [];
     }
   }
 
