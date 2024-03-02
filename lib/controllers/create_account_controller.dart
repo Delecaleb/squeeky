@@ -10,6 +10,7 @@ class CreateAccountController extends GetxController {
   final StorageService storage = StorageService();
   RxBool isLoading = false.obs;
   RxString phoneNumberWithCcode = ''.obs;
+  var countryCallCode = "+1";
   TextEditingController address = TextEditingController();
   TextEditingController postalCode = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -26,13 +27,14 @@ class CreateAccountController extends GetxController {
   TextEditingController deliveryOption = TextEditingController();
   // var imagePath = '';
   void register() async {
+    String phoneWithCountryCode = countryCallCode+phoneNumberController.text ;
     isLoading(true);
     serviceHandler.CreateAccount(
             firstNameController.text,
             lastNameController.text,
             emailController.text,
             passwordController.text,
-            phoneNumberWithCcode,
+            phoneWithCountryCode,
             address.text,
             postalCode.text,
             buildingNameController.text,

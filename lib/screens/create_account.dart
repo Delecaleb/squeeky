@@ -19,7 +19,7 @@ class CreateAccount extends StatefulWidget {
 class _CreateAccountState extends State<CreateAccount> {
   var createAccount = Get.put(CreateAccountController());
    var countryCode = 'Canada';
-  var countryCallCode = "+1";
+  
   String errorMsg ='';
   int currentIndex = 0;
   int totalIndex = 4;
@@ -106,6 +106,7 @@ class _CreateAccountState extends State<CreateAccount> {
                   // ),
 
                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('Enter your mobile number', style: text20,),
                       ListTile(
@@ -118,7 +119,7 @@ class _CreateAccountState extends State<CreateAccount> {
                               showFlag: true,
                               onChanged: (value) {
                                 setState(() {
-                                 countryCallCode = value.toString();
+                                 createAccount.countryCallCode = value.toString();
                                 });
                               },
                             ),
@@ -138,7 +139,7 @@ class _CreateAccountState extends State<CreateAccount> {
                                 filled: true,
                                 prefixIcon: Padding(
                                   padding: const EdgeInsets.only(top:10.0, left: 5),
-                                  child: Text(countryCallCode, style: text14,),
+                                  child: Text(createAccount.countryCallCode, style: text14,),
                                 ),
                               ),
                             ),
