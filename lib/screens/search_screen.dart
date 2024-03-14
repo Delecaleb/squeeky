@@ -94,7 +94,7 @@ class _SearchScreenState extends State<SearchScreen> {
               Container(
                 width: Get.width,
                 child: Text(
-                    '${box.read('userPostalCode')} ${box.read('userPostalCode')}',
+                    '${box.read('userPostalCode')} ${box.read('userAddress')}',
                     style: textInfoBold, textAlign: TextAlign.center,
                   ),
               ),

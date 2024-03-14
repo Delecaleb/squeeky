@@ -151,7 +151,7 @@ class ViewProfile extends StatelessWidget {
 
               title: Text('Home'),
 
-              subtitle: Text(''),
+              subtitle: Text('${box.read('userPostalCode')} ${box.read('userAddress')}',),
               
             ),
             Container(
