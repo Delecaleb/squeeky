@@ -1,10 +1,10 @@
-import 'package:country_code_picker/country_code_picker.dart';
-import 'package:country_picker/country_picker.dart';
+// import 'package:country_code_picker/country_code_picker.dart';
+// import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:squeeky/screens/address.dart';
-import 'package:squeeky/screens/payz.dart';
+// import 'package:squeeky/screens/payz.dart';
 import 'package:squeeky/style/textstyles.dart';
 
 class PaymentMethod extends StatelessWidget {
@@ -154,10 +154,10 @@ class CreditCard extends StatelessWidget {
                   ),
                   SizedBox(height: 15,), 
                   Text('Country'),
-                  CountryCodePicker(
-                    initialSelection: 'United Kingdom',
+                  // CountryCodePicker(
+                  //   initialSelection: 'United Kingdom',
                     
-                  ),
+                  // ),
                   SizedBox(height: 15,), 
                       
                   Text("Post COde"),
