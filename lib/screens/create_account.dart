@@ -1,4 +1,4 @@
-import 'package:country_code_picker/country_code_picker.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
@@ -109,18 +109,18 @@ class _CreateAccountState extends State<CreateAccount> {
                       Text('Enter your mobile number', style: text20,),
                       ListTile(
                       contentPadding: EdgeInsets.zero,                  
-                      leading: CountryCodePicker(
-                              initialSelection:createAccount.countryCode,
-                              showDropDownButton: true,
-                              padding: EdgeInsets.all(2),
-                              hideMainText: true,
-                              showFlag: true,
-                              onChanged: (value) {
-                                setState(() {
-                                 createAccount.countryCallCode = value.toString();
-                                });
-                              },
-                            ),
+                      // leading: CountryCodePicker(
+                      //         initialSelection:createAccount.countryCode,
+                      //         showDropDownButton: true,
+                      //         padding: EdgeInsets.all(2),
+                      //         hideMainText: true,
+                      //         showFlag: true,
+                      //         onChanged: (value) {
+                      //           setState(() {
+                      //            createAccount.countryCallCode = value.toString();
+                      //           });
+                      //         },
+                      //       ),
                       title: TextField(
                               inputFormatters: [
                                 FilteringTextInputFormatter.digitsOnly,

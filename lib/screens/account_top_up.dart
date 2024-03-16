@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:squeeky/screens/top_up_screen.dart';
-// import 'package:squeeky/screens/top_up_paypal.dart';
+// this is la
 import 'package:squeeky/style/textstyles.dart';
 
 import '../controllers/top_up_controller.dart';
