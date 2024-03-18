@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:get/get.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:squeeky/controllers/create_account_controller.dart';
 import 'package:squeeky/screens/terms.dart';
 import 'package:squeeky/style/textstyles.dart';
@@ -21,6 +22,7 @@ class _CreateAccountState extends State<CreateAccount> {
   String errorMsg ='';
   int currentIndex = 0;
   int totalIndex = 4;
+  bool isValid = false;
   void gotoNext(){
     if(currentIndex < totalIndex -1){
       setState(() {
@@ -107,8 +109,8 @@ class _CreateAccountState extends State<CreateAccount> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('Enter your mobile number', style: text20,),
-                      ListTile(
-                      contentPadding: EdgeInsets.zero,                  
+                      // ListTile(
+                      // contentPadding: EdgeInsets.zero,                  
                       // leading: CountryCodePicker(
                       //         initialSelection:createAccount.countryCode,
                       //         showDropDownButton: true,
@@ -121,27 +123,41 @@ class _CreateAccountState extends State<CreateAccount> {
                       //           });
                       //         },
                       //       ),
-                      title: TextField(
-                              inputFormatters: [
-                                FilteringTextInputFormatter.digitsOnly,
-                              ],
-                              controller: createAccount.phoneNumberController,
-                              keyboardType: TextInputType.phone,
-                              decoration: InputDecoration(
-                                border: InputBorder.none,
-                                focusColor: Color(0xFFEFECF0),
-                                fillColor: Color(0xFFEFECF0),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.black,)
-                                ),
-                                filled: true,
-                                prefixIcon: Padding(
-                                  padding: const EdgeInsets.only(top:10.0, left: 5),
-                                  child: Text(createAccount.countryCallCode, style: text14,),
-                                ),
-                              ),
-                            ),
-                                      ),
+                      // title: TextField(
+                      //         inputFormatters: [
+                      //           FilteringTextInputFormatter.digitsOnly,
+                      //         ],
+                      //         controller: createAccount.phoneNumberController,
+                      //         keyboardType: TextInputType.phone,
+                      //         decoration: InputDecoration(
+                      //           border: InputBorder.none,
+                      //           focusColor: Color(0xFFEFECF0),
+                      //           fillColor: Color(0xFFEFECF0),
+                      //           focusedBorder: OutlineInputBorder(
+                      //             borderSide: BorderSide(color: Colors.black,)
+                      //           ),
+                      //           filled: true,
+                      //           prefixIcon: Padding(
+                      //             padding: const EdgeInsets.only(top:10.0, left: 5),
+                      //             child: Text(createAccount.countryCallCode, style: text14,),
+                      //           ),
+                      //         ),
+                      //       ),
+                                      // ),
+                      IntlPhoneField(
+                        controller: createAccount.phoneNumberController,
+                        onChanged:(phone){
+                          if(phone.number.length >= 9){
+                            setState(() {
+                              isValid = true;
+                            });
+                          }else{
+                            setState(() {
+                              isValid = false;
+                            });
+                          }
+                        }
+                      )
                     ],
                   ),
                 
@@ -188,14 +204,15 @@ class _CreateAccountState extends State<CreateAccount> {
                   ):
                   Text(''),
                     ElevatedButton(
-                        onPressed: (){
+                        onPressed: isValid ? (){
                           if(currentIndex < 3){
                               gotoNext();
                           }else{
                             Get.to(()=>TermsAndConditions());
                           }
                          
-                        }, 
+                        }:
+                        null, 
                       child: Text('Next')
                       ),
                   ],

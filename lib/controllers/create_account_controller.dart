@@ -30,7 +30,8 @@ class CreateAccountController extends GetxController {
   TextEditingController deliveryOption = TextEditingController();
   // var imagePath = '';
   void register() async {
-    String phoneWithCountryCode = countryCallCode+phoneNumberController.text ;
+    // String phoneWithCountryCode = countryCallCode+phoneNumberController.text ;
+    String phoneWithCountryCode =phoneNumberController.text ;
     isLoading(true);
 await    serviceHandler.CreateAccount(
             firstNameController.text,
