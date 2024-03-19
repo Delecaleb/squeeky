@@ -13,7 +13,7 @@ class CreateAccountController extends GetxController {
   RxBool isLoading = false.obs;
   RxString phoneNumberWithCcode = ''.obs;
   var countryCallCode = "+1";
-  var countryCode = 'Canada';
+  String completeNumber = '';
   TextEditingController address = TextEditingController();
   TextEditingController postalCode = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -38,7 +38,7 @@ await    serviceHandler.CreateAccount(
             lastNameController.text,
             emailController.text,
             passwordController.text,
-            phoneWithCountryCode,
+            completeNumber,
             address.text,
             postalCode.text,
             buildingNameController.text,
@@ -49,9 +49,11 @@ await    serviceHandler.CreateAccount(
             deliveryOption.text,
             )
         .then((value) async {
+          
       isLoading(false);
       if(value['status'] =="done"){
-          await  box.write('userPhone', phoneWithCountryCode);
+        isLoading(false);
+          await  box.write('userPhone', completeNumber);
           await  box.write('userEmail', emailController.text);
           await  box.write('userFirstName', firstNameController.text);
           await  box.write('userLastName', lastNameController.text);
@@ -67,6 +69,7 @@ await    serviceHandler.CreateAccount(
           print(box.read('userPostalCode'));
           Get.offAll(() => HomeScreen(currentIndex: 0,));
       }else{
+        isLoading(false);
         Get.snackbar('Error', value['message']);
       }
     });

@@ -116,44 +116,44 @@ class _SignUpState extends State<SignUp> {
                       ],
                     ),
                 SizedBox(height: 20,),
-                TextButton(
-                  onPressed: null, 
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.apple, color: Colors.black,),
-                      Text('Continue With Apple'),
-                    ],
-                  ),
-                  style: TextButton.styleFrom(
-                    backgroundColor: Color.fromARGB(56, 119, 119, 119),
-                    minimumSize: Size.fromHeight(50),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5)
-                    ),
-                  ),
-                ),
+                // TextButton(
+                //   onPressed: null, 
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.center,
+                //     children: [
+                //       Icon(Icons.apple, color: Colors.black,),
+                //       Text('Continue With Apple'),
+                //     ],
+                //   ),
+                //   style: TextButton.styleFrom(
+                //     backgroundColor: Color.fromARGB(56, 119, 119, 119),
+                //     minimumSize: Size.fromHeight(50),
+                //     shape: RoundedRectangleBorder(
+                //       borderRadius: BorderRadius.circular(5)
+                //     ),
+                //   ),
+                // ),
                             
-                SizedBox(height: 10,),  
-                TextButton(
-                  onPressed: null, 
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset('assets/google.png', width: 15,),
-                      SizedBox(width: 5,),
-                      Text('Continue With Google'),
+                // SizedBox(height: 10,),  
+                // TextButton(
+                //   onPressed: null, 
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.center,
+                //     children: [
+                //       Image.asset('assets/google.png', width: 15,),
+                //       SizedBox(width: 5,),
+                //       Text('Continue With Google'),
                       
-                    ],
-                  ),
-                  style: TextButton.styleFrom(
-                    backgroundColor: Color.fromARGB(56, 119, 119, 119),
-                    minimumSize: Size.fromHeight(50),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5)
-                    ),
-                  ),
-                ),
+                //     ],
+                //   ),
+                //   style: TextButton.styleFrom(
+                //     backgroundColor: Color.fromARGB(56, 119, 119, 119),
+                //     minimumSize: Size.fromHeight(50),
+                //     shape: RoundedRectangleBorder(
+                //       borderRadius: BorderRadius.circular(5)
+                //     ),
+                //   ),
+                // ),
                 SizedBox(height: 10,),  
                 TextButton(
                   onPressed: ()=>Get.to(()=>LoginScreen()), 

@@ -150,6 +150,7 @@ class _CreateAccountState extends State<CreateAccount> {
                           if(phone.number.length >= 9){
                             setState(() {
                               isValid = true;
+                              createAccount.completeNumber = phone.completeNumber;
                             });
                           }else{
                             setState(() {
