@@ -29,9 +29,15 @@
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen.storyboard</string>
+	<string>LaunchScreen</string>
+	<key>NSCameraUsageDescription</key>
+    <string>This app requires access to the camera to take a picture for user profile page</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app requires access to the photo library to enable selecting a picture for user profile page</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
+	<key>UIRequiresFullScreen</key>
+	<true/>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
