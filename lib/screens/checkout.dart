@@ -138,7 +138,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   ListTile(
                     contentPadding: EdgeInsets.zero,
                     leading: Icon(Icons.person),
-                    title: Text('Meet at the door', style: text16,),
+                    title: Text(box.read('delivery_note').toString(), style: text16,),
                     subtitle: Text('Add delivery note'),
                     trailing: Icon(Icons.arrow_forward_ios, size: 15,),
                   ),
