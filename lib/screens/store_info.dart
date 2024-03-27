@@ -209,7 +209,7 @@ final scaffoldKey = GlobalKey<ScaffoldState>();
                                           children: [
                                             Text(serviceData.serviceName, style: text18,),
                                             Text("\$ ${serviceData.servicePrice}"),
-                                            Container(child: Text('water fed pole, purified RO water, No, home/gutter damage guaranteed, expireinced technicians '))
+                                            Container(child: Text('${serviceData.serviceCategory}'))
                                           ],
                                         ),
                                       ),

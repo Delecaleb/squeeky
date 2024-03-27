@@ -188,6 +188,7 @@ final scaffoldKey = GlobalKey<ScaffoldState>();
                             margin: EdgeInsets.only(bottom: 20),
                             child: InkWell(
                                 onTap: ()async{
+                                  cartController.businessId = serviceData.businessId ;
                                   cartController.serviceName = serviceData.serviceName;
                                   cartController.serviceId = serviceData.serviceId;
                                   cartController.servicePrice = serviceData.servicePrice;

@@ -61,12 +61,7 @@ await    serviceHandler.CreateAccount(
           await  box.write('userAddress', labelController.text);
           await  box.write('userPostalCode', postalCode.text);
           await  box.write('userPicture', '');
-
-          print(box.read('userAddress'));
-          print(box.read('userPhone'));
-          print(box.read('userEmail'));
-          print(box.read('userLastName'));
-          print(box.read('userPostalCode'));
+          await  box.write('delivery_note', deliveryOption.text);
           Get.offAll(() => HomeScreen(currentIndex: 0,));
       }else{
         isLoading(false);

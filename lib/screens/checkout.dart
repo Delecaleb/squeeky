@@ -64,7 +64,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     contentPadding: EdgeInsets.zero,
                     leading: Icon(Icons.location_on, color: Colors.black,),
                     title: Text('Home', style: text16,),
-                    subtitle: Text('Smallfield Avenue & Dolcombe Avenue,179, Brixton, London, England,SW9'),
+                    subtitle: Text('${box.read('userPostalCode')} ${box.read('userAddress')}'),
                     trailing: Icon(Icons.arrow_forward_ios, size: 15,),
                     onTap: (){
                       scaffoldKey.currentState!.showBottomSheet((context){
@@ -102,7 +102,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                   // contentPadding: EdgeInsets.zero,
                                   leading: Icon(Icons.location_on_outlined),
                                   title: Text('Current location', style: text16,),
-                                  subtitle: Text('200 Lonsdale Rd, Toronto, ON M4V 1W6'),
+                                  subtitle: Text('2${box.read('userPostalCode')} ${box.read('userAddress')}'),
                                 ),
                                 Divider(),
                                 Text('Recent locations', style: text15B,),
@@ -114,7 +114,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                     // contentPadding: EdgeInsets.zero,
                                     leading: Icon(Icons.location_on_outlined),
                                     title: Text('Current location', style: text16,),
-                                    subtitle: Text('200 Lonsdale Rd, Toronto, ON M4V 1W6'),
+                                    subtitle: Text('${box.read('userPostalCode')} ${box.read('userAddress')}'),
                                     trailing: CircleAvatar(child: Icon(Icons.edit)),
                                   ),
                                 ),
@@ -163,7 +163,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     child: ListTile(
                       leading: Icon(Icons.delivery_dining_outlined),
                       title: Text('Standard', style: text17B,),
-                      subtitle: Text('22/01/2023'),
+                      // subtitle: Text('22/01/2023'),
                     ),
                   ),
                   SizedBox(height: 50,),
@@ -197,16 +197,25 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                        
                         return ExpansionTile(
                           tilePadding: EdgeInsets.zero,
-                          leading: CircleAvatar(),
+                          childrenPadding: EdgeInsets.zero,
+                          leading: CircleAvatar(
+                            radius: 30.0,
+                            backgroundImage: businessDetails["business_logo"] !='' &&  businessDetails["business_logo"].isNotEmpty ? NetworkImage('https://squeeky.org/dashboard/businessfiles/${businessDetails["business_logo"]}') : null,
+                            backgroundColor: const Color(0xFFD9D9D9),
+                          ),
                           title: Text(businessDetails["business_name"], style: text17B,),
                           subtitle: Text(" ${businessDetails["services"].length.toString()} item(s)"),
-                          children: businessDetails["services"].map<Widget>((service) {
+                          children: [Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: businessDetails["services"].map<Widget>((service) {
                             // setState(() {
                             //   widget.businessName =businessDetails["business_name"];
                             // });
                               return Text(
                                   "${service["service_name"]} - \$${service["price"]}");
                             }).toList(),
+                          ),
+                          ]
                         );
                     }
                   ),

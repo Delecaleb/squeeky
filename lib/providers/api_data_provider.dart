@@ -203,7 +203,7 @@ class ApiDataProvider {
       map['serviceName'] = serviceName;
       map['businessId'] = businessId;
       map['location']= serviceLocation; 
-
+      print(map);
       http.Response response = await http.post(Uri.parse(baseUrl), body: map);
       if(response.statusCode == 200){
       final responseData = json.decode(response.body);
@@ -294,10 +294,11 @@ class ApiDataProvider {
     map['userId'] = userId;
 
     http.Response response = await http.post(Uri.parse(baseUrl), body: map );
+    print(response);
     if(response.statusCode == 200){
       final decodedResponse = json.decode(response.body);
       
-      return List.from(decodedResponse["data"]);
+      return List.from(decodedResponse);
       
     }else{
       throw Exception("Error Occured");

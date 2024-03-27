@@ -164,10 +164,6 @@ class Delivery extends StatelessWidget {
             ],
           ),
           
-          // SizedBox(height: 20,),
-          // Divider(
-          //   thickness: 5,
-          // ),
           SizedBox(
             height: 15,
           ),
