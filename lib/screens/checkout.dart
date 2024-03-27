@@ -29,7 +29,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   void initState() {
     super.initState();
     apiHandler.fetchCheckOut(userId).then((data) {
-      print(data);
+      
       setState(() {
         businessData = data;
       });

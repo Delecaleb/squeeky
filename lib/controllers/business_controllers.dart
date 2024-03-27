@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:squeeky/providers/api_data_provider.dart';
 
-import '../models/business_category.dart';
 import '../models/business_model.dart';
 
 class BusinessController extends GetxController {
@@ -30,7 +29,6 @@ class BusinessController extends GetxController {
   try {
       return businessCategories.firstWhere((business) => business.businessId == businessId);
     } catch (e) {
-      print("Business with ID $businessId not found.");
       return null;
     }
   }

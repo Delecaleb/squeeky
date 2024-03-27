@@ -13,9 +13,7 @@ class OTPcontroller extends GetxController{
     
     http.Response response = await http.post(Uri.parse(url), body: map);
 
-    print(response);
   }catch(e){
-    print('bad internet');
     // return [];
   }   
 }

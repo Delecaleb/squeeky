@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:squeeky/models/business_model.dart';
 import 'package:squeeky/storage/app_getx_storage.dart';
 
 import '../providers/api_data_provider.dart';
@@ -16,7 +15,7 @@ class FavouriteController {
 
   void addFavourite(String businessId) async {
     apiHandler.addToFavorite(businessId, userPhone).then((value){
-    print(value);
+    
     Get.snackbar(
           '', 
           '',

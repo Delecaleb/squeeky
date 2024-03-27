@@ -68,14 +68,13 @@ class _NewMessageScreenState extends State<NewMessageScreen> {
       setState(() {
         connectionStatus = 'Connected';
       });
-      print('moti connect');
     } 
     );
     _socket.onConnectError((data) => print('connection error == ${data}'));
 
     // Listen for messages from the server
     _socket.on('message', (data) {
-      // print(data);
+     
       setState(() {
         messages.add({
         'receiver_id': data['receiver_id'],
@@ -102,7 +101,6 @@ class _NewMessageScreenState extends State<NewMessageScreen> {
       messages.addAll(messageResponse as Iterable<Map<String, dynamic>>);
     });
   } catch (e) {
-    print("Error getting messages: $e");
     // Handle the error accordingly
   }
 }
