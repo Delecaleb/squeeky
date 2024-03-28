@@ -87,7 +87,7 @@ class MessagesTab extends StatelessWidget {
               return  ListTile(
                 contentPadding: EdgeInsets.zero,
 
-                onTap: () => Get.to(()=>NewMessageScreen( serviceOffered: contacts.businessName,businessId: contacts.businessId, userId: messageContacts.userId, imageUrl: contacts.businessLogo.toString(), businessName: contacts.businessName, booked: formattedDate.toString(),)),
+                onTap: contacts.serviceStatus !='pending' && contacts.serviceStatus !='' && contacts.serviceStatus !='Pending' && contacts.serviceStatus !=null ? () => Get.to(()=>NewMessageScreen( serviceOffered: contacts.businessName,businessId: contacts.businessId, userId: messageContacts.userId, imageUrl: contacts.businessLogo.toString(), businessName: contacts.businessName, booked: formattedDate.toString(),)) : null,
                 leading: CircleAvatar(
                   radius: 30.0,
                   backgroundImage: contacts.businessLogo !='' &&  contacts.businessLogo.isNotEmpty ? NetworkImage('https://squeeky.org/dashboard/businessfiles/${contacts.businessLogo}') : null,
@@ -103,7 +103,7 @@ class MessagesTab extends StatelessWidget {
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(contacts.lastMessage, style: text14, maxLines: 2, overflow: TextOverflow.ellipsis ,),
+                    contacts.lastMessage !='' && contacts.lastMessage!=null && contacts.lastMessage!='null' ? Text(contacts.lastMessage, style: text14, maxLines: 2, overflow: TextOverflow.ellipsis ,):Text('...'),
                     contacts.serviceStatus =='pending' ? Text("Job ${contacts.serviceStatus} ", style: text12L )
                     :
                     Text('Booked - ${formattedDate}', style: text12L,)

@@ -203,7 +203,6 @@ class ApiDataProvider {
       map['serviceName'] = serviceName;
       map['businessId'] = businessId;
       map['location']= serviceLocation; 
-      print(map);
       http.Response response = await http.post(Uri.parse(baseUrl), body: map);
       if(response.statusCode == 200){
       final responseData = json.decode(response.body);
